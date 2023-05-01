@@ -1,0 +1,75 @@
+drop table if exists User;
+drop table if exists Recipe;
+drop table if exists List;
+drop table if exists Category;
+drop table if exists Item;
+drop table if exists UserList;
+drop table if exists UserRecipe;
+drop table if exists FavoriteItem;
+
+create table User
+(
+	username varchar(255) not null primary key,
+	password varchar(255) not null
+	
+);
+
+create table Recipe
+(
+	id varchar(255) not null primary key,
+	name varchar(255) not null,
+	description varchar(2047),
+	privacy boolean not null,
+	ingredients varchar(255),
+	steps varchar(255),
+	foreign key(ingredients) references List(listID) on delete set null,
+	foreign key(steps) references List(listID) on delete set null
+);
+
+create table List
+(
+	id varchar(255) not null primary key,
+	name varchar(255) not null
+);
+
+create table Category
+(
+	id varchar(255) not null primary key,
+	name varchar(255) not null,
+	parentList varchar(255) not null,
+	foreign key(parentList) references List(listID)
+);
+
+create table Item
+(
+	id varchar(255) not null primary key,
+	name varchar(255) not null,
+	parentList varchar(255) not null,
+	category varchar(255),
+	foreign key(parentList) references List(listID),
+	foreign key(category) references Category(categoryID)
+);
+
+create table UserList
+(
+	user varchar(255) not null,
+	list varchar(255) not null,
+	foreign key(user) references User(id),
+	foreign key(list) references List(id)
+);
+
+create table UserRecipe
+(
+	user varchar(255) not null,
+	recipe varchar(255) not null,
+	foreign key(user) references User(id),
+	foreign key(recipe) references Recipe(id)
+);
+
+create table FavoriteItem
+(
+	user varchar(255) not null,
+	item varchar(255) not null,
+	foreign key(user) references User(id),
+	foreign key(item) references Item(id)
+);
