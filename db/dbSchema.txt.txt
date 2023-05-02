@@ -1,6 +1,7 @@
 drop table if exists User;
+drop table if exists Authtoken;
 drop table if exists Recipe;
-drop table if exists List;
+drop table if exists ItemList;
 drop table if exists Category;
 drop table if exists Item;
 drop table if exists UserList;
@@ -12,6 +13,13 @@ create table User
 	username varchar(255) not null primary key,
 	password varchar(255) not null
 	
+);
+
+create table Authtoken
+(
+    token varchar(255) not null primary key,
+    username varchar(255) not null,
+    foreign key(username) references User(username)
 );
 
 create table Recipe
@@ -26,7 +34,7 @@ create table Recipe
 	foreign key(steps) references List(listID) on delete set null
 );
 
-create table List
+create table ItemList
 (
 	id varchar(255) not null primary key,
 	name varchar(255) not null
