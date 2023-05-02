@@ -8,7 +8,7 @@ public class Authtoken {
     /**
      * The authtoken
      */
-    private String authtoken;
+    private String token;
 
     /**
      * The username of the user to which the authtoken belongs
@@ -22,16 +22,16 @@ public class Authtoken {
      * @param username The username of the user to which the authtoken belongs
      */
     public Authtoken(String authtoken, String username) {
-        this.authtoken = authtoken;
+        this.token = authtoken;
         this.username = username;
     }
 
-    public String getAuthtoken() {
-        return authtoken;
+    public String getToken() {
+        return token;
     }
 
-    public void setAuthtoken(String authtoken) {
-        this.authtoken = authtoken;
+    public void setToken(String authtoken) {
+        this.token = authtoken;
     }
 
     public String getUsername() {

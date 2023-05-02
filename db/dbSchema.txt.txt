@@ -4,13 +4,11 @@ drop table if exists Recipe;
 drop table if exists ItemList;
 drop table if exists Category;
 drop table if exists Item;
-drop table if exists UserList;
-drop table if exists UserRecipe;
-drop table if exists FavoriteItem;
 
 create table User
 (
-	username varchar(255) not null primary key,
+	id varchar(255) not null primary key,
+	username varchar(255) not null,
 	password varchar(255) not null
 	
 );
@@ -18,66 +16,49 @@ create table User
 create table Authtoken
 (
     token varchar(255) not null primary key,
-    username varchar(255) not null,
-    foreign key(username) references User(username)
+    userID varchar(255) not null,
+    foreign key(userID) references User(id)
 );
 
 create table Recipe
 (
 	id varchar(255) not null primary key,
 	name varchar(255) not null,
+	owner varchar(255) not null,
 	description varchar(2047),
-	privacy boolean not null,
 	ingredients varchar(255),
 	steps varchar(255),
-	foreign key(ingredients) references List(listID) on delete set null,
-	foreign key(steps) references List(listID) on delete set null
+	foreign key(owner) references User(id),
+	foreign key(ingredients) references ItemList(id) on delete set null,
+	foreign key(steps) references ItemList(id) on delete set null
 );
 
 create table ItemList
 (
 	id varchar(255) not null primary key,
-	name varchar(255) not null
+	name varchar(255) not null,
+	owner varchar(255) not null,
+	foreign key(owner) references User(id)
 );
 
 create table Category
 (
 	id varchar(255) not null primary key,
 	name varchar(255) not null,
+	owner varchar(255) not null,
 	parentList varchar(255) not null,
-	foreign key(parentList) references List(listID)
+	foreign key(owner) references User(id),
+	foreign key(parentList) references ItemList(id)
 );
 
 create table Item
 (
 	id varchar(255) not null primary key,
 	name varchar(255) not null,
+	owner varchar(255) not null,
 	parentList varchar(255) not null,
-	category varchar(255),
-	foreign key(parentList) references List(listID),
-	foreign key(category) references Category(categoryID)
-);
-
-create table UserList
-(
-	user varchar(255) not null,
-	list varchar(255) not null,
-	foreign key(user) references User(id),
-	foreign key(list) references List(id)
-);
-
-create table UserRecipe
-(
-	user varchar(255) not null,
-	recipe varchar(255) not null,
-	foreign key(user) references User(id),
-	foreign key(recipe) references Recipe(id)
-);
-
-create table FavoriteItem
-(
-	user varchar(255) not null,
-	item varchar(255) not null,
-	foreign key(user) references User(id),
-	foreign key(item) references Item(id)
+	itemCategory varchar(255),
+	foreign key(owner) references User(id),
+	foreign key(parentList) references ItemList(id),
+	foreign key(itemCategory) references Category(id) on delete set null
 );

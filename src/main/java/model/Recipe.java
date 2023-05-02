@@ -16,14 +16,14 @@ public class Recipe {
     private String name;
 
     /**
+     * The unique id of the user who owns this recipe
+     */
+    private String owner;
+
+    /**
      * Short description of this recipe
      */
     private String description;
-
-    /**
-     * Boolean flag indicating whether this recipe is public or not
-     */
-    private boolean isPublic;
 
     /**
      * List of ingredients for this recipe
@@ -40,18 +40,35 @@ public class Recipe {
      *
      * @param id Unique identifier for this recipe
      * @param name Name of this recipe
+     * @param owner The unique id of the user who owns this recipe
      * @param description Short description of this recipe
-     * @param isPublic Boolean flag indicating whether this recipe is public or not
      * @param ingredients List of ingredients for this recipe
      * @param steps List of steps for this recipe
      */
-    public Recipe(String id, String name, String description, boolean isPublic, ItemList ingredients, ItemList steps) {
+    public Recipe(String id, String name, String owner, String description, ItemList ingredients, ItemList steps) {
         this.id = id;
         this.name = name;
+        this.owner = owner;
         this.description = description;
-        this.isPublic = isPublic;
         this.ingredients = ingredients;
         this.steps = steps;
+    }
+
+    /**
+     * Creates a new recipe object with no ingredients or steps
+     *
+     * @param id Unique identifier for this recipe
+     * @param name Name of this recipe
+     * @param owner The unique id of the user who owns this recipe
+     * @param description Short description of this recipe
+     */
+    public Recipe(String id, String name, String owner, String description) {
+        this.id = id;
+        this.name = name;
+        this.owner = owner;
+        this.description = description;
+        this.ingredients = null;
+        this.steps = null;
     }
 
     public String getId() {
@@ -70,20 +87,20 @@ public class Recipe {
         this.name = name;
     }
 
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public boolean isPublic() {
-        return isPublic;
-    }
-
-    public void setPublic(boolean aPublic) {
-        isPublic = aPublic;
     }
 
     public ItemList getIngredients() {
