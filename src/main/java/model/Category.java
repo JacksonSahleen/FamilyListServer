@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Objects;
+
 /**
  * Model class that contains information about a category
  */
@@ -70,5 +72,22 @@ public class Category {
 
     public void setParentList(String parentList) {
         this.parentList = parentList;
+    }
+
+    /**
+     * Performs value equality on this Category object and another object
+     *
+     * @param o The other (Category) object to compare to
+     * @return True if the two objects are equal, false otherwise
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Category category = (Category) o;
+        return Objects.equals(id, category.id) &&
+                Objects.equals(name, category.name) &&
+                Objects.equals(owner, category.owner) &&
+                Objects.equals(parentList, category.parentList);
     }
 }

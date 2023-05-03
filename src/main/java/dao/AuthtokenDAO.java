@@ -30,12 +30,12 @@ public class AuthtokenDAO extends DAO {
      * @throws DataAccessException If an error occurs while inserting into the Authtoken table
      */
     public void insert(Authtoken token) throws DataAccessException {
-        String sql = "INSERT INTO Authtoken (token, username) " + "VALUES (?, ?);";
+        String sql = "INSERT INTO Authtoken (token, userID) " + "VALUES (?, ?);";
 
         // Execute the SQL statement
         try(PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, token.getToken());
-            stmt.setString(2, token.getUsername());
+            stmt.setString(2, token.getUserID());
 
             stmt.executeUpdate();
         } catch (SQLException e) {
@@ -63,7 +63,7 @@ public class AuthtokenDAO extends DAO {
 
             // If a result was found, return it
             if (rs.next()) {
-                authtoken = new Authtoken(rs.getString("token"), rs.getString("username"));
+                authtoken = new Authtoken(rs.getString("token"), rs.getString("userID"));
                 return authtoken;
             } else {
                 return null;
@@ -85,7 +85,7 @@ public class AuthtokenDAO extends DAO {
         Authtoken authtoken;
         ArrayList<Authtoken> userTokens = new ArrayList<>();
         ResultSet rs;
-        String sql = "SELECT * FROM Authtoken WHERE username = ?;";
+        String sql = "SELECT * FROM Authtoken WHERE userID = ?;";
 
         // Execute the SQL statement
         try(PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -95,7 +95,7 @@ public class AuthtokenDAO extends DAO {
             // If a result was found, add it to the list
             while (rs.next()) {
                 authtoken = new Authtoken(rs.getString("token"),
-                                          rs.getString("username"));
+                                          rs.getString("userID"));
                 userTokens.add(authtoken);
             }
 

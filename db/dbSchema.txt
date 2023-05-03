@@ -58,6 +58,8 @@ create table Item
 	owner varchar(255) not null,
 	parentList varchar(255) not null,
 	itemCategory varchar(255),
+	favorited boolean not null,
+	completed boolean not null,
 	foreign key(owner) references User(id),
 	foreign key(parentList) references ItemList(id),
 	foreign key(itemCategory) references Category(id) on delete set null

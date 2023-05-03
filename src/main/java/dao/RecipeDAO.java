@@ -34,8 +34,18 @@ public class RecipeDAO extends DAO {
             stmt.setString(2, recipe.getName());
             stmt.setString(3, recipe.getOwner());
             stmt.setString(4, recipe.getDescription());
-            stmt.setString(5, recipe.getIngredients().getId());
-            stmt.setString(6, recipe.getSteps().getId());
+
+            if (recipe.getIngredients() != null) {
+                stmt.setString(5, recipe.getIngredients().getId());
+            } else {
+                stmt.setString(5, null);
+            }
+
+            if (recipe.getSteps() != null) {
+                stmt.setString(6, recipe.getSteps().getId());
+            } else {
+                stmt.setString(6, null);
+            }
 
             stmt.executeUpdate();
         } catch (SQLException e) {
@@ -101,9 +111,19 @@ public class RecipeDAO extends DAO {
             stmt.setString(1, recipe.getName());
             stmt.setString(2, recipe.getOwner());
             stmt.setString(3, recipe.getDescription());
-            stmt.setString(4, recipe.getIngredients().getId());
-            stmt.setString(5, recipe.getSteps().getId());
             stmt.setString(6, recipe.getId());
+
+            if (recipe.getIngredients() != null) {
+                stmt.setString(4, recipe.getIngredients().getId());
+            } else {
+                stmt.setString(4, null);
+            }
+
+            if (recipe.getSteps() != null) {
+                stmt.setString(5, recipe.getSteps().getId());
+            } else {
+                stmt.setString(5, null);
+            }
 
             stmt.executeUpdate();
         } catch (SQLException e) {

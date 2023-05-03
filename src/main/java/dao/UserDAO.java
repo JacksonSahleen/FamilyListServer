@@ -86,8 +86,8 @@ public class UserDAO extends DAO {
 
         // Execute the SQL statement
         try(PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, user.getPassword());
-            stmt.setString(2, user.getUsername());
+            stmt.setString(1, user.getUsername());
+            stmt.setString(2, user.getPassword());
             stmt.setString(3, user.getId());
 
             stmt.executeUpdate();

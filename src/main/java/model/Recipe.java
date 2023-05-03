@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Objects;
+
 /**
  * Model class that contains information about a recipe
  */
@@ -117,5 +119,24 @@ public class Recipe {
 
     public void setSteps(ItemList steps) {
         this.steps = steps;
+    }
+
+    /**
+     * Performs value equality on this Recipe object and another object
+     *
+     * @param o The other (Recipe) object to compare to
+     * @return True if the two objects are equal, false otherwise
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Recipe recipe = (Recipe) o;
+        return Objects.equals(id, recipe.id) &&
+                Objects.equals(name, recipe.name) &&
+                Objects.equals(owner, recipe.owner) &&
+                Objects.equals(description, recipe.description) &&
+                Objects.equals(ingredients, recipe.ingredients) &&
+                Objects.equals(steps, recipe.steps);
     }
 }

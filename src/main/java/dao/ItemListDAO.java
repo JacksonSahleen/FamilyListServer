@@ -87,78 +87,6 @@ public class ItemListDAO extends DAO {
     }
 
     /**
-     * Finds all Item objects in the database for the given ItemList
-     *
-     * @param id The ID of the ItemList to find Items for
-     * @return A list of all Items in the database for the given ItemList
-     * @throws DataAccessException If an error occurs while finding the Items
-     */
-    public List<Item> findListItems(String id) throws DataAccessException {
-        Item item;
-        ArrayList<Item> listItems = new ArrayList<>();
-        ResultSet rs;
-        String sql = "SELECT * FROM Item WHERE parentList = ?;";
-
-        // Execute the SQL statement
-        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, id);
-            rs = stmt.executeQuery();
-
-            // If a result was found, add it to the list
-            while (rs.next()) {
-                item = new Item(rs.getString("id"),
-                        rs.getString("name"),
-                        rs.getString("owner"),
-                        rs.getString("category"),
-                        rs.getString("parentList"),
-                        rs.getBoolean("favorited"));
-                listItems.add(item);
-            }
-
-           return listItems;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new DataAccessException("Error encountered while finding the ItemList");
-        }
-    }
-
-    /**
-     * Finds all Category objects in the database for the given ItemList
-     *
-     * @param id The ID of the ItemList to find Categories for
-     * @return A list of all Categories in the database for the given ItemList
-     * @throws DataAccessException If an error occurs while finding the Categories
-     */
-    public List<Category> findListCategories(String id) throws DataAccessException {
-        Category category;
-        ArrayList<Category> listCategories = new ArrayList<>();
-        ResultSet rs;
-        String sql = "SELECT * FROM Category WHERE parentList = ?;";
-
-        // Execute the SQL statement
-        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, id);
-            rs = stmt.executeQuery();
-
-            // If a result was found, add it to the list
-            while (rs.next()) {
-                category = new Category(rs.getString("id"),
-                                        rs.getString("name"),
-                                        rs.getString("owner"),
-                                        rs.getString("parentList"));
-                listCategories.add(category);
-            }
-
-            return listCategories;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new DataAccessException("Error encountered while finding the ItemList");
-        }
-    }
-
-    /**
      * Updates the given ItemList in the database
      *
      * @param itemList The ItemList to update in the database
@@ -214,6 +142,79 @@ public class ItemListDAO extends DAO {
         } catch (SQLException e) {
             e.printStackTrace();
             throw new DataAccessException("Error encountered while deleting from the database");
+        }
+    }
+
+    /**
+     * Finds all Item objects in the database for the given ItemList
+     *
+     * @param id The ID of the ItemList to find Items for
+     * @return A list of all Items in the database for the given ItemList
+     * @throws DataAccessException If an error occurs while finding the Items
+     */
+    private List<Item> findListItems(String id) throws DataAccessException {
+        Item item;
+        ArrayList<Item> listItems = new ArrayList<>();
+        ResultSet rs;
+        String sql = "SELECT * FROM Item WHERE parentList = ?;";
+
+        // Execute the SQL statement
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, id);
+            rs = stmt.executeQuery();
+
+            // If a result was found, add it to the list
+            while (rs.next()) {
+                item = new Item(rs.getString("id"),
+                        rs.getString("name"),
+                        rs.getString("owner"),
+                        rs.getString("category"),
+                        rs.getString("parentList"),
+                        rs.getBoolean("favorited"),
+                        rs.getBoolean("completed"));
+                listItems.add(item);
+            }
+
+            return listItems;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DataAccessException("Error encountered while finding the ItemList");
+        }
+    }
+
+    /**
+     * Finds all Category objects in the database for the given ItemList
+     *
+     * @param id The ID of the ItemList to find Categories for
+     * @return A list of all Categories in the database for the given ItemList
+     * @throws DataAccessException If an error occurs while finding the Categories
+     */
+    private List<Category> findListCategories(String id) throws DataAccessException {
+        Category category;
+        ArrayList<Category> listCategories = new ArrayList<>();
+        ResultSet rs;
+        String sql = "SELECT * FROM Category WHERE parentList = ?;";
+
+        // Execute the SQL statement
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, id);
+            rs = stmt.executeQuery();
+
+            // If a result was found, add it to the list
+            while (rs.next()) {
+                category = new Category(rs.getString("id"),
+                        rs.getString("name"),
+                        rs.getString("owner"),
+                        rs.getString("parentList"));
+                listCategories.add(category);
+            }
+
+            return listCategories;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DataAccessException("Error encountered while finding the ItemList");
         }
     }
 }

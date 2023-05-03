@@ -28,17 +28,23 @@ public class ItemDAO extends DAO {
      * @throws DataAccessException If an error occurs while inserting into the database
      */
     public void insert(Item item) throws DataAccessException {
-        String sql = "INSERT INTO Item (id, name, owner, category, parentList, favorited) " +
-                "VALUES (?, ?, ?, ?, ?, ?);";
+        String sql = "INSERT INTO Item (id, name, owner, itemCategory, parentList, favorited, completed) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?);";
 
         // Execute the SQL statement
         try(PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, item.getId());
             stmt.setString(2, item.getName());
             stmt.setString(3, item.getOwner());
-            stmt.setString(4, item.getCategory());
             stmt.setString(5, item.getParentList());
             stmt.setBoolean(6, item.isFavorited());
+            stmt.setBoolean(7, item.isCompleted());
+
+            if (item.getCategory() == null) {
+                stmt.setNull(4, java.sql.Types.VARCHAR);
+            } else {
+                stmt.setString(4, item.getCategory());
+            }
 
             stmt.executeUpdate();
         } catch (SQLException e) {
@@ -69,9 +75,10 @@ public class ItemDAO extends DAO {
                 item = new Item(rs.getString("id"),
                                 rs.getString("name"),
                                 rs.getString("owner"),
-                                rs.getString("category"),
+                                rs.getString("itemCategory"),
                                 rs.getString("parentList"),
-                                rs.getBoolean("favorited"));
+                                rs.getBoolean("favorited"),
+                                rs.getBoolean("completed"));
                 return item;
             } else {
                 return null;
@@ -88,16 +95,23 @@ public class ItemDAO extends DAO {
      * @throws DataAccessException If an error occurs while updating the Item
      */
     public void update(Item item) throws DataAccessException {
-        String sql = "UPDATE Item SET name = ?, owner = ?, category = ?, parentList = ?, favorited = ? WHERE id = ?;";
+        String sql = "UPDATE Item SET name = ?, owner = ?, itemCategory = ?, parentList = ?, " +
+                "favorited = ?, completed = ? WHERE id = ?;";
 
         // Execute the SQL statement
         try(PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, item.getName());
             stmt.setString(2, item.getOwner());
-            stmt.setString(3, item.getCategory());
             stmt.setString(4, item.getParentList());
             stmt.setBoolean(5, item.isFavorited());
-            stmt.setString(6, item.getId());
+            stmt.setBoolean(6, item.isCompleted());
+            stmt.setString(7, item.getId());
+
+            if (item.getCategory() == null) {
+                stmt.setNull(3, java.sql.Types.VARCHAR);
+            } else {
+                stmt.setString(3, item.getCategory());
+            }
 
             stmt.executeUpdate();
         } catch (SQLException e) {
@@ -141,5 +155,4 @@ public class ItemDAO extends DAO {
             throw new DataAccessException("Error encountered while deleting from the database");
         }
     }
-
 }

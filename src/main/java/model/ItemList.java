@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Model class that contains information about a list of items.
@@ -103,5 +104,23 @@ public class ItemList {
 
     public void setCategories(List<Category> categories) {
         this.categories = categories;
+    }
+
+    /**
+     * Performs value equality on this ItemList object and another object
+     *
+     * @param o The other (ItemList) object to compare to
+     * @return True if the two objects are equal, false otherwise
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ItemList itemList = (ItemList) o;
+        return Objects.equals(id, itemList.id) &&
+                Objects.equals(name, itemList.name) &&
+                Objects.equals(owner, itemList.owner) &&
+                Objects.equals(items, itemList.items) &&
+                Objects.equals(categories, itemList.categories);
     }
 }
