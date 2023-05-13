@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -148,7 +149,7 @@ public class ItemListDAOTest {
         assertEquals(exList2, compareTest);
 
         // Remove the example ItemList from the database
-        lDao.remove(exList.getId());
+        lDao.remove(exList, exList.getOwner());
 
         // Verify that the example ItemList has been removed from the database but the second ItemList still exists
         compareTest = lDao.find(exList.getId());
@@ -161,11 +162,34 @@ public class ItemListDAOTest {
     @Test
     public void removeFail() throws DataAccessException {
         // Remove a ItemList that doesn't exist in the database and verify that nothing happens
-        lDao.remove(exList.getId());
+        lDao.remove(exList, exList.getOwner());
 
         // Verify that the ItemList still does not exist
         ItemList compareTest = lDao.find(exList.getId());
         assertNull(compareTest);
+    }
+
+    @Test
+    public void removeOtherUserAccess() throws DataAccessException {
+        // Insert list into database
+        lDao.insert(exList);
+
+        // Share list with additional user
+        lDao.share(exList, "user1");
+
+        // Remove list from database for the original owner
+        lDao.remove(exList, "owner");
+
+        // Verify that the list still exists in the database
+        ItemList compareTest = lDao.find(exList.getId());
+        assertNotNull(compareTest);
+        assertEquals(exList, compareTest);
+
+        // Verify that the other user still has access to the list
+        List<String> users = lDao.findUsersWithAccess(exList.getId());
+        assertNotNull(users);
+        assertEquals(1, users.size());
+        assertEquals("user1", users.get(0));
     }
 
     @Test
@@ -179,5 +203,59 @@ public class ItemListDAOTest {
 
         // Verify that the ItemList we got back is null
         assertNull(compareTest);
+    }
+
+    @Test
+    public void sharePass() throws DataAccessException {
+        // Insert list into database
+        lDao.insert(exList);
+
+        // Share list with additional users
+        lDao.share(exList, "user1");
+        lDao.share(exList, "user2");
+
+        // Get list of users with access to list
+        List<String> users = lDao.findUsersWithAccess(exList.getId());
+
+        // Verify that the list of users contains the additional user
+        assertNotNull(users);
+        assertEquals(3, users.size());
+        assertTrue(users.contains("owner"));
+        assertTrue(users.contains("user1"));
+        assertTrue(users.contains("user2"));
+
+    }
+    @Test
+    public void shareFail() throws DataAccessException {
+        // Insert list into database
+        lDao.insert(exList);
+
+        // Share list with additional users
+        lDao.share(exList, "user1");
+        lDao.share(exList, "user2");
+
+        // Get list of users with access to list
+        List<String> users = lDao.findUsersWithAccess(exList.getId());
+
+        // Verify that the list of users contains the additional users
+        assertNotNull(users);
+        assertEquals(3, users.size());
+        assertTrue(users.contains("owner"));
+        assertTrue(users.contains("user1"));
+        assertTrue(users.contains("user2"));
+
+        // Try to share list with user that already has access
+        lDao.share(exList, "user1");
+
+        // Get list of users with access to list
+        users = lDao.findUsersWithAccess(exList.getId());
+
+        // Verify that the list of users hasn't changed
+        assertNotNull(users);
+        assertEquals(3, users.size());
+        assertTrue(users.contains("owner"));
+        assertTrue(users.contains("user1"));
+        assertTrue(users.contains("user2"));
+
     }
 }

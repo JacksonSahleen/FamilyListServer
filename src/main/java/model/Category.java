@@ -90,4 +90,19 @@ public class Category {
                 Objects.equals(owner, category.owner) &&
                 Objects.equals(parentList, category.parentList);
     }
+
+    /**
+     * Returns a string representation of this Category object
+     *
+     * @return A string representation of this Category object
+     */
+    @Override
+    public String toString() {
+        return "Category{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", owner='" + owner + '\'' +
+                ", parentList='" + parentList + '\'' +
+                '}';
+    }
 }

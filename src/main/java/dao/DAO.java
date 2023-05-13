@@ -20,14 +20,6 @@ public abstract class DAO {
     }
 
     /**
-     * Removes the object with the given ID from the database
-     *
-     * @param id The ID of the object to remove from the database
-     * @throws DataAccessException If an error occurs while removing the object from the database
-     */
-    public abstract void remove(String id) throws DataAccessException;
-
-    /**
      * Clears the database of all data in the corresponding table(s)
      *
      * @throws DataAccessException If an error occurs while clearing the database

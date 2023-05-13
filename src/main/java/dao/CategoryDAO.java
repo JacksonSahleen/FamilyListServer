@@ -21,6 +21,10 @@ public class CategoryDAO extends DAO {
         this.conn = conn;
     }
 
+    /*-----------------------------------------------------
+                Basic Database Interaction Methods
+    -----------------------------------------------------*/
+
     /**
      * Inserts a new Category into the Category table in the database
      *
@@ -73,7 +77,7 @@ public class CategoryDAO extends DAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new DataAccessException("Error encountered while finding Category");
+            throw new DataAccessException("Error encountered while finding a Category in the database");
         }
     }
 
@@ -103,15 +107,15 @@ public class CategoryDAO extends DAO {
     /**
      * Removes a Category from the Category table in the database
      *
-     * @param id The ID of the Category to remove from the database
+     * @param category The Category to remove from the database
      * @throws DataAccessException If an error occurs while removing from the database
      */
-    public void remove(String id) throws DataAccessException {
+    public void remove(Category category) throws DataAccessException {
         String sql = "DELETE FROM Category WHERE id = ?;";
 
         // Execute the SQL statement
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, id);
+            stmt.setString(1, category.getId());
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

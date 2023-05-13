@@ -84,7 +84,7 @@ public class AuthtokenDAOTest {
 
     @Test
     public void findFail() throws DataAccessException {
-        // Try to get a Authtoken that doesn't exist in the database
+        // Try to get an Authtoken that doesn't exist in the database
         Authtoken compareTest = aDao.find(exAuthtoken.getToken());
 
         // Verify that the Authtoken we got back is null
@@ -137,7 +137,7 @@ public class AuthtokenDAOTest {
         assertEquals(exAuthtoken2, compareTest);
 
         // Remove the example Authtoken from the database
-        aDao.remove(exAuthtoken.getToken());
+        aDao.remove(exAuthtoken);
 
         // Verify that the example Authtoken has been removed from the database but the second Authtoken still exists
         compareTest = aDao.find(exAuthtoken.getToken());
@@ -149,8 +149,8 @@ public class AuthtokenDAOTest {
 
     @Test
     public void removeFail() throws DataAccessException {
-        // Remove a Authtoken that doesn't exist in the database and verify that nothing happens
-        aDao.remove(exAuthtoken.getToken());
+        // Remove an Authtoken that doesn't exist in the database and verify that nothing happens
+        aDao.remove(exAuthtoken);
 
         // Verify that the Authtoken still does not exist
         Authtoken compareTest = aDao.find(exAuthtoken.getToken());

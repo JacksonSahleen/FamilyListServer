@@ -58,4 +58,17 @@ public class Authtoken {
         return Objects.equals(token, auth.token) &&
                 Objects.equals(userID, auth.userID);
     }
+
+    /**
+     * Returns a string representation of this Authtoken object
+     *
+     * @return A string representation of this Authtoken object
+     */
+    @Override
+    public String toString() {
+        return "Authtoken{" +
+                "token='" + token + '\'' +
+                ", userID='" + userID + '\'' +
+                '}';
+    }
 }

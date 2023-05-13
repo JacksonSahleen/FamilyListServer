@@ -23,6 +23,10 @@ public class AuthtokenDAO extends DAO {
         this.conn = conn;
     }
 
+    /*-----------------------------------------------------
+                Basic Database Interaction Methods
+    -----------------------------------------------------*/
+
     /**
      * Inserts a new Authtoken into the Authtoken table in the database
      *
@@ -30,7 +34,7 @@ public class AuthtokenDAO extends DAO {
      * @throws DataAccessException If an error occurs while inserting into the Authtoken table
      */
     public void insert(Authtoken token) throws DataAccessException {
-        String sql = "INSERT INTO Authtoken (token, userID) " + "VALUES (?, ?);";
+        String sql = "INSERT INTO Authtoken (token, user) " + "VALUES (?, ?);";
 
         // Execute the SQL statement
         try(PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -63,7 +67,8 @@ public class AuthtokenDAO extends DAO {
 
             // If a result was found, return it
             if (rs.next()) {
-                authtoken = new Authtoken(rs.getString("token"), rs.getString("userID"));
+                authtoken = new Authtoken(rs.getString("token"),
+                                          rs.getString("user"));
                 return authtoken;
             } else {
                 return null;
@@ -75,51 +80,17 @@ public class AuthtokenDAO extends DAO {
     }
 
     /**
-     * Finds all Authtokens in the database for the given user
-     *
-     * @param id The unique ID of the user to find Authtokens for
-     * @return A list of all Authtokens for the given user
-     * @throws DataAccessException If an error occurs while finding the Authtokens
-     */
-    public List<Authtoken> findUserAuthtokens(String id) throws DataAccessException {
-        Authtoken authtoken;
-        ArrayList<Authtoken> userTokens = new ArrayList<>();
-        ResultSet rs;
-        String sql = "SELECT * FROM Authtoken WHERE userID = ?;";
-
-        // Execute the SQL statement
-        try(PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, id);
-            rs = stmt.executeQuery();
-
-            // If a result was found, add it to the list
-            while (rs.next()) {
-                authtoken = new Authtoken(rs.getString("token"),
-                                          rs.getString("userID"));
-                userTokens.add(authtoken);
-            }
-
-            // If any results were found, return the list
-            return userTokens;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new DataAccessException("Error encountered while finding Authtoken");
-        }
-    }
-
-    /**
      * Removes the given Authtoken from the database
      *
-     * @param token The ID of the object to remove from the database
+     * @param authtoken The Authtoken to remove from the database
      * @throws DataAccessException If an error occurs while removing from the Authtoken table
      */
-    public void remove(String token) throws DataAccessException {
+    public void remove(Authtoken authtoken) throws DataAccessException {
         String sql = "DELETE FROM Authtoken WHERE token = ?;";
 
         // Execute the SQL statement
         try(PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, token);
+            stmt.setString(1, authtoken.getToken());
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -141,6 +112,44 @@ public class AuthtokenDAO extends DAO {
         } catch (SQLException e) {
             e.printStackTrace();
             throw new DataAccessException("Error encountered while clearing the Authtoken table");
+        }
+    }
+
+    /*-----------------------------------------------------
+                    Authtoken Management Methods
+    -----------------------------------------------------*/
+
+    /**
+     * Finds all Authtokens in the database for the given user
+     *
+     * @param id The unique ID of the user to find Authtokens for
+     * @return A list of all Authtokens for the given user
+     * @throws DataAccessException If an error occurs while finding the Authtokens
+     */
+    public List<Authtoken> findUserAuthtokens(String id) throws DataAccessException {
+        Authtoken authtoken;
+        ArrayList<Authtoken> userTokens = new ArrayList<>();
+        ResultSet rs;
+        String sql = "SELECT * FROM Authtoken WHERE user = ?;";
+
+        // Execute the SQL statement
+        try(PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, id);
+            rs = stmt.executeQuery();
+
+            // If a result was found, add it to the list
+            while (rs.next()) {
+                authtoken = new Authtoken(rs.getString("token"),
+                        rs.getString("user"));
+                userTokens.add(authtoken);
+            }
+
+            // If any results were found, return the list
+            return userTokens;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DataAccessException("Error encountered while finding Authtoken");
         }
     }
 }

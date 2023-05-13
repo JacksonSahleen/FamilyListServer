@@ -21,6 +21,10 @@ public class ItemDAO extends DAO {
         this.conn = conn;
     }
 
+    /*-----------------------------------------------------
+                Basic Database Interaction Methods
+    -----------------------------------------------------*/
+
     /**
      * Inserts a new Item into the Item table in the database
      *
@@ -123,15 +127,15 @@ public class ItemDAO extends DAO {
     /**
      * Removes an Item from the database with the given id
      *
-     * @param id The ID of the object to remove from the database
+     * @param item The Item to remove from the database
      * @throws DataAccessException If an error occurs while removing the Item
      */
-    public void remove(String id) throws DataAccessException {
+    public void remove(Item item) throws DataAccessException {
         String sql = "DELETE FROM Item WHERE id = ?;";
 
         // Execute the SQL statement
         try(PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, id);
+            stmt.setString(1, item.getId());
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

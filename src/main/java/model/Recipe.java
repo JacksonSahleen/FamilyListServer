@@ -139,4 +139,21 @@ public class Recipe {
                 Objects.equals(ingredients, recipe.ingredients) &&
                 Objects.equals(steps, recipe.steps);
     }
+
+    /**
+     * Returns a string representation of this Recipe object
+     *
+     * @return A string representation of this Recipe object
+     */
+    @Override
+    public String toString() {
+        return "Recipe{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", owner='" + owner + '\'' +
+                ", description='" + description + '\'' +
+                ", ingredients=" + ingredients +
+                ", steps=" + steps +
+                '}';
+    }
 }

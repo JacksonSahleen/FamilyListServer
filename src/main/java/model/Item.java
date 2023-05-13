@@ -160,4 +160,22 @@ public class Item {
                 favorited == item.favorited &&
                 completed == item.completed;
     }
+
+    /**
+     * Returns a string representation of this Item object
+     *
+     * @return A string representation of this Item object
+     */
+    @Override
+    public String toString() {
+        return "Item{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", owner='" + owner + '\'' +
+                ", category='" + category + '\'' +
+                ", parentList='" + parentList + '\'' +
+                ", favorited=" + favorited +
+                ", completed=" + completed +
+                '}';
+    }
 }

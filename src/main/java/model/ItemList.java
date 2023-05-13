@@ -123,4 +123,20 @@ public class ItemList {
                 Objects.equals(items, itemList.items) &&
                 Objects.equals(categories, itemList.categories);
     }
+
+    /**
+     * Returns a string representation of this ItemList object
+     *
+     * @return String representation of this ItemList object
+     */
+    @Override
+    public String toString() {
+        return "ItemList{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", owner='" + owner + '\'' +
+                ", items=" + items +
+                ", categories=" + categories +
+                '}';
+    }
 }

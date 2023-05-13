@@ -8,11 +8,6 @@ import java.util.Objects;
 public class User {
 
     /**
-     * Unique ID for the user
-     */
-    private String id;
-
-    /**
      * The user's username
      */
     private String username;
@@ -23,24 +18,28 @@ public class User {
     private String password;
 
     /**
+     * The user's first name
+     */
+    private String firstName;
+
+    /**
+     * The user's last name
+     */
+    private String lastName;
+
+    /**
      * Creates a new User object
      *
-     * @param id Unique ID for the user
      * @param username The user's username
      * @param password The user's password
+     * @param firstName The user's first name
+     * @param lastName The user's last name
      */
-    public User(String id, String username, String password) {
-        this.id = id;
+    public User(String username, String password, String firstName, String lastName) {
         this.username = username;
         this.password = password;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
     public String getUsername() {
@@ -59,6 +58,22 @@ public class User {
         this.password = password;
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
     /**
      * Performs value equality on this User object and another object
      *
@@ -70,8 +85,24 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id) &&
-                Objects.equals(username, user.username) &&
-                Objects.equals(password, user.password);
+        return Objects.equals(username, user.username) &&
+                Objects.equals(password, user.password) &&
+                Objects.equals(firstName, user.firstName) &&
+                Objects.equals(lastName, user.lastName);
+    }
+
+    /**
+     * Returns a string representation of this User object
+     *
+     * @return A string representation of this User object
+     */
+    @Override
+    public String toString() {
+        return "User{" +
+                ", username=" + username +
+                ", password=" + password +
+                ", firstName=" + firstName +
+                ", lastName=" + lastName +
+                '}';
     }
 }

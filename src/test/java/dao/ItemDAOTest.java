@@ -154,7 +154,7 @@ public class ItemDAOTest {
         assertEquals(exItem2, compareTest);
 
         // Remove the example Item from the database
-        iDao.remove(exItem.getId());
+        iDao.remove(exItem);
 
         // Verify that the example Item has been removed from the database but the second Item still exists
         compareTest = iDao.find(exItem.getId());
@@ -167,7 +167,7 @@ public class ItemDAOTest {
     @Test
     public void removeFail() throws DataAccessException {
         // Remove an Item that doesn't exist in the database and verify that nothing happens
-        iDao.remove(exItem.getId());
+        iDao.remove(exItem);
 
         // Verify that the Item still does not exist
         Item compareTest = iDao.find(exItem.getId());

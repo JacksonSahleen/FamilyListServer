@@ -25,6 +25,10 @@ public class ItemListDAO extends DAO {
         this.conn = conn;
     }
 
+    /*-----------------------------------------------------
+                Basic Database Interaction Methods
+    -----------------------------------------------------*/
+
     /**
      * Inserts a new ItemList into the ItemList table in the database
      *
@@ -32,13 +36,24 @@ public class ItemListDAO extends DAO {
      * @throws DataAccessException If an error occurs while inserting into the database
      */
     public void insert(ItemList itemList) throws DataAccessException {
-        String sql = "INSERT INTO ItemList (id, name, owner) " + "VALUES (?, ?, ?);";
-
-        // Execute the SQL statement
+        // Insert a row into the ItemList table
+        String sql = "INSERT INTO ItemList (id, name, owner) VALUES (?, ?, ?);";
         try(PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, itemList.getId());
             stmt.setString(2, itemList.getName());
             stmt.setString(3, itemList.getOwner());
+
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DataAccessException("Error encountered while inserting into the database");
+        }
+
+        // Insert a row into the ListPermissions for the owner of the ItemList
+        sql = "INSERT INTO ListPermissions (list, user) VALUES (?, ?);";
+        try(PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, itemList.getId());
+            stmt.setString(2, itemList.getOwner());
 
             stmt.executeUpdate();
         } catch (SQLException e) {
@@ -111,20 +126,34 @@ public class ItemListDAO extends DAO {
     /**
      * Removes the ItemList with the given ID from the database
      *
-     * @param id The ID of the object to remove from the database
+     * @param list The ItemList to remove from the database
+     * @param username The username of the user removing the object
      * @throws DataAccessException If an error occurs while removing the object
      */
-    public void remove(String id) throws DataAccessException {
-        String sql = "DELETE FROM ItemList WHERE id = ?;";
-
-        // Execute the SQL statement
+    public void remove(ItemList list, String username) throws DataAccessException {
+        // Remove user permissions from the ListPermissions table
+        String sql = "DELETE FROM ListPermissions WHERE list = ? AND user = ?;";
         try(PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, id);
+            stmt.setString(1, list.getId());
+            stmt.setString(2, username);
 
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
             throw new DataAccessException("Error encountered while deleting from the database");
+        }
+
+        // Remove the list's data if no other users have access to it
+        if (findUsersWithAccess(list.getId()).isEmpty()) {
+            sql = "DELETE FROM ItemList WHERE id = ?;";
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                stmt.setString(1, list.getId());
+
+                stmt.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                throw new DataAccessException("Error encountered while deleting from the database");
+            }
         }
     }
 
@@ -134,9 +163,17 @@ public class ItemListDAO extends DAO {
      * @throws DataAccessException If an error occurs while removing the objects
      */
     public void clear() throws DataAccessException {
+        // Clear all lists from the ItemList table
         String sql = "DELETE FROM ItemList;";
+        try(PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DataAccessException("Error encountered while deleting from the database");
+        }
 
-        // Execute the SQL statement
+        // Clear all rows from the ListPermissions table
+        sql = "DELETE FROM ListPermissions;";
         try(PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.executeUpdate();
         } catch (SQLException e) {
@@ -144,6 +181,10 @@ public class ItemListDAO extends DAO {
             throw new DataAccessException("Error encountered while deleting from the database");
         }
     }
+
+    /*-----------------------------------------------------
+                    Private Helper Functions
+    -----------------------------------------------------*/
 
     /**
      * Finds all Item objects in the database for the given ItemList
@@ -211,6 +252,67 @@ public class ItemListDAO extends DAO {
             }
 
             return listCategories;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DataAccessException("Error encountered while finding the ItemList");
+        }
+    }
+
+    /*-----------------------------------------------------
+                        Permissions Methods
+    -----------------------------------------------------*/
+
+    /**
+     * Shares an ItemList with another user
+     *
+     * @param itemList The ItemList to share
+     * @param username The username of the user to share the ItemList with
+     * @throws DataAccessException If an error occurs while sharing the ItemList
+     */
+    public void share(ItemList itemList, String username) throws DataAccessException {
+        // Find all users with access to the ItemList
+        List<String> users = findUsersWithAccess(itemList.getId());
+
+        // Add the user to the permissions if they don't already have access
+        if (!users.contains(username)) {
+            String sql = "INSERT INTO ListPermissions (list, user) VALUES (?, ?);";
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                stmt.setString(1, itemList.getId());
+                stmt.setString(2, username);
+
+                stmt.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                throw new DataAccessException("Error encountered while inserting into the database");
+            }
+        }
+    }
+
+    /**
+     * Finds all users with access to the given ItemList
+     *
+     * @param id The ID of the ItemList to find users with access to
+     * @return A list of all users with access to the given ItemList
+     * @throws DataAccessException If an error occurs while finding the users with access
+     */
+    public List<String> findUsersWithAccess(String id) throws DataAccessException {
+        List<String> users = new ArrayList<>();
+        ResultSet rs;
+        String sql = "SELECT user FROM ListPermissions WHERE list = ?;";
+
+        // Execute the SQL statement
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, id);
+            rs = stmt.executeQuery();
+
+            // If a result was found, add it to the list
+            while (rs.next()) {
+                users.add(rs.getString("user"));
+            }
+
+            // Return the list of users with access to the ItemList
+            return users;
 
         } catch (SQLException e) {
             e.printStackTrace();

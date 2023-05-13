@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RecipeDAO extends DAO {
 
@@ -17,6 +19,10 @@ public class RecipeDAO extends DAO {
     public RecipeDAO(Connection conn) {
         this.conn = conn;
     }
+
+    /*-----------------------------------------------------
+                Basic Database Interaction Methods
+    -----------------------------------------------------*/
 
     /**
      * Inserts a new Recipe into the Recipe table in the database
@@ -35,17 +41,31 @@ public class RecipeDAO extends DAO {
             stmt.setString(3, recipe.getOwner());
             stmt.setString(4, recipe.getDescription());
 
+            // Set the id of the list of ingredients if it exists
             if (recipe.getIngredients() != null) {
                 stmt.setString(5, recipe.getIngredients().getId());
             } else {
                 stmt.setString(5, null);
             }
 
+            // Set the id of the list of steps if it exists
             if (recipe.getSteps() != null) {
                 stmt.setString(6, recipe.getSteps().getId());
             } else {
                 stmt.setString(6, null);
             }
+
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DataAccessException("Error encountered while inserting into the database");
+        }
+
+        // Add a row to the RecipePermissions table for the owner of the Recipe
+        sql = "INSERT INTO RecipePermissions (recipe, user) VALUES (?, ?);";
+        try(PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, recipe.getId());
+            stmt.setString(2, recipe.getOwner());
 
             stmt.executeUpdate();
         } catch (SQLException e) {
@@ -135,20 +155,34 @@ public class RecipeDAO extends DAO {
     /**
      * Removes an existing Recipe from the Recipe table in the database
      *
-     * @param id The ID of the object to remove from the database
+     * @param recipe The Recipe to remove from the database
+     * @param username The username of the user removing the Recipe
      * @throws DataAccessException If an error occurs while removing from the database
      */
-    public void remove(String id) throws DataAccessException {
-        String sql = "DELETE FROM Recipe WHERE id = ?;";
-
-        // Execute the SQL statement
+    public void remove(Recipe recipe, String username) throws DataAccessException {
+        // Remove user permissions from the RecipePermissions table
+        String sql = "DELETE FROM RecipePermissions WHERE recipe = ? AND user = ?;";
         try(PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, id);
+            stmt.setString(1, recipe.getId());
+            stmt.setString(2, username);
 
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
             throw new DataAccessException("Error encountered while deleting from the database");
+        }
+
+        // Remove the recipe's data if no other users have access to it
+        if (findUsersWithAccess(recipe.getId()).isEmpty()) {
+            sql = "DELETE FROM Recipe WHERE id = ?;";
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                stmt.setString(1, recipe.getId());
+
+                stmt.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                throw new DataAccessException("Error encountered while deleting from the database");
+            }
         }
     }
 
@@ -158,14 +192,83 @@ public class RecipeDAO extends DAO {
      * @throws DataAccessException If an error occurs while clearing the database
      */
     public void clear() throws DataAccessException {
+        // Clear all Recipes from the database
         String sql = "DELETE FROM Recipe;";
-
-        // Execute the SQL statement
         try(PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
             throw new DataAccessException("Error encountered while deleting from the database");
+        }
+
+        // Clear all RecipePermissions from the database
+        sql = "DELETE FROM RecipePermissions;";
+        try(PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DataAccessException("Error encountered while deleting from the database");
+        }
+    }
+
+    /*-----------------------------------------------------
+                        Permissions Methods
+    -----------------------------------------------------*/
+
+    /**
+     * Shares a Recipe with another user
+     *
+     * @param recipe The Recipe to share
+     * @param username The username of the user to share the Recipe with
+     * @throws DataAccessException If an error occurs while sharing the Recipe
+     */
+    public void share(Recipe recipe, String username) throws DataAccessException {
+        // Find all users with access to the Recipe
+        List<String> users = findUsersWithAccess(recipe.getId());
+
+        // Add the user to the permissions if they don't already have access
+        if (!users.contains(username)) {
+            String sql = "INSERT INTO RecipePermissions (recipe, user) VALUES (?, ?);";
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                stmt.setString(1, recipe.getId());
+                stmt.setString(2, username);
+
+                stmt.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                throw new DataAccessException("Error encountered while inserting into the database");
+            }
+        }
+    }
+
+    /**
+     * Finds all users with access to a given Recipe
+     *
+     * @param id The ID of the Recipe to find users with access to
+     * @return A list of usernames of users with access to the Recipe
+     * @throws DataAccessException If an error occurs while finding the users with access
+     */
+    public List<String> findUsersWithAccess(String id) throws DataAccessException {
+        List<String> users = new ArrayList<>();
+        ResultSet rs;
+        String sql = "SELECT user FROM RecipePermissions WHERE recipe = ?;";
+
+        // Execute the SQL statement
+        try(PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, id);
+            rs = stmt.executeQuery();
+
+            // If a result was found, add it to the list
+            while (rs.next()) {
+                users.add(rs.getString("user"));
+            }
+
+            // Return the list of users with access to the Recipe
+            return users;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DataAccessException("Error encountered while finding the Recipe");
         }
     }
 }

@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -146,7 +147,7 @@ public class RecipeDAOTest {
         assertEquals(exRecipe2, compareTest);
 
         // Remove the example Recipe from the database
-        rDao.remove(exRecipe.getId());
+        rDao.remove(exRecipe, exRecipe.getOwner());
 
         // Verify that the example Recipe has been removed from the database but the second Recipe still exists
         compareTest = rDao.find(exRecipe.getId());
@@ -159,11 +160,34 @@ public class RecipeDAOTest {
     @Test
     public void removeFail() throws DataAccessException {
         // Remove a Recipe that doesn't exist in the database and verify that nothing happens
-        rDao.remove(exRecipe.getId());
+        rDao.remove(exRecipe, exRecipe.getOwner());
 
         // Verify that the Recipe still does not exist
         Recipe compareTest = rDao.find(exRecipe.getId());
         assertNull(compareTest);
+    }
+
+    @Test
+    public void removeOtherUserAccess() throws DataAccessException {
+        // Insert list into database
+        rDao.insert(exRecipe);
+
+        // Share list with additional user
+        rDao.share(exRecipe, "user1");
+
+        // Remove list from database for the original owner
+        rDao.remove(exRecipe, "owner");
+
+        // Verify that the list still exists in the database
+        Recipe compareTest = rDao.find(exRecipe.getId());
+        assertNotNull(compareTest);
+        assertEquals(exRecipe, compareTest);
+
+        // Verify that the other user still has access to the list
+        List<String> users = rDao.findUsersWithAccess(exRecipe.getId());
+        assertNotNull(users);
+        assertEquals(1, users.size());
+        assertEquals("user1", users.get(0));
     }
 
     @Test
@@ -177,5 +201,59 @@ public class RecipeDAOTest {
 
         // Verify that the Recipe we got back is null
         assertNull(compareTest);
+    }
+
+    @Test
+    public void sharePass() throws DataAccessException {
+        // Insert list into database
+        rDao.insert(exRecipe);
+
+        // Share list with additional users
+        rDao.share(exRecipe, "user1");
+        rDao.share(exRecipe, "user2");
+
+        // Get list of users with access to list
+        List<String> users = rDao.findUsersWithAccess(exRecipe.getId());
+
+        // Verify that the list of users contains the additional user
+        assertNotNull(users);
+        assertEquals(3, users.size());
+        assertTrue(users.contains("owner"));
+        assertTrue(users.contains("user1"));
+        assertTrue(users.contains("user2"));
+
+    }
+    @Test
+    public void shareFail() throws DataAccessException {
+        // Insert list into database
+        rDao.insert(exRecipe);
+
+        // Share list with additional users
+        rDao.share(exRecipe, "user1");
+        rDao.share(exRecipe, "user2");
+
+        // Get list of users with access to list
+        List<String> users = rDao.findUsersWithAccess(exRecipe.getId());
+
+        // Verify that the list of users contains the additional users
+        assertNotNull(users);
+        assertEquals(3, users.size());
+        assertTrue(users.contains("owner"));
+        assertTrue(users.contains("user1"));
+        assertTrue(users.contains("user2"));
+
+        // Try to share list with user that already has access
+        rDao.share(exRecipe, "user1");
+
+        // Get list of users with access to list
+        users = rDao.findUsersWithAccess(exRecipe.getId());
+
+        // Verify that the list of users hasn't changed
+        assertNotNull(users);
+        assertEquals(3, users.size());
+        assertTrue(users.contains("owner"));
+        assertTrue(users.contains("user1"));
+        assertTrue(users.contains("user2"));
+
     }
 }

@@ -146,7 +146,7 @@ public class CategoryDAOTest {
         assertEquals(exCategory2, compareTest);
 
         // Remove the example Category from the database
-        cDao.remove(exCategory.getId());
+        cDao.remove(exCategory);
 
         // Verify that the example Category has been removed from the database but the second Category still exists
         compareTest = cDao.find(exCategory.getId());
@@ -159,7 +159,7 @@ public class CategoryDAOTest {
     @Test
     public void removeFail() throws DataAccessException {
         // Remove a Category that doesn't exist in the database and verify that nothing happens
-        cDao.remove(exCategory.getId());
+        cDao.remove(exCategory);
 
         // Verify that the Category still does not exist
         Category compareTest = cDao.find(exCategory.getId());

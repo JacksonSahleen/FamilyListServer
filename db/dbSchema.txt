@@ -1,23 +1,43 @@
 drop table if exists User;
 drop table if exists Authtoken;
+drop table if exists Collection;
+drop table if exists CollectionRecipes;
 drop table if exists Recipe;
+drop table if exists RecipePermissions;
 drop table if exists ItemList;
+drop table if exists ListPermissions;
 drop table if exists Category;
 drop table if exists Item;
 
 create table User
 (
-	id varchar(255) not null primary key,
-	username varchar(255) not null,
-	password varchar(255) not null
-	
+	username varchar(255) not null primary key,
+	password varchar(255) not null,
+	firstName varchar(255) not null,
+	lastName varchar(255) not null
 );
 
 create table Authtoken
 (
     token varchar(255) not null primary key,
-    userID varchar(255) not null,
-    foreign key(userID) references User(id)
+    user varchar(255) not null,
+    foreign key(user) references User(username) on delete cascade on update cascade
+);
+
+create table Collection
+(
+    id varchar (255) not null primary key,
+    name varchar(255) not null,
+    owner varchar(255) not null,
+    foreign key(owner) references User(username) on delete cascade on update cascade
+);
+
+create table CollectionRecipes
+(
+    collection varchar(255) not null,
+    recipe varchar(255) not null,
+    foreign key(collection) references Collection(id) on delete cascade,
+    foreign key(recipe) references Recipe(id) on delete cascade
 );
 
 create table Recipe
@@ -28,9 +48,17 @@ create table Recipe
 	description varchar(2047),
 	ingredients varchar(255),
 	steps varchar(255),
-	foreign key(owner) references User(id),
+	foreign key(owner) references User(username) on delete set null on update cascade,
 	foreign key(ingredients) references ItemList(id) on delete set null,
 	foreign key(steps) references ItemList(id) on delete set null
+);
+
+create table RecipePermissions
+(
+    recipe varchar(255) not null,
+    user varchar(255) not null,
+    foreign key(recipe) references Recipe(id) on delete cascade,
+    foreign key(user) references User(username) on delete cascade
 );
 
 create table ItemList
@@ -38,7 +66,15 @@ create table ItemList
 	id varchar(255) not null primary key,
 	name varchar(255) not null,
 	owner varchar(255) not null,
-	foreign key(owner) references User(id)
+	foreign key(owner) references User(username) on delete cascade on update cascade
+);
+
+create table ListPermissions
+(
+    list varchar(255) not null,
+    user varchar(255) not null,
+    foreign key(list) references ItemList(id) on delete cascade,
+    foreign key(user) references User(username) on delete cascade
 );
 
 create table Category
@@ -47,8 +83,8 @@ create table Category
 	name varchar(255) not null,
 	owner varchar(255) not null,
 	parentList varchar(255) not null,
-	foreign key(owner) references User(id),
-	foreign key(parentList) references ItemList(id)
+	foreign key(owner) references User(username) on update cascade,
+	foreign key(parentList) references ItemList(id) on delete cascade on update cascade
 );
 
 create table Item
@@ -60,7 +96,7 @@ create table Item
 	itemCategory varchar(255),
 	favorited boolean not null,
 	completed boolean not null,
-	foreign key(owner) references User(id),
-	foreign key(parentList) references ItemList(id),
-	foreign key(itemCategory) references Category(id) on delete set null
+	foreign key(owner) references User(username) on update cascade,
+	foreign key(parentList) references ItemList(id) on delete cascade on update cascade,
+	foreign key(itemCategory) references Category(id) on delete set null on update cascade
 );
