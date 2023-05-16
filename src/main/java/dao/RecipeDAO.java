@@ -271,4 +271,42 @@ public class RecipeDAO extends DAO {
             throw new DataAccessException("Error encountered while finding the Recipe");
         }
     }
+
+    /*-----------------------------------------------------
+                User Specific Database Methods
+    -----------------------------------------------------*/
+
+    /**
+     * Finds the IDs of all Recipes that the given user has access to
+     *
+     * @param username The username of the user to find recipes for
+     * @return A list of the IDs of all Recipes that the user has access to
+     * @throws DataAccessException If an error occurs while finding recipes the user has access to
+     */
+    public List<String> findUserRecipes(String username) throws DataAccessException {
+        ArrayList<String> recipes = new ArrayList<String>();
+        ResultSet rs;
+        String sql = "SELECT * FROM RecipePermissions WHERE user = ?;";
+
+        // Execute the SQL statement
+        try(PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, username);
+            rs = stmt.executeQuery();
+
+            // Add any recipes found to the list of recipes
+            while(rs.next()) {
+                recipes.add(rs.getString("recipe"));
+            }
+
+            // Return null if no recipes were found and the list of recipes otherwise
+            if (recipes.size() == 0) {
+                return null;
+            } else {
+                return recipes;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DataAccessException("Error encountered while finding recipes the user has access to");
+        }
+    }
 }

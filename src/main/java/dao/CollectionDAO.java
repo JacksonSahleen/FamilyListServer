@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CollectionDAO extends DAO {
 
@@ -137,6 +139,45 @@ public class CollectionDAO extends DAO {
         } catch (SQLException e) {
             e.printStackTrace();
             throw new DataAccessException("Error encountered while clearing the CollectionRecipe table");
+        }
+    }
+
+    /*-----------------------------------------------------
+                User Specific Database Methods
+    -----------------------------------------------------*/
+
+    /**
+     * Finds the IDs of all Items that the given user has access to
+     *
+     * @param username The username of the user to find items for
+     * @return A list of the IDs of all Items that the user has access to
+     * @throws DataAccessException If an error occurs while finding items the user has access to
+     */
+    public List<String> findUserCollections(String username) throws DataAccessException {
+        ArrayList<String> collections = new ArrayList<>();
+        ResultSet rs;
+        String sql = "SELECT id FROM Collection WHERE owner = ?;";
+
+        // Execute the SQL statement
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, username);
+            rs = stmt.executeQuery();
+
+            // Add any found collections to the list
+            while (rs.next()) {
+                collections.add(rs.getString("id"));
+            }
+
+            // Return null of no collections were found and the list otherwise
+            if (collections.size() == 0) {
+                return null;
+            } else {
+                return collections;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DataAccessException("Error encountered while finding Collections for the user");
         }
     }
 }

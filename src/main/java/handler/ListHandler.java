@@ -5,11 +5,10 @@ import com.sun.net.httpserver.HttpHandler;
 
 import java.io.IOException;
 
-public class RecipeHandler extends Handler implements HttpHandler {
-
+public class ListHandler extends Handler implements HttpHandler {
 
     /**
-     * Handles HTTP requests containing the "/recipe" URL path.
+     * Handles HTTP requests containing the "/list" URL path.
      *
      * @param exchange the exchange containing the request from the
      *                 client and used to send the response
@@ -17,6 +16,6 @@ public class RecipeHandler extends Handler implements HttpHandler {
      */
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-        // TODO: Implement RecipeHandler
+        // TODO: Implement ListHandler
     }
 }

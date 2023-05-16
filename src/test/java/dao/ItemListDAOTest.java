@@ -1,6 +1,7 @@
 package dao;
 
 import model.ItemList;
+import model.User;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -257,5 +258,38 @@ public class ItemListDAOTest {
         assertTrue(users.contains("user1"));
         assertTrue(users.contains("user2"));
 
+    }
+
+    @Test
+    public void findUserListsPass() throws DataAccessException {
+        // Insert a user into the database
+        UserDAO uDao = new UserDAO(db.getConnection());
+        User exUser = new User("username", "password", "firstName", "lastName");
+        uDao.insert(exUser);
+
+        // Insert multiple lists for the user into the database
+        ItemList exList1 = new ItemList("listID1", "list1", exUser.getUsername());
+        ItemList exList2 = new ItemList("listID2", "list2", exUser.getUsername());
+        lDao.insert(exList1);
+        lDao.insert(exList2);
+
+        // Get the lists for the user from the database
+        List<String> lists = lDao.findUserLists(exUser.getUsername());
+
+        // Verify that the lists returned are the same as the ones inserted
+        assertNotNull(lists);
+        assertEquals(2, lists.size());
+        assertTrue(lists.contains(exList1.getId()));
+        assertTrue(lists.contains(exList2.getId()));
+    }
+
+    @Test
+    public void findUserListsFail() throws DataAccessException {
+        // Get the lists for a user that doesn't exist in the database
+        User exUser = new User("username", "password", "firstName", "lastName");
+        List<String> lists = lDao.findUserLists(exUser.getUsername());
+
+        // Verify that the lists returned are null
+        assertNull(lists);
     }
 }

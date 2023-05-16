@@ -1,11 +1,14 @@
 package dao;
 
 import model.Collection;
+import model.ItemList;
+import model.User;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -176,5 +179,38 @@ public class CollectionDAOTest {
 
         // Verify that the Collection we got back is null
         assertNull(compareTest);
+    }
+
+    @Test
+    public void findUserCollectionsPass() throws DataAccessException {
+        // Insert a user into the database
+        UserDAO uDao = new UserDAO(db.getConnection());
+        User exUser = new User("username", "password", "firstName", "lastName");
+        uDao.insert(exUser);
+
+        // Insert multiple collections for the user into the database
+        Collection exCollection1 = new Collection("collection1", "name1", exUser.getUsername());
+        Collection exCollection2 = new Collection("collection2", "name2", exUser.getUsername());
+        cDao.insert(exCollection1);
+        cDao.insert(exCollection2);
+
+        // Get the collections for the user from the database
+        List<String> collections = cDao.findUserCollections(exUser.getUsername());
+
+        // Verify that the collections returned are the same as the ones inserted
+        assertNotNull(collections);
+        assertEquals(2, collections.size());
+        assertTrue(collections.contains(exCollection1.getId()));
+        assertTrue(collections.contains(exCollection2.getId()));
+    }
+
+    @Test
+    public void findUserCollectionsFail() throws DataAccessException {
+        // Get the collections for a user that doesn't exist in the database
+        User exUser = new User("username", "password", "firstName", "lastName");
+        List<String> lists = cDao.findUserCollections(exUser.getUsername());
+
+        // Verify that the collections returned are null
+        assertNull(lists);
     }
 }

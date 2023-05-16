@@ -1,14 +1,11 @@
 package dao;
 
-import model.ItemList;
-import model.Recipe;
 import model.User;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -187,67 +184,5 @@ public class UserDAOTest {
 
         // Verify that the User we got back is null
         assertNull(compareTest);
-    }
-
-    @Test
-    public void findUserListsPass() throws DataAccessException {
-        // Insert a user into the database
-        uDao.insert(exUser);
-
-        // Insert multiple lists for the user into the database
-        ItemListDAO lDao = new ItemListDAO(db.getConnection());
-        ItemList exList1 = new ItemList("listID1", "list1", exUser.getUsername());
-        ItemList exList2 = new ItemList("listID2", "list2", exUser.getUsername());
-        lDao.insert(exList1);
-        lDao.insert(exList2);
-
-        // Get the lists for the user from the database
-        List<String> lists = uDao.findUserLists(exUser.getUsername());
-
-        // Verify that the lists returned are the same as the ones inserted
-        assertNotNull(lists);
-        assertEquals(2, lists.size());
-        assertTrue(lists.contains(exList1.getId()));
-        assertTrue(lists.contains(exList2.getId()));
-    }
-
-    @Test
-    public void findUserListsFail() throws DataAccessException {
-        // Get the lists for a user that doesn't exist in the database
-        List<String> lists = uDao.findUserLists(exUser.getUsername());
-
-        // Verify that the lists returned are null
-        assertNull(lists);
-    }
-
-    @Test
-    public void findUserRecipesPass() throws DataAccessException {
-        // Insert a user into the database
-        uDao.insert(exUser);
-
-        // Insert multiple recipes for the user into the database
-        RecipeDAO rDao = new RecipeDAO(db.getConnection());
-        Recipe exRecipe1 = new Recipe("recipeID1", "recipe1", exUser.getUsername(), "1st test recipe");
-        Recipe exRecipe2 = new Recipe("recipeID2", "recipe2", exUser.getUsername(), "2nd test recipe");
-        rDao.insert(exRecipe1);
-        rDao.insert(exRecipe2);
-
-        // Get the recipes for the user from the database
-        List<String> recipes = uDao.findUserRecipes(exUser.getUsername());
-
-        // Verify that the recipes returned are the same as the ones inserted
-        assertNotNull(recipes);
-        assertEquals(2, recipes.size());
-        assertTrue(recipes.contains(exRecipe1.getId()));
-        assertTrue(recipes.contains(exRecipe2.getId()));
-    }
-
-    @Test
-    public void findUserRecipesFail() throws DataAccessException {
-        // Get the recipes for a user that doesn't exist in the database
-        List<String> recipes = uDao.findUserRecipes(exUser.getUsername());
-
-        // Verify that the recipes returned are null
-        assertNull(recipes);
     }
 }

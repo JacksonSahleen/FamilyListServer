@@ -4,38 +4,62 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="34bfb45b-a668-4754-8c86-7be207660499" name="Changes" comment="Implemented DAO unit tests and resolved any bugs found.">
-      <change afterPath="$PROJECT_DIR$/src/main/java/dao/CollectionDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/handler/FileHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/handler/PingHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/model/Collection.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/service/LoadService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/dao/CollectionDAOTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="34bfb45b-a668-4754-8c86-7be207660499" name="Changes" comment="Reworked database to include Recipe Collections, added list and recipe sharing between users, and reworked the DAOs to reflect these changes.">
+      <change afterPath="$PROJECT_DIR$/src/main/java/result/Result.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/handler/ClearHandlerTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/handler/CollectionHandlerTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/handler/FileHandlerTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/handler/ListHandlerTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/handler/LoadHandlerTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/handler/LoginHandlerTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/handler/RecipeHandlerTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/handler/RegisterHandlerTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/service/ClearServiceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/service/CollectionServiceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/service/ListServiceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/service/LoadServiceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/service/LoginServiceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/service/RecipeServiceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/service/RegisterServiceTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/dbDiagram.drawio" beforeDir="false" afterPath="$PROJECT_DIR$/db/dbDiagram.drawio" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/dbSchema.txt" beforeDir="false" afterPath="$PROJECT_DIR$/db/dbSchema.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/AuthtokenDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/AuthtokenDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/CategoryDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/CategoryDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/DAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/DAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/ItemDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/ItemDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FLServerDiagram.drawio" beforeDir="false" afterPath="$PROJECT_DIR$/FLServerDiagram.drawio" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Server.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/CollectionDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/CollectionDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dao/ItemListDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/ItemListDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dao/RecipeDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/RecipeDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dao/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/UserDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/handler/Handler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/handler/Handler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/handler/LoadHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/handler/LoadHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/handler/CategoryHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/handler/CollectionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/handler/ClearHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/handler/ClearHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/handler/ItemHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/handler/ItemListHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/handler/ListHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/handler/LoginHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/handler/LoginHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/handler/PingHandler.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/handler/RecipeHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/handler/RecipeHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/Authtoken.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Authtoken.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Category.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Item.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/ItemList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/ItemList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/Recipe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Recipe.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/handler/RegisterHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/handler/RegisterHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/request/CategoryRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/request/CollectionRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/request/ClearRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/request/ItemListRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/request/ListRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/request/ItemRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/request/LoadRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/request/LoadRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/request/LoginRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/request/LoginRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/request/RecipeRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/request/RecipeRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/request/RegisterRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/request/RegisterRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/result/CategoryResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/result/CollectionResult.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/result/ClearResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/result/ClearResult.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/result/ItemListResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/result/ListResult.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/result/ItemResult.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/result/LoadResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/result/LoadResult.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/ItemService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/ItemService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/dao/AuthtokenDAOTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/dao/AuthtokenDAOTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/dao/CategoryDAOTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/dao/CategoryDAOTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/dao/ItemDAOTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/dao/ItemDAOTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/result/LoginResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/result/LoginResult.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/result/RecipeResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/result/RecipeResult.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/result/RegisterResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/result/RegisterResult.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/CategoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/CollectionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/ClearService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/ClearService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/FillService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/ItemListService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/ListService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/ItemService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/LoginService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/LoginService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/RegisterService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/RegisterService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/dao/CollectionDAOTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/dao/CollectionDAOTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/dao/ItemListDAOTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/dao/ItemListDAOTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/dao/RecipeDAOTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/dao/RecipeDAOTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/dao/UserDAOTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/dao/UserDAOTest.java" afterDir="false" />
@@ -66,45 +90,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.JavaDocs&quot;: &quot;true&quot;,
-    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;TODO_SCOPE&quot;: &quot;All Places&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/jacks/OneDrive/Profile/Documentos/Projetos/Java Projects/FamilyListServer&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Downloaded.Files.Path.Enabled": "false",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "true",
+    "Repository.Attach.Sources": "false",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "TODO_SCOPE": "All Places",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/jacks/OneDrive/Profile/Documentos/Escola/2023 Inverno/CS 240/Projects/FamilyMapServerStudent-master/src/main/java/service/RegisterService.java",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.lookFeel"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Jackson\OneDrive\Profile\Documentos\Projetos\Java Projects\FamilyListServer\src\main\java\result" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.CollectionDAOTest">
-    <configuration name="CollectionDAOTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="FamilyListServer" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="dao.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="dao" />
-      <option name="MAIN_CLASS_NAME" value="dao.CollectionDAOTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="JUnit.dao in FamilyListServer">
     <configuration name="ItemDAOTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="FamilyListServer" />
       <extension name="coverage">
@@ -165,13 +174,27 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="dao in FamilyListServer" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="FamilyListServer" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="dao.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="dao" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.CollectionDAOTest" />
-        <item itemvalue="JUnit.UserDAOTest" />
-        <item itemvalue="JUnit.RecipeDAOTest" />
+        <item itemvalue="JUnit.dao in FamilyListServer" />
         <item itemvalue="JUnit.ItemListDAOTest" />
         <item itemvalue="JUnit.ItemDAOTest" />
+        <item itemvalue="JUnit.RecipeDAOTest" />
+        <item itemvalue="JUnit.UserDAOTest" />
       </list>
     </recent_temporary>
   </component>
@@ -219,7 +242,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683146194181</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Reworked database to include Recipe Collections, added list and recipe sharing between users, and reworked the DAOs to reflect these changes.">
+      <created>1683959664109</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1683959664109</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -239,6 +269,7 @@
     <MESSAGE value="Created basic stubs for service, handler, request, and result packages and implemented the model classes" />
     <MESSAGE value="Reworked database organization and corresponding model classes. Implemented DAO classes" />
     <MESSAGE value="Implemented DAO unit tests and resolved any bugs found." />
-    <option name="LAST_COMMIT_MESSAGE" value="Implemented DAO unit tests and resolved any bugs found." />
+    <MESSAGE value="Reworked database to include Recipe Collections, added list and recipe sharing between users, and reworked the DAOs to reflect these changes." />
+    <option name="LAST_COMMIT_MESSAGE" value="Reworked database to include Recipe Collections, added list and recipe sharing between users, and reworked the DAOs to reflect these changes." />
   </component>
 </project>

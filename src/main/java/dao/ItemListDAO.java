@@ -319,4 +319,42 @@ public class ItemListDAO extends DAO {
             throw new DataAccessException("Error encountered while finding the ItemList");
         }
     }
+
+    /*-----------------------------------------------------
+                User Specific Database Methods
+    -----------------------------------------------------*/
+
+    /**
+     * Finds the IDs of all ItemLists that the given user has access to
+     *
+     * @param username The username of the user to find lists for
+     * @return A list of the IDs of all ItemLists that the user has access to
+     * @throws DataAccessException If an error occurs while finding lists the user has access to
+     */
+    public List<String> findUserLists(String username) throws DataAccessException {
+        ArrayList<String> lists = new ArrayList<String>();
+        ResultSet rs;
+        String sql = "SELECT * FROM ListPermissions WHERE user = ?;";
+
+        // Execute the SQL statement
+        try(PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, username);
+            rs = stmt.executeQuery();
+
+            // Add any ItemLists found to the list of ItemLists
+            while(rs.next()) {
+                lists.add(rs.getString("list"));
+            }
+
+            // Return null if no lists were found and the list of lists otherwise
+            if (lists.size() == 0) {
+                return null;
+            } else {
+                return lists;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DataAccessException("Error encountered while finding lists the user has access to");
+        }
+    }
 }

@@ -1,6 +1,7 @@
 import java.io.*;
 import java.net.*;
 import com.sun.net.httpserver.*;
+import handler.*;
 
 /**
  * The main class for the Family List Server program.
@@ -36,7 +37,14 @@ public class Server {
 
         // Create and install the HTTP contexts for the server.
         System.out.println("Creating contexts");
-        // TODO: Create and install the handlers here.
+        server.createContext("/login", new LoginHandler());
+        server.createContext("/register", new RegisterHandler());
+        server.createContext("/collections", new CollectionHandler());
+        server.createContext("/lists", new ListHandler());
+        server.createContext("/recipes", new RecipeHandler());
+        server.createContext("/clear", new ClearHandler());
+        server.createContext("/load", new LoadHandler());
+        server.createContext("/", new FileHandler());
 
         // Start the server.
         System.out.println("Starting server");
