@@ -12,6 +12,9 @@ import result.LoginResult;
 import java.sql.Connection;
 import java.util.UUID;
 
+/**
+ * The service class responsible for handling user Login requests.
+ */
 public class LoginService {
 
     /**

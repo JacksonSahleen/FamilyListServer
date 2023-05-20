@@ -1,7 +1,7 @@
 package dao;
 
 import model.Collection;
-import model.ItemList;
+import model.Recipe;
 import model.User;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -179,6 +179,107 @@ public class CollectionDAOTest {
 
         // Verify that the Collection we got back is null
         assertNull(compareTest);
+    }
+
+    @Test
+    public void addCollectionRecipePass() throws DataAccessException {
+        // Insert a collection and multiple recipes into the database
+        cDao.insert(exCollection);
+
+        Recipe exRecipe1 = new Recipe("RecipeID1", "name1", "owner1", "first test recipe");
+        Recipe exRecipe2 = new Recipe("RecipeID2", "name2", "owner2", "second test recipe");
+
+        RecipeDAO rDao = new RecipeDAO(db.getConnection());
+        rDao.insert(exRecipe1);
+        rDao.insert(exRecipe2);
+
+        // Add the recipes to the collection
+        cDao.addCollectionRecipe(exCollection.getId(), exRecipe1.getId());
+        cDao.addCollectionRecipe(exCollection.getId(), exRecipe2.getId());
+
+        // Get the recipes for the collection from the database
+        List<String> recipes = cDao.findCollectionRecipes(exCollection.getId());
+
+        // Verify that the recipes returned are the same as the ones inserted
+        assertNotNull(recipes);
+        assertEquals(recipes.size(), 2);
+        assertTrue(recipes.contains(exRecipe1.getId()));
+        assertTrue(recipes.contains(exRecipe2.getId()));
+    }
+
+    @Test
+    public void addCollectionRecipeFail() throws DataAccessException {
+        // Insert a recipe into the database
+        RecipeDAO rDao = new RecipeDAO(db.getConnection());
+        Recipe exRecipe = new Recipe("RecipeID", "name", "owner", "test recipe");
+        rDao.insert(exRecipe);
+
+        // Verify that an exception was thrown when trying to add a recipe to a collection that doesn't exist
+        assertThrows(DataAccessException.class, () -> cDao.addCollectionRecipe(exCollection.getId(), exRecipe.getId()));
+    }
+
+    @Test
+    public void removeCollectionRecipePass() throws DataAccessException {
+        // Insert a collection and a recipe into the database
+        cDao.insert(exCollection);
+
+        Recipe exRecipe = new Recipe("RecipeID", "name", "owner", "test recipe");
+
+        RecipeDAO rDao = new RecipeDAO(db.getConnection());
+        rDao.insert(exRecipe);
+
+        // Add the recipe to the collection
+        cDao.addCollectionRecipe(exCollection.getId(), exRecipe.getId());
+
+        // Get the recipes for the collection from the database
+        List<String> recipes = cDao.findCollectionRecipes(exCollection.getId());
+
+        // Verify that the recipe returned is the same as the one inserted
+        assertNotNull(recipes);
+        assertEquals(recipes.size(), 1);
+        assertTrue(recipes.contains(exRecipe.getId()));
+
+        // Remove the recipe from the collection
+        cDao.removeCollectionRecipe(exCollection.getId(), exRecipe.getId());
+
+        // Get the recipes for the collection from the database
+        recipes = cDao.findCollectionRecipes(exCollection.getId());
+
+        // Verify that no recipes are returned
+        assertNull(recipes);
+    }
+
+    @Test
+    public void removeCollectionRecipeFail() throws DataAccessException {
+        // Insert a collection and a recipe into the database
+        cDao.insert(exCollection);
+
+        Recipe exRecipe = new Recipe("RecipeID", "name", "owner", "test recipe");
+
+        RecipeDAO rDao = new RecipeDAO(db.getConnection());
+        rDao.insert(exRecipe);
+
+        // Add the recipe to the collection
+        cDao.addCollectionRecipe(exCollection.getId(), exRecipe.getId());
+
+        // Get the recipes for the collection from the database
+        List<String> recipes = cDao.findCollectionRecipes(exCollection.getId());
+
+        // Verify that the recipe returned is the same as the one inserted
+        assertNotNull(recipes);
+        assertEquals(recipes.size(), 1);
+        assertTrue(recipes.contains(exRecipe.getId()));
+
+        // Try to remove a recipe that is not in the collection
+        cDao.removeCollectionRecipe(exCollection.getId(), "fakeID");
+
+        // Get the recipes for the collection from the database
+        recipes = cDao.findCollectionRecipes(exCollection.getId());
+
+        // Verify that the recipe returned is the same as the one inserted
+        assertNotNull(recipes);
+        assertEquals(recipes.size(), 1);
+        assertTrue(recipes.contains(exRecipe.getId()));
     }
 
     @Test

@@ -12,6 +12,7 @@ import service.ClearService;
  * WebAPI handler for the /clear API
  */
 public class ClearHandler extends Handler implements HttpHandler {
+
     /**
      * Handles HTTP requests containing the "/clear" URL path.
      *
@@ -29,32 +30,48 @@ public class ClearHandler extends Handler implements HttpHandler {
 
             // Only allow POST requests for this operation.
             if (exchange.getRequestMethod().equalsIgnoreCase("post")) {
-                // Run the request through the corresponding service
-                ClearService service = new ClearService();
-                result = service.clearDatabase();
+                // Get the HTTP request headers
+                Headers reqHeaders = exchange.getRequestHeaders();
 
-                // Report a successful request
-                if (result.isSuccess()) {
-                    // Log the successful request
-                    System.out.println("ClearHandler: Successfully cleared the database.");
+                // Check to see if an "Authorization" header is present
+                if (reqHeaders.containsKey("Authorization")) {
+                    // Extract the auth token from the "Authorization" header
+                    String authtoken = reqHeaders.getFirst("Authorization");
 
-                    // Return an "ok" status code to the client
-                    exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
+                    // Run the request through the corresponding service if the admin authtoken is provided
+                    UserAuthenticator authenticator = new UserAuthenticator();
+                    if (authenticator.authenticateAdmin(authtoken)) {
+                        ClearService service = new ClearService();
+                        result = service.clearDatabase();
 
-                    // Convert the result to a JSON string
-                    String respData = gson.toJson(result);
+                        // Report a successful request
+                        if (result.isSuccess()) {
+                            // Log the successful request
+                            System.out.println("ClearHandler: Successfully cleared the database.");
 
-                    // Write the JSON string to the response body
-                    OutputStream respBody = exchange.getResponseBody();
-                    writeString(respData, respBody);
+                            // Return an "ok" status code to the client
+                            exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
 
-                    // Close the output stream
-                    respBody.close();
+                            // Convert the result to a JSON string
+                            String respData = gson.toJson(result);
 
-                    success = true;
+                            // Write the JSON string to the response body
+                            OutputStream respBody = exchange.getResponseBody();
+                            writeString(respData, respBody);
+
+                            // Close the output stream
+                            respBody.close();
+
+                            success = true;
+                        }
+                    } else {
+                        // Report an unsuccessful request from the user not being an admin
+                        result = new ClearResult("ERROR: Clear attempted by a non-admin user", false);
+                    }
                 }
             }
 
+            // Handle results of unsuccessful requests
             if (!success) {
                 // Add a default error message if one was not provided
                 if (result == null) {

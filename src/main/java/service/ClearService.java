@@ -6,7 +6,7 @@ import result.ClearResult;
 import java.sql.Connection;
 
 /**
- * This class is responsible for clearing the database when requested.
+ * The service class responsible for clearing the database when requested.
  */
 public class ClearService {
 

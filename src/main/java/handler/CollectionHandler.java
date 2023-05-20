@@ -5,6 +5,9 @@ import com.sun.net.httpserver.HttpHandler;
 
 import java.io.IOException;
 
+/**
+ * WebAPI handler for the /collections API
+ */
 public class CollectionHandler extends Handler implements HttpHandler {
 
     /**

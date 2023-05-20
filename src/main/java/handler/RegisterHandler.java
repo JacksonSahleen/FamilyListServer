@@ -10,7 +10,7 @@ import result.RegisterResult;
 import service.RegisterService;
 
 /**
- * WebAPI handler for the /register API
+ * WebAPI handler for the /user/register API
  */
 public class RegisterHandler extends Handler implements HttpHandler {
 

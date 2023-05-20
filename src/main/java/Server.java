@@ -37,8 +37,8 @@ public class Server {
 
         // Create and install the HTTP contexts for the server.
         System.out.println("Creating contexts");
-        server.createContext("/login", new LoginHandler());
-        server.createContext("/register", new RegisterHandler());
+        server.createContext("/user/login", new LoginHandler());
+        server.createContext("/user/register", new RegisterHandler());
         server.createContext("/collections", new CollectionHandler());
         server.createContext("/lists", new ListHandler());
         server.createContext("/recipes", new RecipeHandler());

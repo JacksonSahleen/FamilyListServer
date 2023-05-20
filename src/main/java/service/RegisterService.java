@@ -10,7 +10,7 @@ import java.sql.Connection;
 import java.util.UUID;
 
 /**
- * This class is responsible for registering a new user in the database.
+ * The class responsible for handling user Registration requests.
  */
 public class RegisterService {
 

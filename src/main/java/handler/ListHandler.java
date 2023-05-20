@@ -5,6 +5,9 @@ import com.sun.net.httpserver.HttpHandler;
 
 import java.io.IOException;
 
+/**
+ * WebAPI handler for the /lists API
+ */
 public class ListHandler extends Handler implements HttpHandler {
 
     /**

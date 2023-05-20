@@ -143,6 +143,99 @@ public class CollectionDAO extends DAO {
     }
 
     /*-----------------------------------------------------
+                Collection Membership Methods
+    -----------------------------------------------------*/
+
+    /**
+     * Adds a recipe to a collection
+     *
+     * @param collectionID The ID of the collection to add the recipe to
+     * @param recipeID The ID of the recipe to add to the collection
+     * @throws DataAccessException If an error occurs while adding the recipe to the collection
+     */
+    public void addCollectionRecipe(String collectionID, String recipeID) throws DataAccessException {
+        // Check that neither the collection nor the recipe are null
+        if (collectionID == null || recipeID == null) {
+            throw new DataAccessException("Error: Cannot add null collection or recipe");
+        }
+
+        // Check that the collection and recipe exist
+        if (find(collectionID) == null || new RecipeDAO(conn).find(recipeID) == null) {
+            throw new DataAccessException("Error: Cannot add recipe to nonexistent collection");
+        }
+
+        // Insert the collection-recipe pair into the database
+        String sql = "INSERT INTO CollectionRecipes (collection, recipe) VALUES (?, ?);";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, collectionID);
+            stmt.setString(2, recipeID);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DataAccessException("Error encountered while adding a recipe to a collection");
+        }
+    }
+
+    /**
+     * Removes a recipe from a collection
+     *
+     * @param collectionID The ID of the collection to remove the recipe from
+     * @param recipeID The ID of the recipe to remove from the collection
+     * @throws DataAccessException If an error occurs while removing the recipe from the collection
+     */
+    public void removeCollectionRecipe(String collectionID, String recipeID) throws DataAccessException {
+        // Check that neither the collection nor the recipe are null
+        if (collectionID == null || recipeID == null) {
+            throw new DataAccessException("Error: Cannot remove null collection or recipe");
+        }
+
+        // Remove the collection-recipe pair from the database
+        String sql = "DELETE FROM CollectionRecipes WHERE collection = ? AND recipe = ?;";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, collectionID);
+            stmt.setString(2, recipeID);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DataAccessException("Error encountered while removing a recipe from a collection");
+        }
+    }
+
+    /**
+     * Finds the all recipes in the given collection
+     *
+     * @param id The ID of the collection to find recipes for
+     * @return A list of all recipes in the given collection, or null if no recipes were found
+     * @throws DataAccessException If an error occurs while finding recipes in the collection
+     */
+    public List<String> findCollectionRecipes(String id) throws DataAccessException {
+        ArrayList<String> recipes = new ArrayList<>();
+        ResultSet rs;
+        String sql = "SELECT recipe FROM CollectionRecipes WHERE collection = ?;";
+
+        // Execute the SQL statement
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, id);
+            rs = stmt.executeQuery();
+
+            // Add any found recipes to the list
+            while (rs.next()) {
+                recipes.add(rs.getString("recipe"));
+            }
+
+            // Return null of no recipes were found and the list otherwise
+            if (recipes.size() == 0) {
+                return null;
+            } else {
+                return recipes;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DataAccessException("Error encountered while finding recipes in the database");
+        }
+    }
+
+    /*-----------------------------------------------------
                 User Specific Database Methods
     -----------------------------------------------------*/
 

@@ -5,6 +5,9 @@ import com.sun.net.httpserver.HttpHandler;
 
 import java.io.IOException;
 
+/**
+ * WebAPI handler for the /recipes API
+ */
 public class RecipeHandler extends Handler implements HttpHandler {
 
 

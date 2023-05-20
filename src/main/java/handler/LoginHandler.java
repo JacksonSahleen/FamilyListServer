@@ -10,7 +10,7 @@ import result.LoginResult;
 import service.LoginService;
 
 /**
- * WebAPI handler for the /login API
+ * WebAPI handler for the /user/login API
  */
 public class LoginHandler extends Handler implements HttpHandler {
 
