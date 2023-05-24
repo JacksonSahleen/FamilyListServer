@@ -39,7 +39,7 @@ public class FileHandler extends Handler implements HttpHandler {
                     exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
                 } else {
                     // Log the failed request
-                    System.out.println("FileHandler: ERROR: Unable to retrieved file.");
+                    System.out.println("FileHandler: ERROR: Unable to retrieved file for " + uri + ".");
 
                     // Return a "not found" status code to the client and set the file to the 404 page
                     exchange.sendResponseHeaders(HttpURLConnection.HTTP_NOT_FOUND, 0);

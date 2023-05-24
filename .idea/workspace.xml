@@ -7,29 +7,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="34bfb45b-a668-4754-8c86-7be207660499" name="Changes" comment="Created some basic input test data, created a base class for the model classes, and finished implementing and testing the service classes">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="34bfb45b-a668-4754-8c86-7be207660499" name="Changes" comment="Implemented the Handlers, added a loadFromFile HTML API, and filled in some missing docstrings for the javadocs">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FamilyListServer.iml" beforeDir="false" afterPath="$PROJECT_DIR$/FamilyListServer.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/CollectionDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/CollectionDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/handler/CollectionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/handler/CollectionHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/handler/ListHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/handler/ListHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/handler/LoadHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/handler/LoadHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/handler/RecipeHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/handler/RecipeHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Category.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/Collection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Collection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/dao/CollectionDAOTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/dao/CollectionDAOTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/dao/ItemListDAOTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/dao/ItemListDAOTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/dao/RecipeDAOTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/dao/RecipeDAOTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/handler/ClearHandlerTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/handler/CollectionHandlerTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/handler/FileHandlerTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/handler/ListHandlerTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/handler/LoadHandlerTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/handler/LoginHandlerTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/handler/RecipeHandlerTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/handler/RegisterHandlerTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/handler/UserAuthenticatorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/handler/UserAuthenticatorTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/handler/FileHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/handler/FileHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/web/css/main.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -253,7 +234,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684913812258</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Implemented the Handlers, added a loadFromFile HTML API, and filled in some missing docstrings for the javadocs">
+      <created>1684961591419</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1684961591419</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -277,6 +265,7 @@
     <MESSAGE value="Implemented Unit tests for DAOs and begun implementing the handlers and services" />
     <MESSAGE value="Added some javadoc strings for classees that were missing them, changed clear API to only allow with admin authtoken, and added an interactive webpage for testing the server" />
     <MESSAGE value="Created some basic input test data, created a base class for the model classes, and finished implementing and testing the service classes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Created some basic input test data, created a base class for the model classes, and finished implementing and testing the service classes" />
+    <MESSAGE value="Implemented the Handlers, added a loadFromFile HTML API, and filled in some missing docstrings for the javadocs" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implemented the Handlers, added a loadFromFile HTML API, and filled in some missing docstrings for the javadocs" />
   </component>
 </project>
