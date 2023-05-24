@@ -7,11 +7,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="34bfb45b-a668-4754-8c86-7be207660499" name="Changes" comment="Implemented the Handlers, added a loadFromFile HTML API, and filled in some missing docstrings for the javadocs">
+    <list default="true" id="34bfb45b-a668-4754-8c86-7be207660499" name="Changes" comment="Generated javadocs and added a button link to them on the testing website.">
+      <change afterPath="$PROJECT_DIR$/database.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/serverOrganization.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/handler/FileHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/handler/FileHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/web/css/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,8 +63,8 @@
       <recent name="C:\Users\Jackson\OneDrive\Profile\Documentos\Projetos\Java Projects\FamilyListServer\src\main\java\result" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Jackson\OneDrive\Profile\Documentos\Projetos\Java Projects\FamilyListServer\web\img" />
       <recent name="C:\Users\Jackson\OneDrive\Profile\Documentos\Projetos\Java Projects\FamilyListServer\web" />
+      <recent name="C:\Users\Jackson\OneDrive\Profile\Documentos\Projetos\Java Projects\FamilyListServer\web\img" />
     </key>
   </component>
   <component name="RunManager" selected="Application.Run Server">
@@ -241,7 +241,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684961591419</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Generated javadocs and added a button link to them on the testing website.">
+      <created>1684965937209</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1684965937209</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -266,6 +273,7 @@
     <MESSAGE value="Added some javadoc strings for classees that were missing them, changed clear API to only allow with admin authtoken, and added an interactive webpage for testing the server" />
     <MESSAGE value="Created some basic input test data, created a base class for the model classes, and finished implementing and testing the service classes" />
     <MESSAGE value="Implemented the Handlers, added a loadFromFile HTML API, and filled in some missing docstrings for the javadocs" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implemented the Handlers, added a loadFromFile HTML API, and filled in some missing docstrings for the javadocs" />
+    <MESSAGE value="Generated javadocs and added a button link to them on the testing website." />
+    <option name="LAST_COMMIT_MESSAGE" value="Generated javadocs and added a button link to them on the testing website." />
   </component>
 </project>
