@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,8 +32,8 @@ public class RecipeDAO extends DAO {
      * @throws DataAccessException If an error occurs while inserting into the database
      */
     public void insert(Recipe recipe) throws DataAccessException {
-        String sql = "INSERT INTO Recipe (id, name, owner, description, ingredients, steps) "
-                + "VALUES (?, ?, ?, ?, ?, ?);";
+        String sql = "INSERT INTO Recipe (id, name, owner, description, ingredients, steps, lastUpdated) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?);";
 
         // Execute the SQL statement
         try(PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -40,6 +41,7 @@ public class RecipeDAO extends DAO {
             stmt.setString(2, recipe.getName());
             stmt.setString(3, recipe.getOwner());
             stmt.setString(4, recipe.getDescription());
+            stmt.setString(7, recipe.getLastUpdated().format(dtFormatter));
 
             // Set the id of the list of ingredients if it exists
             if (recipe.getIngredients() != null) {
@@ -58,7 +60,7 @@ public class RecipeDAO extends DAO {
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new DataAccessException("Error encountered while inserting into the database");
+            throw new DataAccessException("Error encountered while inserting Recipe into the database");
         }
 
         // Add a row to the RecipePermissions table for the owner of the Recipe
@@ -70,7 +72,7 @@ public class RecipeDAO extends DAO {
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new DataAccessException("Error encountered while inserting into the database");
+            throw new DataAccessException("Error encountered while inserting RecipePermission into the database");
         }
     }
 
@@ -96,7 +98,10 @@ public class RecipeDAO extends DAO {
                 recipe = new Recipe(rs.getString("id"),
                                     rs.getString("name"),
                                     rs.getString("owner"),
-                                    rs.getString("description"));
+                                    rs.getString("description"),
+                                    null,
+                                    null,
+                                    ZonedDateTime.parse(rs.getString("lastUpdated")));
                 ingredientsID = rs.getString("ingredients");
                 stepsID = rs.getString("steps");
             } else {
@@ -104,7 +109,7 @@ public class RecipeDAO extends DAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new DataAccessException("Error encountered while finding the Recipe");
+            throw new DataAccessException("Error encountered while finding the Recipe in the database");
         }
 
         // Add ingredients and steps to the recipe
@@ -124,14 +129,16 @@ public class RecipeDAO extends DAO {
      * @throws DataAccessException If an error occurs while updating the database
      */
     public void update(Recipe recipe) throws DataAccessException {
-        String sql = "UPDATE Recipe SET name = ?, owner = ?, description = ?, ingredients = ?, steps = ? WHERE id = ?;";
+        String sql = "UPDATE Recipe SET name = ?, owner = ?, description = ?, ingredients = ?, steps = ?, " +
+                "lastUpdated = ? WHERE id = ?;";
 
         // Execute the SQL statement
         try(PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, recipe.getName());
             stmt.setString(2, recipe.getOwner());
             stmt.setString(3, recipe.getDescription());
-            stmt.setString(6, recipe.getId());
+            stmt.setString(6, recipe.getLastUpdated().format(dtFormatter));
+            stmt.setString(7, recipe.getId());
 
             if (recipe.getIngredients() != null) {
                 stmt.setString(4, recipe.getIngredients().getId());
@@ -148,7 +155,7 @@ public class RecipeDAO extends DAO {
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new DataAccessException("Error encountered while updating the database");
+            throw new DataAccessException("Error encountered while updating Recipe in the database");
         }
     }
 
@@ -169,7 +176,7 @@ public class RecipeDAO extends DAO {
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new DataAccessException("Error encountered while deleting from the database");
+            throw new DataAccessException("Error encountered while deleting RecipePermission from the database");
         }
 
         // Remove the recipe's data if no other users have access to it
@@ -181,7 +188,7 @@ public class RecipeDAO extends DAO {
                 stmt.executeUpdate();
             } catch (SQLException e) {
                 e.printStackTrace();
-                throw new DataAccessException("Error encountered while deleting from the database");
+                throw new DataAccessException("Error encountered while deleting Recipe from the database");
             }
         }
     }
@@ -198,7 +205,7 @@ public class RecipeDAO extends DAO {
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new DataAccessException("Error encountered while deleting from the database");
+            throw new DataAccessException("Error encountered while clearing Recipes from the database");
         }
 
         // Clear all RecipePermissions from the database
@@ -207,7 +214,7 @@ public class RecipeDAO extends DAO {
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new DataAccessException("Error encountered while deleting from the database");
+            throw new DataAccessException("Error encountered while clearing RecipePermissions from the database");
         }
     }
 
@@ -218,25 +225,50 @@ public class RecipeDAO extends DAO {
     /**
      * Shares a Recipe with another user
      *
-     * @param recipe The Recipe to share
+     * @param recipeID The ID of the Recipe to share
      * @param username The username of the user to share the Recipe with
      * @throws DataAccessException If an error occurs while sharing the Recipe
      */
-    public void share(Recipe recipe, String username) throws DataAccessException {
+    public void share(String recipeID, String username) throws DataAccessException {
         // Find all users with access to the Recipe
-        List<String> users = findUsersWithAccess(recipe.getId());
+        List<String> users = findUsersWithAccess(recipeID);
 
         // Add the user to the permissions if they don't already have access
         if (!users.contains(username)) {
             String sql = "INSERT INTO RecipePermissions (recipe, user) VALUES (?, ?);";
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-                stmt.setString(1, recipe.getId());
+                stmt.setString(1, recipeID);
                 stmt.setString(2, username);
 
                 stmt.executeUpdate();
             } catch (SQLException e) {
                 e.printStackTrace();
-                throw new DataAccessException("Error encountered while inserting into the database");
+                throw new DataAccessException("Error encountered while inserting RecipePermissions into the database");
+            }
+        }
+    }
+
+    /**
+     * Unshares a Recipe with another user
+     *
+     * @param recipeID The ID of the Recipe to unshare
+     * @param username The username of the user to unshare the Recipe with
+     */
+    public void unshare(String recipeID, String username) throws DataAccessException {
+        //Find all the users with access to the Recipe
+        List<String> users = findUsersWithAccess(recipeID);
+
+        //Remove the user from the permissions if they have access
+        if (users.contains(username)) {
+            String sql = "DELETE FROM RecipePermissions WHERE recipe = ? AND user = ?;";
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                stmt.setString(1, recipeID);
+                stmt.setString(2, username);
+
+                stmt.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                throw new DataAccessException("Error encountered while deleting RecipePermissions from the database");
             }
         }
     }
@@ -284,7 +316,7 @@ public class RecipeDAO extends DAO {
      * @throws DataAccessException If an error occurs while finding recipes the user has access to
      */
     public List<String> findUserRecipes(String username) throws DataAccessException {
-        ArrayList<String> recipes = new ArrayList<String>();
+        ArrayList<String> recipes = new ArrayList<>();
         ResultSet rs;
         String sql = "SELECT * FROM RecipePermissions WHERE user = ?;";
 

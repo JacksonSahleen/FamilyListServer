@@ -59,7 +59,7 @@ public class LoginService {
 
             } catch (DataAccessException e) {
                 e.printStackTrace();
-                return new LoginResult("ERROR: Could not connect to the database.");
+                return new LoginResult("ERROR: Internal Server Error (" + e.getMessage() + ").");
             }
         }
     }

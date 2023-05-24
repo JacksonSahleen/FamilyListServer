@@ -3,11 +3,12 @@ package handler;
 import java.io.*;
 import java.net.*;
 
-import com.google.gson.Gson;
 import com.sun.net.httpserver.*;
 import request.LoadRequest;
 import result.LoadResult;
 import service.LoadService;
+
+// TODO: Add control flow for an API to load from a local file
 
 /**
  * WebAPI handler for the /load API
@@ -23,7 +24,6 @@ public class LoadHandler extends Handler implements HttpHandler {
      */
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-        Gson gson = new Gson();
         boolean success = false;
 
         try {
@@ -38,7 +38,7 @@ public class LoadHandler extends Handler implements HttpHandler {
                 String reqData = readString(reqBody);
 
                 // Convert JSON string to a Request object
-                LoadRequest request = gson.fromJson(reqData, LoadRequest.class);
+                LoadRequest request = GSON.fromJson(reqData, LoadRequest.class);
 
                 // Run the request through the corresponding service
                 LoadService service = new LoadService();
@@ -53,7 +53,7 @@ public class LoadHandler extends Handler implements HttpHandler {
                     exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
 
                     // Convert the result to a JSON string
-                    String respData = gson.toJson(result);
+                    String respData = GSON.toJson(result);
 
                     // Write the JSON string to the response body
                     OutputStream respBody = exchange.getResponseBody();
@@ -76,7 +76,7 @@ public class LoadHandler extends Handler implements HttpHandler {
                     System.out.println("LoadHandler: (Bad Request) " + result.getMessage());
 
                     // Convert the result to a JSON string
-                    String respData = gson.toJson(result);
+                    String respData = GSON.toJson(result);
 
                     // Write the JSON string to the response body
                     OutputStream respBody = exchange.getResponseBody();

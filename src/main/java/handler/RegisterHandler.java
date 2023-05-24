@@ -3,7 +3,6 @@ package handler;
 import java.io.*;
 import java.net.*;
 
-import com.google.gson.Gson;
 import com.sun.net.httpserver.*;
 import request.RegisterRequest;
 import result.RegisterResult;
@@ -23,7 +22,6 @@ public class RegisterHandler extends Handler implements HttpHandler {
      */
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-        Gson gson = new Gson();
         boolean success = false;
 
         try {
@@ -38,7 +36,7 @@ public class RegisterHandler extends Handler implements HttpHandler {
                 String reqData = readString(reqBody);
 
                 // Convert JSON string to a Request object
-                RegisterRequest request = gson.fromJson(reqData, RegisterRequest.class);
+                RegisterRequest request = GSON.fromJson(reqData, RegisterRequest.class);
 
                 // Run the request through the corresponding service
                 RegisterService service = new RegisterService();
@@ -53,7 +51,7 @@ public class RegisterHandler extends Handler implements HttpHandler {
                     exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
 
                     // Convert the result to a JSON string
-                    String respData = gson.toJson(result);
+                    String respData = GSON.toJson(result);
 
                     // Write the JSON string to the response body
                     OutputStream respBody = exchange.getResponseBody();
@@ -76,7 +74,7 @@ public class RegisterHandler extends Handler implements HttpHandler {
                     System.out.println("LoginHandler: (Bad Request) " + result.getMessage());
 
                     // Convert the result to a JSON string
-                    String respData = gson.toJson(result);
+                    String respData = GSON.toJson(result);
 
                     // Write the JSON string to the response body
                     OutputStream respBody = exchange.getResponseBody();

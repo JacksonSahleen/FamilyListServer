@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,16 +38,17 @@ public class ItemListDAO extends DAO {
      */
     public void insert(ItemList itemList) throws DataAccessException {
         // Insert a row into the ItemList table
-        String sql = "INSERT INTO ItemList (id, name, owner) VALUES (?, ?, ?);";
+        String sql = "INSERT INTO ItemList (id, name, owner, lastUpdated) VALUES (?, ?, ?, ?);";
         try(PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, itemList.getId());
             stmt.setString(2, itemList.getName());
             stmt.setString(3, itemList.getOwner());
+            stmt.setString(4, itemList.getLastUpdated().format(dtFormatter));
 
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new DataAccessException("Error encountered while inserting into the database");
+            throw new DataAccessException("Error encountered while inserting ItemList into the database");
         }
 
         // Insert a row into the ListPermissions for the owner of the ItemList
@@ -58,7 +60,7 @@ public class ItemListDAO extends DAO {
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new DataAccessException("Error encountered while inserting into the database");
+            throw new DataAccessException("Error encountered while inserting ListPermission into the database");
         }
     }
 
@@ -83,16 +85,19 @@ public class ItemListDAO extends DAO {
             if (rs.next()) {
                 itemList = new ItemList(rs.getString("id"),
                                         rs.getString("name"),
-                                        rs.getString("owner"));
+                                        rs.getString("owner"),
+                                        null,
+                                        null,
+                                        ZonedDateTime.parse(rs.getString("lastUpdated")));
             } else {
                 itemList = null;
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new DataAccessException("Error encountered while finding the ItemList");
+            throw new DataAccessException("Error encountered while finding the ItemList in the database");
         }
 
-        // Add items and categories to the ItemList object
+        // Find and add the Items and Categories to the ItemList object
         if (itemList != null) {
             itemList.setItems(findListItems(id));
             itemList.setCategories(findListCategories(id));
@@ -108,18 +113,19 @@ public class ItemListDAO extends DAO {
      * @throws DataAccessException If an error occurs while updating the database
      */
     public void update(ItemList itemList) throws DataAccessException {
-        String sql = "UPDATE ItemList SET name = ?, owner = ? WHERE id = ?;";
+        String sql = "UPDATE ItemList SET name = ?, owner = ?, lastUpdated = ? WHERE id = ?;";
 
         // Execute the SQL statement
         try(PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, itemList.getName());
             stmt.setString(2, itemList.getOwner());
-            stmt.setString(3, itemList.getId());
+            stmt.setString(3, itemList.getLastUpdated().format(dtFormatter));
+            stmt.setString(4, itemList.getId());
 
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new DataAccessException("Error encountered while updating the database");
+            throw new DataAccessException("Error encountered while updating ItemList in the database");
         }
     }
 
@@ -140,7 +146,7 @@ public class ItemListDAO extends DAO {
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new DataAccessException("Error encountered while deleting from the database");
+            throw new DataAccessException("Error encountered while deleting ListPermission from the database");
         }
 
         // Remove the list's data if no other users have access to it
@@ -152,7 +158,7 @@ public class ItemListDAO extends DAO {
                 stmt.executeUpdate();
             } catch (SQLException e) {
                 e.printStackTrace();
-                throw new DataAccessException("Error encountered while deleting from the database");
+                throw new DataAccessException("Error encountered while deleting ItemList from the database");
             }
         }
     }
@@ -169,7 +175,7 @@ public class ItemListDAO extends DAO {
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new DataAccessException("Error encountered while deleting from the database");
+            throw new DataAccessException("Error encountered while clearing ItemLists from the database");
         }
 
         // Clear all rows from the ListPermissions table
@@ -178,7 +184,7 @@ public class ItemListDAO extends DAO {
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new DataAccessException("Error encountered while deleting from the database");
+            throw new DataAccessException("Error encountered while clearing ListPermissions from the database");
         }
     }
 
@@ -207,12 +213,13 @@ public class ItemListDAO extends DAO {
             // If a result was found, add it to the list
             while (rs.next()) {
                 item = new Item(rs.getString("id"),
-                        rs.getString("name"),
-                        rs.getString("owner"),
-                        rs.getString("category"),
-                        rs.getString("parentList"),
-                        rs.getBoolean("favorited"),
-                        rs.getBoolean("completed"));
+                                rs.getString("name"),
+                                rs.getString("owner"),
+                                rs.getString("itemCategory"),
+                                rs.getString("parentList"),
+                                rs.getBoolean("favorited"),
+                                rs.getBoolean("completed"),
+                                ZonedDateTime.parse(rs.getString("lastUpdated")));
                 listItems.add(item);
             }
 
@@ -220,7 +227,7 @@ public class ItemListDAO extends DAO {
 
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new DataAccessException("Error encountered while finding the ItemList");
+            throw new DataAccessException("Error encountered while finding the Items in the ItemList");
         }
     }
 
@@ -245,9 +252,10 @@ public class ItemListDAO extends DAO {
             // If a result was found, add it to the list
             while (rs.next()) {
                 category = new Category(rs.getString("id"),
-                        rs.getString("name"),
-                        rs.getString("owner"),
-                        rs.getString("parentList"));
+                                        rs.getString("name"),
+                                        rs.getString("owner"),
+                                        rs.getString("parentList"),
+                                        ZonedDateTime.parse(rs.getString("lastUpdated")));
                 listCategories.add(category);
             }
 
@@ -255,7 +263,7 @@ public class ItemListDAO extends DAO {
 
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new DataAccessException("Error encountered while finding the ItemList");
+            throw new DataAccessException("Error encountered while finding the Categories in the ItemList");
         }
     }
 
@@ -266,25 +274,51 @@ public class ItemListDAO extends DAO {
     /**
      * Shares an ItemList with another user
      *
-     * @param itemList The ItemList to share
+     * @param listID The ItemList to share
      * @param username The username of the user to share the ItemList with
      * @throws DataAccessException If an error occurs while sharing the ItemList
      */
-    public void share(ItemList itemList, String username) throws DataAccessException {
+    public void share(String listID, String username) throws DataAccessException {
         // Find all users with access to the ItemList
-        List<String> users = findUsersWithAccess(itemList.getId());
+        List<String> users = findUsersWithAccess(listID);
 
         // Add the user to the permissions if they don't already have access
         if (!users.contains(username)) {
             String sql = "INSERT INTO ListPermissions (list, user) VALUES (?, ?);";
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-                stmt.setString(1, itemList.getId());
+                stmt.setString(1, listID);
                 stmt.setString(2, username);
 
                 stmt.executeUpdate();
             } catch (SQLException e) {
                 e.printStackTrace();
-                throw new DataAccessException("Error encountered while inserting into the database");
+                throw new DataAccessException("Error encountered while inserting ListPermission into the database");
+            }
+        }
+    }
+
+    /**
+     * Unshares an ItemList with another user
+     *
+     * @param listID The ID of the ItemList to unshare
+     * @param username The username of the user to have the ItemList unshared with
+     * @throws DataAccessException If an error occurs while unsharing the ItemList
+     */
+    public void unshare(String listID, String username) throws DataAccessException {
+        // Find all users with access to the ItemList
+        List<String> users = findUsersWithAccess(listID);
+
+        // Remove the user from the permissions if they have access
+        if (users.contains(username)) {
+            String sql = "DELETE FROM ListPermissions WHERE list = ? AND user = ?;";
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                stmt.setString(1, listID);
+                stmt.setString(2, username);
+
+                stmt.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                throw new DataAccessException("Error encountered while deleting ListPermission from the database");
             }
         }
     }
@@ -316,7 +350,7 @@ public class ItemListDAO extends DAO {
 
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new DataAccessException("Error encountered while finding the ItemList");
+            throw new DataAccessException("Error encountered while finding Users with access to the ItemList");
         }
     }
 
@@ -332,7 +366,7 @@ public class ItemListDAO extends DAO {
      * @throws DataAccessException If an error occurs while finding lists the user has access to
      */
     public List<String> findUserLists(String username) throws DataAccessException {
-        ArrayList<String> lists = new ArrayList<String>();
+        ArrayList<String> lists = new ArrayList<>();
         ResultSet rs;
         String sql = "SELECT * FROM ListPermissions WHERE user = ?;";
 
@@ -354,7 +388,7 @@ public class ItemListDAO extends DAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new DataAccessException("Error encountered while finding lists the user has access to");
+            throw new DataAccessException("Error encountered while finding Lists the User has access to");
         }
     }
 }

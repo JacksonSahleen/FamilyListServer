@@ -1,6 +1,7 @@
 package result;
 
 import model.Collection;
+import model.Permissions;
 
 import java.util.List;
 
@@ -15,27 +16,39 @@ public class CollectionResult extends Result {
     private List<Collection> syncData;
 
     /**
-     * Constructor for a successful CollectionResult class
+     * The synchronized recipe associations from the server database
+     */
+    private List<Permissions> syncAssociations;
+
+    /**
+     * Constructor for a CollectionResult class with data included
      *
      * @param syncData The synchronized data from the server database
+     * @param syncAssociations The synchronized recipe associations from the server database
      */
-    public CollectionResult(List<Collection> syncData) {
+    public CollectionResult(List<Collection> syncData, List<Permissions> syncAssociations) {
         this.syncData = syncData;
-        this.message = "Successfully retrieved collections";
+        this.syncAssociations = syncAssociations;
+        this.message = "Successfully synchronized user collections";
         this.success = true;
     }
 
     /**
-     * Constructor for a failed CollectionResult class
+     * Constructor for a CollectionResult class with just a message
      *
      * @param message The error message for the failed CollectionResult
+     * @param success The success status of the CollectionResult
      */
-    public CollectionResult(String message) {
+    public CollectionResult(String message, boolean success) {
         this.message = message;
-        this.success = false;
+        this.success = success;
     }
 
     public List<Collection> getSyncData() {
         return syncData;
+    }
+
+    public List<Permissions> getSyncAssociations() {
+        return syncAssociations;
     }
 }

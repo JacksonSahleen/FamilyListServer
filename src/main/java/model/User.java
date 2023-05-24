@@ -1,11 +1,12 @@
 package model;
 
+import java.time.ZonedDateTime;
 import java.util.Objects;
 
 /**
  * Model class that contains information about a user
  */
-public class User {
+public class User extends Model {
 
     /**
      * The user's username
@@ -28,7 +29,25 @@ public class User {
     private String lastName;
 
     /**
-     * Creates a new User object
+     * Creates a User object with the provided information
+     *
+     * @param username The user's username
+     * @param password The user's password
+     * @param firstName The user's first name
+     * @param lastName The user's last name
+     * @param lastUpdated The date and time the user was last updated
+     */
+    public User(String username, String password, String firstName, String lastName, ZonedDateTime lastUpdated) {
+        this.id = username;
+        this.username = username;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.lastUpdated = lastUpdated;
+    }
+
+    /**
+     * Creates a new User object (lastUpdated is set to now)
      *
      * @param username The user's username
      * @param password The user's password
@@ -36,10 +55,11 @@ public class User {
      * @param lastName The user's last name
      */
     public User(String username, String password, String firstName, String lastName) {
-        this.username = username;
-        this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this(username, password, firstName, lastName, ZonedDateTime.now());
+    }
+
+    public String getId() {
+        return username;
     }
 
     public String getUsername() {
@@ -48,6 +68,7 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
+        setLastUpdated();
     }
 
     public String getPassword() {
@@ -56,6 +77,7 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+        setLastUpdated();
     }
 
     public String getFirstName() {
@@ -64,6 +86,7 @@ public class User {
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+        setLastUpdated();
     }
 
     public String getLastName() {
@@ -72,6 +95,7 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+        setLastUpdated();
     }
 
     /**
@@ -99,10 +123,11 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                ", username=" + username +
+                "username=" + username +
                 ", password=" + password +
                 ", firstName=" + firstName +
                 ", lastName=" + lastName +
+                ", lastUpdated=" + lastUpdated +
                 '}';
     }
 }

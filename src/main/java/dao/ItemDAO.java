@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.ZonedDateTime;
 
 /**
  * A Data Access Object (DAO) to access Item data in the database
@@ -32,8 +33,8 @@ public class ItemDAO extends DAO {
      * @throws DataAccessException If an error occurs while inserting into the database
      */
     public void insert(Item item) throws DataAccessException {
-        String sql = "INSERT INTO Item (id, name, owner, itemCategory, parentList, favorited, completed) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?);";
+        String sql = "INSERT INTO Item (id, name, owner, itemCategory, parentList, favorited, completed, lastUpdated)" +
+                " VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
 
         // Execute the SQL statement
         try(PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -43,6 +44,7 @@ public class ItemDAO extends DAO {
             stmt.setString(5, item.getParentList());
             stmt.setBoolean(6, item.isFavorited());
             stmt.setBoolean(7, item.isCompleted());
+            stmt.setString(8, item.getLastUpdated().format(dtFormatter));
 
             if (item.getCategory() == null) {
                 stmt.setNull(4, java.sql.Types.VARCHAR);
@@ -53,7 +55,7 @@ public class ItemDAO extends DAO {
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new DataAccessException("Error encountered while inserting into the database");
+            throw new DataAccessException("Error encountered while inserting Item into the database");
         }
     }
 
@@ -82,14 +84,15 @@ public class ItemDAO extends DAO {
                                 rs.getString("itemCategory"),
                                 rs.getString("parentList"),
                                 rs.getBoolean("favorited"),
-                                rs.getBoolean("completed"));
+                                rs.getBoolean("completed"),
+                                ZonedDateTime.parse(rs.getString("lastUpdated")));
                 return item;
             } else {
                 return null;
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new DataAccessException("Error encountered while finding the Item");
+            throw new DataAccessException("Error encountered while finding the Item in the database");
         }
     }
 
@@ -100,7 +103,7 @@ public class ItemDAO extends DAO {
      */
     public void update(Item item) throws DataAccessException {
         String sql = "UPDATE Item SET name = ?, owner = ?, itemCategory = ?, parentList = ?, " +
-                "favorited = ?, completed = ? WHERE id = ?;";
+                "favorited = ?, completed = ?, lastUpdated = ? WHERE id = ?;";
 
         // Execute the SQL statement
         try(PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -109,7 +112,8 @@ public class ItemDAO extends DAO {
             stmt.setString(4, item.getParentList());
             stmt.setBoolean(5, item.isFavorited());
             stmt.setBoolean(6, item.isCompleted());
-            stmt.setString(7, item.getId());
+            stmt.setString(7, item.getLastUpdated().format(dtFormatter));
+            stmt.setString(8, item.getId());
 
             if (item.getCategory() == null) {
                 stmt.setNull(3, java.sql.Types.VARCHAR);
@@ -120,7 +124,7 @@ public class ItemDAO extends DAO {
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new DataAccessException("Error encountered while updating the database");
+            throw new DataAccessException("Error encountered while updating Item the database");
         }
     }
 
@@ -139,7 +143,7 @@ public class ItemDAO extends DAO {
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new DataAccessException("Error encountered while deleting from the database");
+            throw new DataAccessException("Error encountered while deleting Item from the database");
         }
     }
 
@@ -156,7 +160,7 @@ public class ItemDAO extends DAO {
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new DataAccessException("Error encountered while deleting from the database");
+            throw new DataAccessException("Error encountered while clearing Items from the database");
         }
     }
 }

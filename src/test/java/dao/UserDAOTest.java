@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
+import java.time.ZonedDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -35,7 +36,8 @@ public class UserDAOTest {
         db = new Database();
 
         // Create an example User object
-        exUser = new User("username", "password", "firstName", "lastName");
+        exUser = new User("username", "password", "firstName",
+                "lastName", ZonedDateTime.now());
 
         // Create a new UserDAO
         Connection conn = db.getConnection();
@@ -124,7 +126,7 @@ public class UserDAOTest {
     public void updateFail() throws DataAccessException {
         // Update a user that doesn't exist in the database and verify that nothing happens
         User fakeUser = new User("fakeUsername", "fakePassword",
-                "fakeFirstName", "fakeLastName");
+                "fakeFirstName", "fakeLastName", ZonedDateTime.now());
         uDao.update(fakeUser);
 
         // Verify that the updated User still does not exist
@@ -144,7 +146,7 @@ public class UserDAOTest {
 
         // Insert a second User into the database
         User exUser2 = new User("username2", "password2",
-                "firstName2", "lastName2");
+                "firstName2", "lastName2", ZonedDateTime.now());
         uDao.insert(exUser2);
 
         // Verify that the second User we inserted and the User we got back are the same

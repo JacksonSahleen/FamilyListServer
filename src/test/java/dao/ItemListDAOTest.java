@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -176,7 +177,7 @@ public class ItemListDAOTest {
         lDao.insert(exList);
 
         // Share list with additional user
-        lDao.share(exList, "user1");
+        lDao.share(exList.getId(), "user1");
 
         // Remove list from database for the original owner
         lDao.remove(exList, "owner");
@@ -212,8 +213,8 @@ public class ItemListDAOTest {
         lDao.insert(exList);
 
         // Share list with additional users
-        lDao.share(exList, "user1");
-        lDao.share(exList, "user2");
+        lDao.share(exList.getId(), "user1");
+        lDao.share(exList.getId(), "user2");
 
         // Get list of users with access to list
         List<String> users = lDao.findUsersWithAccess(exList.getId());
@@ -232,8 +233,8 @@ public class ItemListDAOTest {
         lDao.insert(exList);
 
         // Share list with additional users
-        lDao.share(exList, "user1");
-        lDao.share(exList, "user2");
+        lDao.share(exList.getId(), "user1");
+        lDao.share(exList.getId(), "user2");
 
         // Get list of users with access to list
         List<String> users = lDao.findUsersWithAccess(exList.getId());
@@ -246,7 +247,7 @@ public class ItemListDAOTest {
         assertTrue(users.contains("user2"));
 
         // Try to share list with user that already has access
-        lDao.share(exList, "user1");
+        lDao.share(exList.getId(), "user1");
 
         // Get list of users with access to list
         users = lDao.findUsersWithAccess(exList.getId());
@@ -257,14 +258,64 @@ public class ItemListDAOTest {
         assertTrue(users.contains("owner"));
         assertTrue(users.contains("user1"));
         assertTrue(users.contains("user2"));
+    }
 
+    @Test
+    public void unsharePass() throws DataAccessException {
+        // Insert list into database
+        lDao.insert(exList);
+
+        // Share list with additional users
+        lDao.share(exList.getId(), "user1");
+        lDao.share(exList.getId(), "user2");
+
+        // Get list of users with access to list
+        List<String> users = lDao.findUsersWithAccess(exList.getId());
+
+        // Verify that the list of users contains the additional users
+        assertNotNull(users);
+        assertEquals(3, users.size());
+        assertTrue(users.contains("owner"));
+        assertTrue(users.contains("user1"));
+        assertTrue(users.contains("user2"));
+
+        // Unshare list with user
+        lDao.unshare(exList.getId(), "user1");
+
+        // Get list of users with access to list
+        users = lDao.findUsersWithAccess(exList.getId());
+
+        // Verify that the list of users doesn't contain the unshared user
+        assertNotNull(users);
+        assertEquals(2, users.size());
+        assertTrue(users.contains("owner"));
+        assertFalse(users.contains("user1"));
+        assertTrue(users.contains("user2"));
+    }
+
+    @Test
+    public void unshareFail() throws DataAccessException {
+        // Insert list into database
+        lDao.insert(exList);
+
+        // Try to unshare the list with a user that doesn't have access
+        lDao.unshare(exList.getId(), "user1");
+
+        // Get list of users with access to list
+        List<String> users = lDao.findUsersWithAccess(exList.getId());
+
+        // Verify that the list of users hasn't changed
+        assertNotNull(users);
+        assertEquals(1, users.size());
+        assertTrue(users.contains("owner"));
     }
 
     @Test
     public void findUserListsPass() throws DataAccessException {
         // Insert a user into the database
         UserDAO uDao = new UserDAO(db.getConnection());
-        User exUser = new User("username", "password", "firstName", "lastName");
+        User exUser = new User("username", "password", "firstName",
+                "lastName", ZonedDateTime.now());
         uDao.insert(exUser);
 
         // Insert multiple lists for the user into the database
@@ -286,7 +337,8 @@ public class ItemListDAOTest {
     @Test
     public void findUserListsFail() throws DataAccessException {
         // Get the lists for a user that doesn't exist in the database
-        User exUser = new User("username", "password", "firstName", "lastName");
+        User exUser = new User("username", "password", "firstName",
+                "lastName", ZonedDateTime.now());
         List<String> lists = lDao.findUserLists(exUser.getUsername());
 
         // Verify that the lists returned are null

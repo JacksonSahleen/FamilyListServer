@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -174,7 +175,7 @@ public class RecipeDAOTest {
         rDao.insert(exRecipe);
 
         // Share list with additional user
-        rDao.share(exRecipe, "user1");
+        rDao.share(exRecipe.getId(), "user1");
 
         // Remove list from database for the original owner
         rDao.remove(exRecipe, "owner");
@@ -210,8 +211,8 @@ public class RecipeDAOTest {
         rDao.insert(exRecipe);
 
         // Share list with additional users
-        rDao.share(exRecipe, "user1");
-        rDao.share(exRecipe, "user2");
+        rDao.share(exRecipe.getId(), "user1");
+        rDao.share(exRecipe.getId(), "user2");
 
         // Get list of users with access to list
         List<String> users = rDao.findUsersWithAccess(exRecipe.getId());
@@ -224,14 +225,15 @@ public class RecipeDAOTest {
         assertTrue(users.contains("user2"));
 
     }
+
     @Test
     public void shareFail() throws DataAccessException {
         // Insert list into database
         rDao.insert(exRecipe);
 
         // Share list with additional users
-        rDao.share(exRecipe, "user1");
-        rDao.share(exRecipe, "user2");
+        rDao.share(exRecipe.getId(), "user1");
+        rDao.share(exRecipe.getId(), "user2");
 
         // Get list of users with access to list
         List<String> users = rDao.findUsersWithAccess(exRecipe.getId());
@@ -244,7 +246,7 @@ public class RecipeDAOTest {
         assertTrue(users.contains("user2"));
 
         // Try to share list with user that already has access
-        rDao.share(exRecipe, "user1");
+        rDao.share(exRecipe.getId(), "user1");
 
         // Get list of users with access to list
         users = rDao.findUsersWithAccess(exRecipe.getId());
@@ -259,10 +261,61 @@ public class RecipeDAOTest {
     }
 
     @Test
+    public void unsharePass() throws DataAccessException {
+        // Insert recipe into the database
+        rDao.insert(exRecipe);
+
+        // Share recipe with additional users
+        rDao.share(exRecipe.getId(), "user1");
+        rDao.share(exRecipe.getId(), "user2");
+
+        // Get List of users with access to recipe
+        List<String> users = rDao.findUsersWithAccess(exRecipe.getId());
+
+        // Verify that the list of users contains the additional users
+        assertNotNull(users);
+        assertEquals(3, users.size());
+        assertTrue(users.contains("owner"));
+        assertTrue(users.contains("user1"));
+        assertTrue(users.contains("user2"));
+
+        // Unshare recipe with user
+        rDao.unshare(exRecipe.getId(), "user1");
+
+        // Get list of users with access to recipe
+        users = rDao.findUsersWithAccess(exRecipe.getId());
+
+        // Verify that the list of users doesn't contain the unshared user
+        assertNotNull(users);
+        assertEquals(2, users.size());
+        assertTrue(users.contains("owner"));
+        assertFalse(users.contains("user1"));
+        assertTrue(users.contains("user2"));
+    }
+
+    @Test
+    public void unshareFail() throws DataAccessException {
+        // Insert recipe into the database
+        rDao.insert(exRecipe);
+
+        // Try to unshare the recipe with a user that doesn't have access
+        rDao.unshare(exRecipe.getId(), "user1");
+
+        // Get list of users with access to recipe
+        List<String> users = rDao.findUsersWithAccess(exRecipe.getId());
+
+        // Verify that the list of users hasn't changed
+        assertNotNull(users);
+        assertEquals(1, users.size());
+        assertTrue(users.contains("owner"));
+    }
+
+    @Test
     public void findUserRecipesPass() throws DataAccessException {
         // Insert a user into the database
         UserDAO uDao = new UserDAO(db.getConnection());
-        User exUser = new User("username", "password", "firstName", "lastName");
+        User exUser = new User("username", "password", "firstName",
+                "lastName", ZonedDateTime.now());
         uDao.insert(exUser);
 
         // Insert multiple recipes for the user into the database
@@ -285,7 +338,8 @@ public class RecipeDAOTest {
     @Test
     public void findUserRecipesFail() throws DataAccessException {
         // Get the recipes for a user that doesn't exist in the database
-        User exUser = new User("username", "password", "firstName", "lastName");
+        User exUser = new User("username", "password", "firstName",
+                "lastName", ZonedDateTime.now());
         List<String> recipes = rDao.findUserRecipes(exUser.getUsername());
 
         // Verify that the recipes returned are null

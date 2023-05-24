@@ -3,7 +3,6 @@ package handler;
 import java.io.*;
 import java.net.*;
 
-import com.google.gson.Gson;
 import com.sun.net.httpserver.*;
 import result.ClearResult;
 import service.ClearService;
@@ -22,7 +21,6 @@ public class ClearHandler extends Handler implements HttpHandler {
      */
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-        Gson gson = new Gson();
         boolean success = false;
 
         try {
@@ -53,7 +51,7 @@ public class ClearHandler extends Handler implements HttpHandler {
                             exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
 
                             // Convert the result to a JSON string
-                            String respData = gson.toJson(result);
+                            String respData = GSON.toJson(result);
 
                             // Write the JSON string to the response body
                             OutputStream respBody = exchange.getResponseBody();
@@ -83,7 +81,7 @@ public class ClearHandler extends Handler implements HttpHandler {
                 exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
 
                 // Convert the result to a JSON string
-                String respData = gson.toJson(result);
+                String respData = GSON.toJson(result);
 
                 // Write the JSON string to the response body
                 OutputStream respBody = exchange.getResponseBody();

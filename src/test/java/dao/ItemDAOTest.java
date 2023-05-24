@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
+import java.time.ZonedDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -35,8 +36,7 @@ public class ItemDAOTest {
         db = new Database();
 
         // Create an example Item object
-        exItem = new Item("ItemID", "name", "owner", null,
-                "parentList", false, false);
+        exItem = new Item("ItemID", "name", "owner", "parentList");
 
         // Create a new ItemDAO
         Connection conn = db.getConnection();
@@ -124,8 +124,7 @@ public class ItemDAOTest {
     @Test
     public void updateFail() throws DataAccessException {
         // Update an Item that doesn't exist in the database and verify that nothing happens
-        Item fakeItem = new Item("fakeID", "fakeName", "fakeOwner", "fakeCategory",
-                "fakeParentList", false, false);
+        Item fakeItem = new Item("fakeID", "fakeName", "fakeOwner", "fakeParentList");
         iDao.update(fakeItem);
 
         // Verify that the updated Item still does not exist
@@ -145,7 +144,7 @@ public class ItemDAOTest {
 
         // Insert a second Item into the database
         Item exItem2 = new Item("ItemID2", "name2", "owner2", "category2",
-                "parentList2", false, false);
+                "parentList2", false, false, ZonedDateTime.now());
         iDao.insert(exItem2);
 
         // Verify that the second Item we inserted and the Item we got back are the same

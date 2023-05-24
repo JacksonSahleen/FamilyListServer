@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.ZonedDateTime;
 
 /**
  * A Data Access Object (DAO) to access Category data in the database
@@ -32,7 +33,7 @@ public class CategoryDAO extends DAO {
      * @throws DataAccessException If an error occurs while inserting into the database
      */
     public void insert(Category category) throws DataAccessException {
-        String sql = "INSERT INTO Category (id, name, owner, parentList) " + "VALUES (?, ?, ?, ?);";
+        String sql = "INSERT INTO Category (id, name, owner, parentList, lastUpdated) " + "VALUES (?, ?, ?, ?, ?);";
 
         // Execute the SQL statement
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -40,11 +41,12 @@ public class CategoryDAO extends DAO {
             stmt.setString(2, category.getName());
             stmt.setString(3, category.getOwner());
             stmt.setString(4, category.getParentList());
+            stmt.setString(5, category.getLastUpdated().format(dtFormatter));
 
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new DataAccessException("Error encountered while inserting into the Category table");
+            throw new DataAccessException("Error encountered while inserting Category into the database");
         }
     }
 
@@ -70,14 +72,15 @@ public class CategoryDAO extends DAO {
                 category = new Category(rs.getString("id"),
                                         rs.getString("name"),
                                         rs.getString("owner"),
-                                        rs.getString("parentList"));
+                                        rs.getString("parentList"),
+                                        ZonedDateTime.parse(rs.getString("lastUpdated")));
                 return category;
             } else {
                 return null;
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new DataAccessException("Error encountered while finding a Category in the database");
+            throw new DataAccessException("Error encountered while finding Category in the database");
         }
     }
 
@@ -88,19 +91,20 @@ public class CategoryDAO extends DAO {
      * @throws DataAccessException If an error occurs while updating the database
      */
     public void update(Category category) throws DataAccessException {
-        String sql = "UPDATE Category SET name = ?, owner = ?, parentList = ? WHERE id = ?;";
+        String sql = "UPDATE Category SET name = ?, owner = ?, parentList = ?, lastUpdated = ? WHERE id = ?;";
 
         // Execute the SQL statement
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, category.getName());
             stmt.setString(2, category.getOwner());
             stmt.setString(3, category.getParentList());
-            stmt.setString(4, category.getId());
+            stmt.setString(4, category.getLastUpdated().format(dtFormatter));
+            stmt.setString(5, category.getId());
 
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new DataAccessException("Error encountered while updating the Category table");
+            throw new DataAccessException("Error encountered while updating Category in the database");
         }
     }
 
@@ -119,7 +123,7 @@ public class CategoryDAO extends DAO {
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new DataAccessException("Error encountered while removing from the Category table");
+            throw new DataAccessException("Error encountered while removing Category from the database");
         }
     }
 
@@ -136,7 +140,7 @@ public class CategoryDAO extends DAO {
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new DataAccessException("Error encountered while clearing the Category table");
+            throw new DataAccessException("Error encountered while clearing Categories from the database");
         }
     }
 }

@@ -1,16 +1,12 @@
 package model;
 
+import java.time.ZonedDateTime;
 import java.util.Objects;
 
 /**
  * Model class that contains information about a category
  */
-public class Category {
-
-    /**
-     * Unique identifier for the category
-     */
-    private String id;
+public class Category extends Model {
 
     /**
      * Name of the category
@@ -28,7 +24,24 @@ public class Category {
     private String parentList;
 
     /**
-     * Creates a new category object
+     * Creates a Category object with the provided information
+     *
+     * @param id Unique identifier for the category
+     * @param name Name of the category
+     * @param owner The unique id of the user that owns this category
+     * @param parentList The id of the list that this category belongs to
+     * @param lastUpdated The date and time the category was last updated
+     */
+    public Category(String id, String name, String owner, String parentList, ZonedDateTime lastUpdated) {
+        this.id = id;
+        this.name = name;
+        this.owner = owner;
+        this.parentList = parentList;
+        this.lastUpdated = lastUpdated;
+    }
+
+    /**
+     * Creates a new Category object (lastUpdated is set to now)
      *
      * @param id Unique identifier for the category
      * @param name Name of the category
@@ -36,10 +49,7 @@ public class Category {
      * @param parentList The id of the list that this category belongs to
      */
     public Category(String id, String name, String owner, String parentList) {
-        this.id = id;
-        this.name = name;
-        this.owner = owner;
-        this.parentList = parentList;
+        this(id, name, owner, parentList, ZonedDateTime.now());
     }
 
     public String getId() {
@@ -48,6 +58,7 @@ public class Category {
 
     public void setId(String id) {
         this.id = id;
+        setLastUpdated();
     }
 
     public String getName() {
@@ -56,6 +67,7 @@ public class Category {
 
     public void setName(String name) {
         this.name = name;
+        setLastUpdated();
     }
 
     public String getOwner() {
@@ -64,6 +76,7 @@ public class Category {
 
     public void setOwner(String owner) {
         this.owner = owner;
+        setLastUpdated();
     }
 
     public String getParentList() {
@@ -72,6 +85,7 @@ public class Category {
 
     public void setParentList(String parentList) {
         this.parentList = parentList;
+        setLastUpdated();
     }
 
     /**
@@ -103,6 +117,7 @@ public class Category {
                 ", name='" + name + '\'' +
                 ", owner='" + owner + '\'' +
                 ", parentList='" + parentList + '\'' +
+                ", lastUpdated=" + lastUpdated +
                 '}';
     }
 }

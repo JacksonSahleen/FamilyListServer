@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -286,7 +287,8 @@ public class CollectionDAOTest {
     public void findUserCollectionsPass() throws DataAccessException {
         // Insert a user into the database
         UserDAO uDao = new UserDAO(db.getConnection());
-        User exUser = new User("username", "password", "firstName", "lastName");
+        User exUser = new User("username", "password", "firstName",
+                "lastName", ZonedDateTime.now());
         uDao.insert(exUser);
 
         // Insert multiple collections for the user into the database
@@ -308,7 +310,8 @@ public class CollectionDAOTest {
     @Test
     public void findUserCollectionsFail() throws DataAccessException {
         // Get the collections for a user that doesn't exist in the database
-        User exUser = new User("username", "password", "firstName", "lastName");
+        User exUser = new User("username", "password", "firstName",
+                "lastName", ZonedDateTime.now());
         List<String> lists = cDao.findUserCollections(exUser.getUsername());
 
         // Verify that the collections returned are null

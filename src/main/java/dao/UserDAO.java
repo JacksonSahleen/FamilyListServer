@@ -3,8 +3,7 @@ package dao;
 import model.User;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.ZonedDateTime;
 
 /**
  * A Data Access Object (DAO) to access User data in the database
@@ -31,7 +30,8 @@ public class UserDAO extends DAO {
      * @throws DataAccessException If an error occurs while inserting into the database
      */
     public void insert(User user) throws DataAccessException {
-        String sql = "INSERT INTO User (username, password, firstName, lastName) " + "VALUES (?, ?, ?, ?);";
+        String sql = "INSERT INTO User (username, password, firstName, lastName, lastUpdated) " +
+                "VALUES (?, ?, ?, ?, ?);";
 
         // Execute the SQL statement
         try(PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -39,11 +39,13 @@ public class UserDAO extends DAO {
             stmt.setString(2, user.getPassword());
             stmt.setString(3, user.getFirstName());
             stmt.setString(4, user.getLastName());
+            stmt.setString(5, user.getLastUpdated().format(dtFormatter));
 
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new DataAccessException("Error encountered while inserting into the database");
+            System.out.println(user);
+            throw new DataAccessException("Error encountered while inserting User into the database");
         }
     }
 
@@ -69,14 +71,15 @@ public class UserDAO extends DAO {
                 user = new User(rs.getString("username"),
                                 rs.getString("password"),
                                 rs.getString("firstName"),
-                                rs.getString("lastName"));
+                                rs.getString("lastName"),
+                                ZonedDateTime.parse(rs.getString("lastUpdated")));
                 return user;
             } else {
                 return null;
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new DataAccessException("Error encountered while finding user");
+            throw new DataAccessException("Error encountered while finding user in the database");
         }
     }
 
@@ -87,19 +90,20 @@ public class UserDAO extends DAO {
      * @throws DataAccessException If an error occurs while updating the User
      */
     public void update(User user) throws DataAccessException {
-        String sql = "UPDATE User SET password = ?, firstName = ?, lastName = ? WHERE username = ?;";
+        String sql = "UPDATE User SET password = ?, firstName = ?, lastName = ?, lastUpdated = ? WHERE username = ?;";
 
         // Execute the SQL statement
         try(PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, user.getPassword());
             stmt.setString(2, user.getFirstName());
             stmt.setString(3, user.getLastName());
-            stmt.setString(4, user.getUsername());
+            stmt.setString(4, user.getLastUpdated().format(dtFormatter));
+            stmt.setString(5, user.getUsername());
 
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new DataAccessException("Error encountered while updating user");
+            throw new DataAccessException("Error encountered while updating user in the database");
         }
     }
 
@@ -118,7 +122,7 @@ public class UserDAO extends DAO {
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new DataAccessException("Error encountered while clearing the User table");
+            throw new DataAccessException("Error encountered while removing User from the database");
         }
     }
 
@@ -135,7 +139,7 @@ public class UserDAO extends DAO {
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new DataAccessException("Error encountered while clearing the User table");
+            throw new DataAccessException("Error encountered while clearing Users from the database");
         }
     }
 }

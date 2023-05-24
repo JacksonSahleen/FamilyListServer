@@ -1,20 +1,21 @@
 drop table if exists User;
 drop table if exists Authtoken;
-drop table if exists Collection;
 drop table if exists CollectionRecipes;
-drop table if exists Recipe;
+drop table if exists Collection;
 drop table if exists RecipePermissions;
-drop table if exists ItemList;
-drop table if exists ListPermissions;
+drop table if exists Recipe;
 drop table if exists Category;
 drop table if exists Item;
+drop table if exists ListPermissions;
+drop table if exists ItemList;
 
 create table User
 (
 	username varchar(255) not null primary key,
 	password varchar(255) not null,
 	firstName varchar(255) not null,
-	lastName varchar(255) not null
+	lastName varchar(255) not null,
+	lastUpdated varchar(255) not null
 );
 
 create table Authtoken
@@ -29,6 +30,7 @@ create table Collection
     id varchar (255) not null primary key,
     name varchar(255) not null,
     owner varchar(255) not null,
+    lastUpdated varchar(255) not null,
     foreign key(owner) references User(username) on delete cascade on update cascade
 );
 
@@ -48,6 +50,7 @@ create table Recipe
 	description varchar(2047),
 	ingredients varchar(255),
 	steps varchar(255),
+	lastUpdated varchar(255) not null,
 	foreign key(owner) references User(username) on delete set null on update cascade,
 	foreign key(ingredients) references ItemList(id) on delete set null,
 	foreign key(steps) references ItemList(id) on delete set null
@@ -66,6 +69,7 @@ create table ItemList
 	id varchar(255) not null primary key,
 	name varchar(255) not null,
 	owner varchar(255) not null,
+	lastUpdated varchar(255) not null,
 	foreign key(owner) references User(username) on delete cascade on update cascade
 );
 
@@ -83,6 +87,7 @@ create table Category
 	name varchar(255) not null,
 	owner varchar(255) not null,
 	parentList varchar(255) not null,
+	lastUpdated varchar(255) not null,
 	foreign key(owner) references User(username) on update cascade,
 	foreign key(parentList) references ItemList(id) on delete cascade on update cascade
 );
@@ -96,6 +101,7 @@ create table Item
 	itemCategory varchar(255),
 	favorited boolean not null,
 	completed boolean not null,
+	lastUpdated varchar(255) not null,
 	foreign key(owner) references User(username) on update cascade,
 	foreign key(parentList) references ItemList(id) on delete cascade on update cascade,
 	foreign key(itemCategory) references Category(id) on delete set null on update cascade

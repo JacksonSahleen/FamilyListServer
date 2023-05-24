@@ -1,13 +1,9 @@
 package model;
 
+import java.time.ZonedDateTime;
 import java.util.Objects;
 
-public class Collection {
-
-    /**
-     * Unique identifier for the collection
-     */
-    private String id;
+public class Collection extends Model {
 
     /**
      * Name of the collection
@@ -20,40 +16,56 @@ public class Collection {
     private String owner;
 
     /**
-     * Creates a new Collection object
+     * Creates a Collection object with the provided information
+     *
+     * @param id Unique identifier for the collection
+     * @param name Name of the collection
+     * @param owner The unique id of the user who owns this collection
+     * @param lastUpdated The date and time the collection was last updated
+     */
+    public Collection(String id, String name, String owner, ZonedDateTime lastUpdated) {
+        this.id = id;
+        this.name = name;
+        this.owner = owner;
+        this.lastUpdated = lastUpdated;
+    }
+
+    /**
+     * Creates a new Collection object (lastUpdated is set to now)
      *
      * @param id Unique identifier for the collection
      * @param name Name of the collection
      * @param owner The unique id of the user who owns this collection
      */
     public Collection(String id, String name, String owner) {
-        this.id = id;
-        this.name = name;
-        this.owner = owner;
+        this(id, name, owner, ZonedDateTime.now());
     }
 
     public String getId() {
         return id;
     }
 
+    public void setId(String id) {
+        this.id = id;
+        setLastUpdated();
+    }
+
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+        setLastUpdated();
     }
 
     public String getOwner() {
         return owner;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public void setOwner(String owner) {
         this.owner = owner;
+        setLastUpdated();
     }
 
     /**
@@ -83,6 +95,7 @@ public class Collection {
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", owner='" + owner + '\'' +
+                ", lastUpdated=" + lastUpdated +
                 '}';
     }
 }

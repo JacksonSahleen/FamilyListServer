@@ -1,16 +1,12 @@
 package model;
 
+import java.time.ZonedDateTime;
 import java.util.Objects;
 
 /**
  * Model class that contains information about a recipe
  */
-public class Recipe {
-
-    /**
-     * Unique identifier for this recipe
-     */
-    private String id;
+public class Recipe extends Model {
 
     /**
      * Name of this recipe
@@ -38,7 +34,7 @@ public class Recipe {
     private ItemList steps;
 
     /**
-     * Creates a new recipe object
+     * Creates a recipe object with the provided information
      *
      * @param id Unique identifier for this recipe
      * @param name Name of this recipe
@@ -46,18 +42,21 @@ public class Recipe {
      * @param description Short description of this recipe
      * @param ingredients List of ingredients for this recipe
      * @param steps List of steps for this recipe
+     * @param lastUpdated The date and time the recipe was last updated
      */
-    public Recipe(String id, String name, String owner, String description, ItemList ingredients, ItemList steps) {
+    public Recipe(String id, String name, String owner, String description, ItemList ingredients,
+                  ItemList steps, ZonedDateTime lastUpdated) {
         this.id = id;
         this.name = name;
         this.owner = owner;
         this.description = description;
         this.ingredients = ingredients;
         this.steps = steps;
+        this.lastUpdated = lastUpdated;
     }
 
     /**
-     * Creates a new recipe object with no ingredients or steps
+     * Creates a new recipe object (no ingredients or steps and lastUpdated is set to now)
      *
      * @param id Unique identifier for this recipe
      * @param name Name of this recipe
@@ -65,12 +64,7 @@ public class Recipe {
      * @param description Short description of this recipe
      */
     public Recipe(String id, String name, String owner, String description) {
-        this.id = id;
-        this.name = name;
-        this.owner = owner;
-        this.description = description;
-        this.ingredients = null;
-        this.steps = null;
+        this(id, name, owner, description, null, null, ZonedDateTime.now());
     }
 
     public String getId() {
@@ -79,6 +73,7 @@ public class Recipe {
 
     public void setId(String id) {
         this.id = id;
+        setLastUpdated();
     }
 
     public String getName() {
@@ -87,6 +82,7 @@ public class Recipe {
 
     public void setName(String name) {
         this.name = name;
+        setLastUpdated();
     }
 
     public String getOwner() {
@@ -95,6 +91,7 @@ public class Recipe {
 
     public void setOwner(String owner) {
         this.owner = owner;
+        setLastUpdated();
     }
 
     public String getDescription() {
@@ -103,6 +100,7 @@ public class Recipe {
 
     public void setDescription(String description) {
         this.description = description;
+        setLastUpdated();
     }
 
     public ItemList getIngredients() {
@@ -111,6 +109,7 @@ public class Recipe {
 
     public void setIngredients(ItemList ingredients) {
         this.ingredients = ingredients;
+        setLastUpdated();
     }
 
     public ItemList getSteps() {
@@ -119,6 +118,7 @@ public class Recipe {
 
     public void setSteps(ItemList steps) {
         this.steps = steps;
+        setLastUpdated();
     }
 
     /**
@@ -154,6 +154,7 @@ public class Recipe {
                 ", description='" + description + '\'' +
                 ", ingredients=" + ingredients +
                 ", steps=" + steps +
+                ", lastUpdated=" + lastUpdated +
                 '}';
     }
 }

@@ -2,17 +2,33 @@ package service;
 
 import dao.*;
 import model.Authtoken;
+import model.Item;
+import model.ItemList;
 import model.User;
 import result.RegisterResult;
 import request.RegisterRequest;
 
 import java.sql.Connection;
+import java.time.ZonedDateTime;
 import java.util.UUID;
 
 /**
  * The class responsible for handling user Registration requests.
  */
 public class RegisterService {
+
+    /**
+     * The default items to be added to the My Day list when a new user is registered.
+     */
+    private final String[] myDayDefaultItems = {
+        "Get to bed",
+        "Brush my teeth",
+        "Feed the hog",
+        "Still got some homework to do",
+        "Do the laundry",
+        "Wash the car",
+        "Still got those bills to pay"
+    };
 
     /**
      * Registers a new user in the database
@@ -39,17 +55,18 @@ public class RegisterService {
             } else {
                 // Create new user
                 User newUser = new User(request.username(), request.password(),
-                        request.firstName(), request.lastName());
+                        request.firstName(), request.lastName(), ZonedDateTime.now());
 
                 // Insert new user into database
                 uDao.insert(newUser);
 
-                // Create new authtoken for the new user
+                // Create and insert new authtoken for the new user
                 Authtoken newToken = new Authtoken(UUID.randomUUID().toString(), request.username());
-
-                // Insert new authtoken into database
                 AuthtokenDAO aDao = new AuthtokenDAO(conn);
                 aDao.insert(newToken);
+
+                // Create default lists for the new user
+                createDefaultLists(newUser.getUsername(), conn);
 
                 // Close connection and commit changes to database
                 db.closeConnection(true);
@@ -60,7 +77,36 @@ public class RegisterService {
         } catch (DataAccessException e) {
             e.printStackTrace();
             db.closeConnection(false);
-            return new RegisterResult("ERROR: Internal server error.");
+            return new RegisterResult("ERROR: Internal server error (" + e.getMessage() + ").");
+        }
+    }
+
+    /**
+     * Creates the default lists (My Day, Shopping List, and Favorited Items) for the user being registered.
+     * @param username The username of the user being registered
+     * @param conn The connection to the database
+     */
+    private void createDefaultLists(String username, Connection conn) {
+        // Create a MyDay list for the user and fill with default items
+        ItemList myDay = new ItemList(UUID.randomUUID().toString(), username + "_MyDay", username);
+        for (String item : myDayDefaultItems) {
+            myDay.getItems().add(new Item(UUID.randomUUID().toString(), item, username, myDay.getId()));
+        }
+
+        // Create a Shopping List for the user
+        ItemList shoppingList = new ItemList(UUID.randomUUID().toString(), username + "_ShoppingList", username);
+
+        // Create a Favorited Items List for the user
+        ItemList favoritedItems = new ItemList(UUID.randomUUID().toString(), username + "_FavoritedItems", username);
+
+        // Insert the lists into the database
+        ItemListDAO lDao = new ItemListDAO(conn);
+        try {
+            lDao.insert(myDay);
+            lDao.insert(shoppingList);
+            lDao.insert(favoritedItems);
+        } catch (DataAccessException e) {
+            e.printStackTrace();
         }
     }
 

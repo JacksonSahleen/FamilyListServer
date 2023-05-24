@@ -1,0 +1,669 @@
+{
+  "authtokens":[
+    {
+      "token": "token1",
+      "userID": "user1"
+    },
+    {
+      "token": "token2",
+      "userID": "user2"
+    }
+  ],
+  "users": [
+    {
+      "username": "user1",
+      "password": "password1",
+      "firstName": "John",
+      "lastName": "Doe",
+      "lastUpdated": "2023-05-20T13:09:17.363761700-06:00[America/Denver]"
+    },
+    {
+      "username": "user2",
+      "password": "password2",
+      "firstName": "Jane",
+      "lastName": "Doe",
+      "lastUpdated": "2023-05-20T13:09:17.363761700-06:00[America/Denver]"
+    }
+  ],
+  "lists": [
+    {
+      "id": "listID1",
+      "name": "MyDay_user1",
+      "owner": "user1",
+      "items": [
+        {
+          "id": "itemID1",
+          "name": "take out the trash",
+          "owner": "user1",
+          "category": "categoryID1",
+          "parentList": "listID1",
+          "favorited": false,
+          "completed": false,
+          "lastUpdated": "2023-05-20T13:09:17.363761700-06:00[America/Denver]"
+        },
+        {
+          "id": "itemID2",
+          "name": "feed the hog",
+          "owner": "user1",
+          "category": "animal care",
+          "parentList": "listID1",
+          "favorited": false,
+          "completed": false,
+          "lastUpdated": "2023-05-20T13:09:17.363761700-06:00[America/Denver]"
+        },
+        {
+          "id": "itemID3",
+          "name": "water the plants",
+          "owner": "user1",
+          "category": "animal care",
+          "parentList": "listID1",
+          "favorited": false,
+          "completed": true,
+          "lastUpdated": "2023-05-20T13:09:17.363761700-06:00[America/Denver]"
+        },
+        {
+          "id": "itemID4",
+          "name": "wash the dishes",
+          "owner": "user1",
+          "category": "categoryID1",
+          "parentList": "listID1",
+          "favorited": true,
+          "completed": false,
+          "lastUpdated": "2023-05-20T13:09:17.363761700-06:00[America/Denver]"
+        }
+      ],
+      "categories": [
+        {
+          "id": "categoryID1",
+          "name": "regular chores",
+          "owner": "user1",
+          "parentList": "listID1",
+          "lastUpdated": "2023-05-20T13:09:17.363761700-06:00[America/Denver]"
+        },
+        {
+          "id": "categoryID2",
+          "name": "animal care",
+          "owner": "user1",
+          "parentList": "listID1",
+          "lastUpdated": "2023-05-20T13:09:17.363761700-06:00[America/Denver]"
+        }
+      ],
+      "lastUpdated": "2023-05-20T13:09:17.363761700-06:00[America/Denver]"
+    },
+    {
+      "id": "listID2",
+      "name": "ShoppingList_user2",
+      "owner": "user2",
+      "items": [
+        {
+          "id": "itemID5",
+          "name": "milk",
+          "owner": "user2",
+          "category": "categoryID3",
+          "parentList": "listID2",
+          "favorited": false,
+          "completed": false,
+          "lastUpdated": "2023-05-20T13:09:17.363761700-06:00[America/Denver]"
+        },
+        {
+          "id": "itemID6",
+          "name": "eggs",
+          "owner": "user2",
+          "category": "categoryID3",
+          "parentList": "listID2",
+          "favorited": false,
+          "completed": true,
+          "lastUpdated": "2023-05-20T13:09:17.363761700-06:00[America/Denver]"
+        },
+        {
+          "id": "itemID7",
+          "name": "bread",
+          "owner": "user2",
+          "category": "categoryID3",
+          "parentList": "listID2",
+          "favorited": false,
+          "completed": true,
+          "lastUpdated": "2023-05-20T13:09:17.363761700-06:00[America/Denver]"
+        },
+        {
+          "id": "itemID8",
+          "name": "cheese",
+          "owner": "user2",
+          "category": "categoryID3",
+          "parentList": "listID2",
+          "favorited": false,
+          "completed": false,
+          "lastUpdated": "2023-05-20T13:09:17.363761700-06:00[America/Denver]"
+        },
+        {
+          "id": "itemID9",
+          "name": "butter",
+          "owner": "user2",
+          "category": "categoryID3",
+          "parentList": "listID2",
+          "favorited": false,
+          "completed": false,
+          "lastUpdated": "2023-05-20T13:09:17.363761700-06:00[America/Denver]"
+        },
+        {
+          "id": "itemID10",
+          "name": "chicken",
+          "owner": "user2",
+          "category": "categoryID3",
+          "parentList": "listID2",
+          "favorited": true,
+          "completed": false,
+          "lastUpdated": "2023-05-20T13:09:17.363761700-06:00[America/Denver]"
+        },
+        {
+          "id": "itemID11",
+          "name": "beef",
+          "owner": "user2",
+          "category": "categoryID3",
+          "parentList": "listID2",
+          "favorited": false,
+          "completed": false,
+          "lastUpdated": "2023-05-20T13:09:17.363761700-06:00[America/Denver]"
+        },
+        {
+          "id": "itemID12",
+          "name": "pork",
+          "owner": "user2",
+          "category": "categoryID3",
+          "parentList": "listID2",
+          "favorited": false,
+          "completed": false,
+          "lastUpdated": "2023-05-20T13:09:17.363761700-06:00[America/Denver]"
+        }
+      ],
+      "categories": [
+          {
+            "id": "categoryID3",
+            "name": "groceries",
+            "owner": "user2",
+            "parentList": "listID2",
+            "lastUpdated": "2023-05-20T13:09:17.363761700-06:00[America/Denver]"
+          }
+      ],
+      "lastUpdated": "2023-05-20T13:09:17.363761700-06:00[America/Denver]"
+    },
+    {
+      "id": "listID3",
+      "name": "recipeID1_ingredients",
+      "owner": "user1",
+      "items": [
+        {
+          "id": "itemID13",
+          "name": "chicken",
+          "owner": "user1",
+          "category": null,
+          "parentList": "listID3",
+          "favorited": false,
+          "completed": false,
+          "lastUpdated": "2023-05-20T13:09:17.363761700-06:00[America/Denver]"
+        },
+        {
+          "id": "itemID14",
+          "name": "noodles",
+          "owner": "user1",
+          "category": null,
+          "parentList": "listID3",
+          "favorited": false,
+          "completed": false,
+          "lastUpdated": "2023-05-20T13:09:17.363761700-06:00[America/Denver]"
+        },
+        {
+          "id": "itemID15",
+          "name": "carrots",
+          "owner": "user1",
+          "category": null,
+          "parentList": "listID3",
+          "favorited": false,
+          "completed": false,
+          "lastUpdated": "2023-05-20T13:09:17.363761700-06:00[America/Denver]"
+        },
+        {
+          "id": "itemID16",
+          "name": "celery",
+          "owner": "user1",
+          "category": null,
+          "parentList": "listID3",
+          "favorited": false,
+          "completed": false,
+          "lastUpdated": "2023-05-20T13:09:17.363761700-06:00[America/Denver]"
+        },
+        {
+          "id": "itemID17",
+          "name": "broth",
+          "owner": "user1",
+          "category": null,
+          "parentList": "listID3",
+          "favorited": false,
+          "completed": false,
+          "lastUpdated": "2023-05-20T13:09:17.363761700-06:00[America/Denver]"
+        }
+      ],
+      "categories": [],
+      "lastUpdated": "2023-05-20T13:09:17.363761700-06:00[America/Denver]"
+    },
+    {
+      "id": "listID4",
+      "name": "recipeID1_steps",
+      "owner": "user1",
+      "items": [
+        {
+          "id": "itemID18",
+          "name": "boil broth",
+          "owner": "user1",
+          "category": null,
+          "parentList": "listID4",
+          "favorited": false,
+          "completed": false,
+          "lastUpdated": "2023-05-20T13:09:17.363761700-06:00[America/Denver]"
+        },
+        {
+          "id": "itemID19",
+          "name": "add chicken",
+          "owner": "user1",
+          "category": null,
+          "parentList": "listID4",
+          "favorited": false,
+          "completed": false,
+          "lastUpdated": "2023-05-20T13:09:17.363761700-06:00[America/Denver]"
+        },
+        {
+          "id": "itemID20",
+          "name": "add noodles",
+          "owner": "user1",
+          "category": null,
+          "parentList": "listID4",
+          "favorited": false,
+          "completed": false,
+          "lastUpdated": "2023-05-20T13:09:17.363761700-06:00[America/Denver]"
+        },
+        {
+          "id": "itemID21",
+          "name": "add vegetables",
+          "owner": "user1",
+          "category": null,
+          "parentList": "listID4",
+          "favorited": false,
+          "completed": false,
+          "lastUpdated": "2023-05-20T13:09:17.363761700-06:00[America/Denver]"
+        },
+        {
+          "id": "itemID22",
+          "name": "serve",
+          "owner": "user1",
+          "category": null,
+          "parentList": "listID4",
+          "favorited": false,
+          "completed": false,
+          "lastUpdated": "2023-05-20T13:09:17.363761700-06:00[America/Denver]"
+        }
+      ],
+      "categories": [],
+      "lastUpdated": "2023-05-20T13:09:17.363761700-06:00[America/Denver]"
+    },
+    {
+      "id": "listID5",
+      "name": "recipeID2_ingredients",
+      "owner": "user2",
+      "items": [
+        {
+          "id": "itemID23",
+          "name": "beef",
+          "owner": "user2",
+          "category": null,
+          "parentList": "listID5",
+          "favorited": false,
+          "completed": false,
+          "lastUpdated": "2023-05-20T13:09:17.363761700-06:00[America/Denver]"
+        },
+        {
+          "id": "itemID24",
+          "name": "noodles",
+          "owner": "user2",
+          "category": null,
+          "parentList": "listID5",
+          "favorited": false,
+          "completed": false,
+          "lastUpdated": "2023-05-20T13:09:17.363761700-06:00[America/Denver]"
+        },
+        {
+          "id": "itemID25",
+          "name": "carrots",
+          "owner": "user2",
+          "category": null,
+          "parentList": "listID5",
+          "favorited": false,
+          "completed": false,
+          "lastUpdated": "2023-05-20T13:09:17.363761700-06:00[America/Denver]"
+        },
+        {
+          "id": "itemID26",
+          "name": "celery",
+          "owner": "user2",
+          "category": null,
+          "parentList": "listID5",
+          "favorited": false,
+          "completed": false,
+          "lastUpdated": "2023-05-20T13:09:17.363761700-06:00[America/Denver]"
+        },
+        {
+          "id": "itemID27",
+          "name": "broth",
+          "owner": "user2",
+          "category": null,
+          "parentList": "listID5",
+          "favorited": false,
+          "completed": false,
+          "lastUpdated": "2023-05-20T13:09:17.363761700-06:00[America/Denver]"
+        }
+      ],
+      "categories": [],
+      "lastUpdated": "2023-05-20T13:09:17.363761700-06:00[America/Denver]"
+    },
+    {
+      "id": "listID6",
+      "name": "recipeID2_steps",
+      "owner": "user2",
+      "items": [
+        {
+          "id": "itemID28",
+          "name": "boil broth",
+          "owner": "user2",
+          "category": null,
+          "parentList": "listID6",
+          "favorited": false,
+          "completed": false,
+          "lastUpdated": "2023-05-20T13:09:17.363761700-06:00[America/Denver]"
+        },
+        {
+          "id": "itemID29",
+          "name": "add beef",
+          "owner": "user2",
+          "category": null,
+          "parentList": "listID6",
+          "favorited": false,
+          "completed": false,
+          "lastUpdated": "2023-05-20T13:09:17.363761700-06:00[America/Denver]"
+        },
+        {
+          "id": "itemID30",
+          "name": "add noodles",
+          "owner": "user2",
+          "category": null,
+          "parentList": "listID6",
+          "favorited": false,
+          "completed": false,
+          "lastUpdated": "2023-05-20T13:09:17.363761700-06:00[America/Denver]"
+        },
+        {
+          "id": "itemID31",
+          "name": "add vegetables",
+          "owner": "user2",
+          "category": null,
+          "parentList": "listID6",
+          "favorited": false,
+          "completed": false,
+          "lastUpdated": "2023-05-20T13:09:17.363761700-06:00[America/Denver]"
+        },
+        {
+          "id": "itemID32",
+          "name": "serve",
+          "owner": "user2",
+          "category": null,
+          "parentList": "listID6",
+          "favorited": false,
+          "completed": false,
+          "lastUpdated": "2023-05-20T13:09:17.363761700-06:00[America/Denver]"
+        }
+      ],
+      "categories": [],
+      "lastUpdated": "2023-05-20T13:09:17.363761700-06:00[America/Denver]"
+    },
+    {
+      "id": "listID7",
+      "name": "recipeID3_ingredients",
+      "owner": "user1",
+      "items": [
+        {
+          "id": "itemID33",
+          "name": "chicken",
+          "owner": "user1",
+          "category": null,
+          "parentList": "listID7",
+          "favorited": false,
+          "completed": false,
+          "lastUpdated": "2023-05-20T13:09:17.363761700-06:00[America/Denver]"
+        },
+        {
+          "id": "itemID34",
+          "name": "bread crumbs",
+          "owner": "user1",
+          "category": null,
+          "parentList": "listID7",
+          "favorited": false,
+          "completed": false,
+          "lastUpdated": "2023-05-20T13:09:17.363761700-06:00[America/Denver]"
+        },
+        {
+          "id": "itemID35",
+          "name": "tomato sauce",
+          "owner": "user1",
+          "category": null,
+          "parentList": "listID7",
+          "favorited": false,
+          "completed": false,
+          "lastUpdated": "2023-05-20T13:09:17.363761700-06:00[America/Denver]"
+        },
+        {
+          "id": "itemID36",
+          "name": "mozzarella cheese",
+          "owner": "user1",
+          "category": null,
+          "parentList": "listID7",
+          "favorited": false,
+          "completed": false,
+          "lastUpdated": "2023-05-20T13:09:17.363761700-06:00[America/Denver]"
+        },
+        {
+          "id": "itemID37",
+          "name": "parmesan cheese",
+          "owner": "user1",
+          "category": null,
+          "parentList": "listID7",
+          "favorited": false,
+          "completed": false,
+          "lastUpdated": "2023-05-20T13:09:17.363761700-06:00[America/Denver]"
+        }
+      ],
+      "categories": [],
+      "lastUpdated": "2023-05-20T13:09:17.363761700-06:00[America/Denver]"
+    },
+    {
+      "id": "listID8",
+      "name": "recipeID3_steps",
+      "owner": "user1",
+      "items": [
+        {
+          "id": "itemID38",
+          "name": "bread chicken",
+          "owner": "user1",
+          "category": null,
+          "parentList": "listID8",
+          "favorited": false,
+          "completed": false,
+          "lastUpdated": "2023-05-20T13:09:17.363761700-06:00[America/Denver]"
+        },
+        {
+          "id": "itemID39",
+          "name": "fry chicken",
+          "owner": "user1",
+          "category": null,
+          "parentList": "listID8",
+          "favorited": false,
+          "completed": false,
+          "lastUpdated": "2023-05-20T13:09:17.363761700-06:00[America/Denver]"
+        },
+        {
+          "id": "itemID40",
+          "name": "add tomato sauce",
+          "owner": "user1",
+          "category": null,
+          "parentList": "listID8",
+          "favorited": false,
+          "completed": false,
+          "lastUpdated": "2023-05-20T13:09:17.363761700-06:00[America/Denver]"
+        },
+        {
+          "id": "itemID41",
+          "name": "add mozzarella cheese",
+          "owner": "user1",
+          "category": null,
+          "parentList": "listID8",
+          "favorited": false,
+          "completed": false,
+          "lastUpdated": "2023-05-20T13:09:17.363761700-06:00[America/Denver]"
+        },
+        {
+          "id": "itemID42",
+          "name": "add parmesan cheese",
+          "owner": "user1",
+          "category": null,
+          "parentList": "listID8",
+          "favorited": false,
+          "completed": false,
+          "lastUpdated": "2023-05-20T13:09:17.363761700-06:00[America/Denver]"
+        }
+      ],
+      "categories": [],
+      "lastUpdated": "2023-05-20T13:09:17.363761700-06:00[America/Denver]"
+    }
+  ],
+  "collections": [
+    {
+      "id": "collectionID1",
+      "name": "soups",
+      "owner": "user2",
+      "lastUpdated": "2023-05-20T13:09:17.363761700-06:00[America/Denver]"
+    },
+    {
+      "id": "collectionID2",
+      "name": "chicken dishes",
+      "owner": "user1",
+      "lastUpdated": "2023-05-20T13:09:17.363761700-06:00[America/Denver]"
+    },
+    {
+      "id": "collectionID3",
+      "name": "beef dishes",
+      "owner": "user1",
+      "lastUpdated": "2023-05-20T13:09:17.363761700-06:00[America/Denver]"
+    }
+  ],
+  "recipes": [
+    {
+      "id": "recipeID1",
+      "name": "chicken noodle soup",
+      "owner": "user1",
+      "description": "a classic chicken soup",
+      "ingredients": "listID3",
+      "steps": "listID4",
+      "lastUpdated": "2023-05-20T13:09:17.363761700-06:00[America/Denver]"
+    },
+    {
+      "id": "recipeID2",
+      "name": "beef minestrone",
+      "owner": "user2",
+      "description": "a classic beef stew",
+      "ingredients": "listID5",
+      "steps": "listID6",
+      "lastUpdated": "2023-05-20T13:09:17.363761700-06:00[America/Denver]"
+    },
+    {
+      "id": "recipeID3",
+      "name": "chicken parmesan",
+      "owner": "user1",
+      "description": "a classic chicken dish",
+      "ingredients": "listID7",
+      "steps": "listID8",
+      "lastUpdated": "2023-05-20T13:09:17.363761700-06:00[America/Denver]"
+    }
+  ],
+  "listPermissions": [
+    [
+      "listID1",
+      "user1"
+    ],
+    [
+      "listID2",
+      "user2"
+    ],
+    [
+      "listID3",
+      "user1"
+    ],
+    [
+      "listID4",
+      "user1"
+    ],
+    [
+      "listID5",
+      "user2"
+    ],
+    [
+      "listID6",
+      "user2"
+    ],
+    [
+      "listID7",
+      "user1"
+    ],
+    [
+      "listID8",
+      "user1"
+    ],
+    [
+      "listID2",
+      "user1"
+    ]
+  ],
+  "recipePermissions": [
+    [
+      "recipeID1",
+      "user1"
+    ],
+    [
+      "recipeID2",
+      "user2"
+    ],
+    [
+      "recipeID3",
+      "user1"
+    ],
+    [
+      "recipeID1",
+      "user2"
+    ]
+  ],
+  "collectionRecipes": [
+    [
+        "collectionID1",
+        "recipeID1"
+    ],
+    [
+        "collectionID2",
+        "recipeID1"
+    ],
+    [
+        "collectionID1",
+        "recipeID2"
+    ],
+    [
+        "collectionID2",
+        "recipeID3"
+    ]
+  ],
+  "clearDatabase": true
+}
