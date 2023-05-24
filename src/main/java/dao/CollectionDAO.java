@@ -10,6 +10,9 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A Data Access Object (DAO) to access the Collection data in the database
+ */
 public class CollectionDAO extends DAO {
 
     /**

@@ -2,13 +2,13 @@ package handler;
 
 import java.io.*;
 import java.net.*;
+import java.util.Arrays;
+import java.util.List;
 
 import com.sun.net.httpserver.*;
 import request.LoadRequest;
 import result.LoadResult;
 import service.LoadService;
-
-// TODO: Add control flow for an API to load from a local file
 
 /**
  * WebAPI handler for the /load API
@@ -31,18 +31,32 @@ public class LoadHandler extends Handler implements HttpHandler {
 
             // Only allow POST requests for this operation.
             if (exchange.getRequestMethod().equalsIgnoreCase("post")) {
-                // Get the request body
-                InputStream reqBody = exchange.getRequestBody();
-
-                // Read JSON string from the input stream
-                String reqData = readString(reqBody);
-
-                // Convert JSON string to a Request object
-                LoadRequest request = GSON.fromJson(reqData, LoadRequest.class);
-
-                // Run the request through the corresponding service
                 LoadService service = new LoadService();
-                result = service.load(request);
+                LoadRequest request;
+
+                // Parse the request URI to determine the service being requested
+                String uri = exchange.getRequestURI().toString();
+                List<String> uriParts = Arrays.asList(uri.split("/"));
+
+                // Load data from file if a file path is provided, and load data from request body otherwise
+                if (uriParts.size() > 1) {
+                    // Join the remaining parts of the URI to get the file path
+                    System.out.print("uriParts: " + uriParts + "\n");   // DEBUG
+                    String filePath = String.join("/", uriParts.subList(2, uriParts.size()));
+
+                    // Run the request through the corresponding service
+                    result = service.loadFromFile(filePath);
+                } else {
+                    // Get the request body and parse in its data
+                    InputStream reqBody = exchange.getRequestBody();
+                    String reqData = readString(reqBody);
+
+                    // Convert JSON string to a Request object
+                    request = GSON.fromJson(reqData, LoadRequest.class);
+
+                    // Run the request through the corresponding service
+                    result = service.load(request);
+                }
 
                 // Report a successful request
                 if (result.isSuccess()) {

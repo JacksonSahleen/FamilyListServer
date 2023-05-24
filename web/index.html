@@ -107,20 +107,28 @@
         "\"recipes\":[],\"categories\":[],\"items\":[],\"listPermissions\":[],\"recipePermissions\":[]," +
         "\"collectionRecipes\":[], \"clearDatabase\":false}");
     }
+    function loadFromFile() {
+      window.scrollTo(0, document.body.scrollHeight);
+      document.getElementById("handleBox").value = "/load/[filepath]";
+      document.getElementById("requestBox").value = "";
+    }
     function syncLists() {
       window.scrollTo(0, document.body.scrollHeight);
       document.getElementById("handleBox").value = "/lists";
-      document.getElementById("requestBox").value = formatJson("{\"data\":[]}");
+      document.getElementById("requestBox").value = formatJson("{\"data\":[],\"permissions\":[]," +
+        "\"removals\":[],\"revocations\":[]}");
     }
     function syncCollections() {
       window.scrollTo(0, document.body.scrollHeight);
       document.getElementById("handleBox").value = "/collections";
-      document.getElementById("requestBox").value = formatJson("{\"data\":[]}");
+      document.getElementById("requestBox").value = formatJson("{\"data\":[],\"associations\":[]," +
+        "\"removals\":[],\"revocations\":[]}");
     }
     function syncRecipes(gen) {
       window.scrollTo(0, document.body.scrollHeight);
       document.getElementById("handleBox").value = "/recipes";
-      document.getElementById("requestBox").value = formatJson("{\"data\":[]}");
+      document.getElementById("requestBox").value = formatJson("{\"data\":[],\"permissions\":[]," +
+        "\"removals\":[],\"revocations\":[]}");
     }
   </script>
 </head>
@@ -157,9 +165,12 @@
           by json text in the response body. The json text must contain an array of users as defined in the register
           details; arrays of lists, collections, and recipes; arrays of mappings for the list permissions,
           recipe permissions, and collection recipes; and whether to clear the database before loading the data.
-          WARNING: all data from the database is wiped when this is called. The json file will be specified in
-          the body of the request. An example.json file is provided to get you started with loading specific data.
           No authorization authtoken is required.
+        </li>
+        <li>
+          <a href="javascript:loadFromFile()">/load/[filepath]</a> This API will load the server&apos;s database with data provided
+          by the json file in the server at the indicated filepath. This json file must follow the same format as the
+          json request body described in the /load API description. No authorization authtoken is required.
         </li>
       </ul>
     </div>

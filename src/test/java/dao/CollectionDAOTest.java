@@ -43,6 +43,8 @@ public class CollectionDAOTest {
         cDao = new CollectionDAO(conn);
 
         // Wipe the database clean
+        UserDAO uDao = new UserDAO(conn);
+        uDao.clear();
         cDao.clear();
     }
 

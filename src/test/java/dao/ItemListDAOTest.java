@@ -45,6 +45,8 @@ public class ItemListDAOTest {
         lDao = new ItemListDAO(conn);
 
         // Wipe the database clean
+        UserDAO uDao = new UserDAO(conn);
+        uDao.clear();
         lDao.clear();
     }
 

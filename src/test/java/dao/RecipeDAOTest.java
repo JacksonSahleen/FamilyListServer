@@ -45,6 +45,8 @@ public class RecipeDAOTest {
         rDao = new RecipeDAO(conn);
 
         // Wipe the database clean
+        UserDAO uDao = new UserDAO(conn);
+        uDao.clear();
         rDao.clear();
     }
 

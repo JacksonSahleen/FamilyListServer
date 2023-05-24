@@ -3,6 +3,9 @@ package model;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 
+/**
+ * Model class that contains information about a collection of recipes
+ */
 public class Collection extends Model {
 
     /**

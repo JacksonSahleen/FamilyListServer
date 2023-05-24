@@ -1,63 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="ANALYZE_TEST_SOURCES" value="false" />
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="34bfb45b-a668-4754-8c86-7be207660499" name="Changes" comment="Created some basic input test data, created a base class for the model classes, and finished implementing and testing the service classes">
-      <change afterPath="$PROJECT_DIR$/data/basicTestData.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/model/Model.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/model/Permissions.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/service/DataSynchronizer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/handler/UserAuthenticatorTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/service/DataSynchronizerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FamilyListServer.iml" beforeDir="false" afterPath="$PROJECT_DIR$/FamilyListServer.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/dbDiagram.drawio" beforeDir="false" afterPath="$PROJECT_DIR$/db/dbDiagram.drawio" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/dbSchema.txt" beforeDir="false" afterPath="$PROJECT_DIR$/db/dbSchema.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/CategoryDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/CategoryDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dao/CollectionDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/CollectionDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/DAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/DAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/ItemDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/ItemDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/ItemListDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/ItemListDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/RecipeDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/RecipeDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/UserDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/handler/ClearHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/handler/ClearHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/handler/Handler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/handler/Handler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/handler/CollectionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/handler/CollectionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/handler/ListHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/handler/ListHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/handler/LoadHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/handler/LoadHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/handler/LoginHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/handler/LoginHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/handler/RegisterHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/handler/RegisterHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/handler/RecipeHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/handler/RecipeHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/model/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Category.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/model/Collection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Collection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Item.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/ItemList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/ItemList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/Recipe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Recipe.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/request/CollectionRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/request/CollectionRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/request/ListRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/request/ListRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/request/LoadRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/request/LoadRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/request/RecipeRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/request/RecipeRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/result/CollectionResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/result/CollectionResult.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/result/ListResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/result/ListResult.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/result/RecipeResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/result/RecipeResult.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/CollectionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/CollectionService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/ListService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/ListService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/LoadService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/LoadService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/LoginService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/LoginService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/RecipeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/RecipeService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/RegisterService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/RegisterService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/dao/CollectionDAOTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/dao/CollectionDAOTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/dao/ItemDAOTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/dao/ItemDAOTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/dao/ItemListDAOTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/dao/ItemListDAOTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/dao/RecipeDAOTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/dao/RecipeDAOTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/dao/UserDAOTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/dao/UserDAOTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/service/ClearServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/service/ClearServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/service/CollectionServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/service/CollectionServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/service/ListServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/service/ListServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/service/LoadServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/service/LoadServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/service/LoginServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/service/LoginServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/service/RecipeServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/service/RecipeServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/service/RegisterServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/service/RegisterServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/handler/ClearHandlerTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/handler/CollectionHandlerTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/handler/FileHandlerTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/handler/ListHandlerTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/handler/LoadHandlerTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/handler/LoginHandlerTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/handler/RecipeHandlerTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/handler/RegisterHandlerTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/handler/UserAuthenticatorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/handler/UserAuthenticatorTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,7 +70,7 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;TODO_SCOPE&quot;: &quot;All Places&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Jackson/OneDrive/Profile/Documentos/Escola/2023 Inverno/CS 240/Projects/FamilyMapServerStudent-master/src/test/java/service/RegisterServiceTest.java&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Jackson/OneDrive/Profile/Documentos/Escola/2023 Inverno/CS 240/Projects/FamilyMapServerStudent-master/src/main/java/handler/PersonHandler.java&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
@@ -113,7 +86,7 @@
       <recent name="C:\Users\Jackson\OneDrive\Profile\Documentos\Projetos\Java Projects\FamilyListServer\web" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.RecipeServiceTest">
+  <component name="RunManager" selected="Application.Run Server">
     <configuration name="Run Server" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="Server" />
       <module name="FamilyListServer" />
@@ -122,22 +95,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CollectionServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="All in FamilyListServer" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="FamilyListServer" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="service" />
-      <option name="MAIN_CLASS_NAME" value="service.CollectionServiceTest" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DataSynchronizerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ClearServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="FamilyListServer" />
       <extension name="coverage">
         <pattern>
@@ -146,22 +112,7 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="service" />
-      <option name="MAIN_CLASS_NAME" value="service.DataSynchronizerTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ListServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="FamilyListServer" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="service" />
-      <option name="MAIN_CLASS_NAME" value="service.ListServiceTest" />
+      <option name="MAIN_CLASS_NAME" value="service.ClearServiceTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -197,21 +148,36 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="UserAuthenticatorTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="FamilyListServer" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="handler.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="handler" />
+      <option name="MAIN_CLASS_NAME" value="handler.UserAuthenticatorTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
       <item itemvalue="Application.Run Server" />
+      <item itemvalue="JUnit.All in FamilyListServer" />
+      <item itemvalue="JUnit.ClearServiceTest" />
+      <item itemvalue="JUnit.UserAuthenticatorTest" />
       <item itemvalue="JUnit.RecipeServiceTest" />
-      <item itemvalue="JUnit.CollectionServiceTest" />
-      <item itemvalue="JUnit.ListServiceTest" />
       <item itemvalue="JUnit.RecipeDAOTest" />
-      <item itemvalue="JUnit.DataSynchronizerTest" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.All in FamilyListServer" />
+        <item itemvalue="JUnit.ClearServiceTest" />
+        <item itemvalue="JUnit.UserAuthenticatorTest" />
         <item itemvalue="JUnit.RecipeServiceTest" />
         <item itemvalue="JUnit.RecipeDAOTest" />
-        <item itemvalue="JUnit.CollectionServiceTest" />
-        <item itemvalue="JUnit.ListServiceTest" />
-        <item itemvalue="JUnit.DataSynchronizerTest" />
       </list>
     </recent_temporary>
   </component>
@@ -280,7 +246,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684550705032</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Created some basic input test data, created a base class for the model classes, and finished implementing and testing the service classes">
+      <created>1684913812257</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1684913812258</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

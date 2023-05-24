@@ -4,7 +4,7 @@ import java.time.ZonedDateTime;
 import java.util.Objects;
 
 /**
- * Model class that contains information about a category
+ * Model class that contains information about a category of items
  */
 public class Category extends Model {
 
