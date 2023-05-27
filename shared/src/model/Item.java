@@ -175,4 +175,14 @@ public class Item extends Model {
                 ", lastUpdated=" + lastUpdated +
                 '}';
     }
+
+    /**
+     * Returns a hash code for this Item object
+     *
+     * @return A hash code for this Item object
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, owner, category, parentList, favorited, completed);
+    }
 }

@@ -101,4 +101,14 @@ public class Collection extends Model {
                 ", lastUpdated=" + lastUpdated +
                 '}';
     }
+
+    /**
+     * Returns a hash code for this Collection object
+     *
+     * @return A hash code for this Collection object
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, owner);
+    }
 }

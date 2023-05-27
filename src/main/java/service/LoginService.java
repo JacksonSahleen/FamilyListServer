@@ -42,7 +42,7 @@ public class LoginService {
         }
 
         // Attempt to log the user into the system
-        String authtoken = verifyLogin(request.username(), request.password());
+        String authtoken = verifyLogin(request.getUsername(), request.getPassword());
 
         if (authtoken == null) {
             return new LoginResult("ERROR: Invalid login credentials provided.");
@@ -52,7 +52,7 @@ public class LoginService {
                 Connection conn = db.getConnection();
 
                 UserDAO uDao = new UserDAO(conn);
-                User user = uDao.find(request.username());
+                User user = uDao.find(request.getUsername());
 
                 db.closeConnection(true);
                 return new LoginResult(authtoken, user.getUsername());
@@ -124,6 +124,6 @@ public class LoginService {
      * @return True if the request is valid and false if not
      */
     private boolean checkRequest(LoginRequest request) {
-        return request != null && request.username() != null && request.password() != null;
+        return request != null && request.getUsername() != null && request.getPassword() != null;
     }
 }

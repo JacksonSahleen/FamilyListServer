@@ -157,4 +157,14 @@ public class Recipe extends Model {
                 ", lastUpdated=" + lastUpdated +
                 '}';
     }
+
+    /**
+     * Returns a hash code for this Recipe object
+     *
+     * @return A hash code for this Recipe object
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, owner, description, ingredients, steps);
+    }
 }

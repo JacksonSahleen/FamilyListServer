@@ -146,7 +146,7 @@ public class LoadService {
             RecipeDAO rDao = new RecipeDAO(conn);
 
             // Clear the database if requested
-            if (request.clearDatabase()) {
+            if (request.isClearDatabase()) {
                 uDao.clear();
                 aDao.clear();
                 catDao.clear();
@@ -161,24 +161,24 @@ public class LoadService {
             List<Category> categories = new ArrayList<>();
 
             // Insert any provided Authtokens
-            if (request.authtokens() != null) {
-                for (Authtoken authtoken : request.authtokens()) {
+            if (request.getAuthtokens() != null) {
+                for (Authtoken authtoken : request.getAuthtokens()) {
                     aDao.insert(authtoken);
                 }
-                message += request.authtokens().size() + " authtokens, ";
+                message += request.getAuthtokens().size() + " authtokens, ";
             }
 
             // Insert any provided Users
-            if (request.users() != null) {
-                for (User user : request.users()) {
+            if (request.getUsers() != null) {
+                for (User user : request.getUsers()) {
                     uDao.insert(user);
                 }
-                message += request.users().size() + " users, ";
+                message += request.getUsers().size() + " users, ";
             }
 
             // Insert any provided Lists
-            if (request.lists() != null) {
-                for (ItemList list : request.lists()) {
+            if (request.getLists() != null) {
+                for (ItemList list : request.getLists()) {
                     lDao.insert(list);
 
                     // Append the list's items to the items list
@@ -191,23 +191,23 @@ public class LoadService {
                         categories.addAll(list.getCategories());
                     }
                 }
-                message += request.lists().size() + " lists, ";
+                message += request.getLists().size() + " lists, ";
             }
 
             // Insert Any provided Collections
-            if (request.collections() != null) {
-                for (Collection collection : request.collections()) {
+            if (request.getCollections() != null) {
+                for (Collection collection : request.getCollections()) {
                     colDao.insert(collection);
                 }
-                message += request.collections().size() + " collections, ";
+                message += request.getCollections().size() + " collections, ";
             }
 
             // Insert any provided Recipes
-            if (request.recipes() != null) {
-                for (Recipe recipe : request.recipes()) {
+            if (request.getRecipes() != null) {
+                for (Recipe recipe : request.getRecipes()) {
                     rDao.insert(recipe);
                 }
-                message += request.recipes().size() + " recipes, ";
+                message += request.getRecipes().size() + " recipes, ";
             }
 
             // Insert any provided Categories
@@ -227,7 +227,7 @@ public class LoadService {
             }
 
             // Parse and insert any provided list permissions
-            for (List<String> permissionPair : request.listPermissions()) {
+            for (List<String> permissionPair : request.getListPermissions()) {
                 String listID = permissionPair.get(0);
                 String username = permissionPair.get(1);
 
@@ -239,7 +239,7 @@ public class LoadService {
             }
 
             // Parse and insert any provided recipe permissions
-            for (List<String> permissionPair : request.recipePermissions()) {
+            for (List<String> permissionPair : request.getRecipePermissions()) {
                 String recipeID = permissionPair.get(0);
                 String username = permissionPair.get(1);
 
@@ -251,7 +251,7 @@ public class LoadService {
             }
 
             // Parse and insert any provided collection recipes
-            for (List<String> collectionPair : request.collectionRecipes()) {
+            for (List<String> collectionPair : request.getCollectionRecipes()) {
                 String collectionID = collectionPair.get(0);
                 String recipeID = collectionPair.get(1);
 
@@ -315,9 +315,9 @@ public class LoadService {
      * @return True if the request is valid, false otherwise.
      */
     private boolean checkRequest(LoadRequest request) {
-        return request != null && (request.users() != null || request.lists() != null ||
-                request.collections() != null || request.recipes() != null ||
-                request.listPermissions() != null || request.recipePermissions() != null ||
-                request.collectionRecipes() != null);
+        return request != null && (request.getAuthtokens() != null || request.getUsers() != null
+                || request.getLists() != null || request.getCollections() != null ||
+                request.getRecipes() != null || request.getListPermissions() != null ||
+                request.getRecipePermissions() != null || request.getCollectionRecipes() != null);
     }
 }

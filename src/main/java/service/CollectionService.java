@@ -50,10 +50,10 @@ public class CollectionService {
             String username = aDao.find(authtoken).getUserID();
 
             // Get the data and permissions from the request
-            List<Model> clientData = List.copyOf(request.data());
-            List<Permissions> clientAssociations = List.copyOf(request.associations());
-            List<String> removals = List.copyOf(request.removals());
-            List<Permissions> revocations = List.copyOf(request.revocations());
+            List<Model> clientData = List.copyOf(request.getData());
+            List<Permissions> clientAssociations = List.copyOf(request.getAssociations());
+            List<String> removals = List.copyOf(request.getRemovals());
+            List<Permissions> revocations = List.copyOf(request.getRevocations());
 
             // Get the data from the database
             List<Model> dbData = new ArrayList<>();
@@ -100,11 +100,11 @@ public class CollectionService {
             // Update the database with the synced associations
             for (Permissions syncPermissions : syncAssociations) {
                 if (!dbAssociations.contains(syncPermissions)) {
-                    cDao.addCollectionRecipe(syncPermissions.holder(), syncPermissions.object());
+                    cDao.addCollectionRecipe(syncPermissions.getHolder(), syncPermissions.getObject());
                 }
             }
             for (Permissions revocation : revocations) {
-                cDao.removeCollectionRecipe(revocation.holder(), revocation.object());
+                cDao.removeCollectionRecipe(revocation.getHolder(), revocation.getObject());
             }
 
             // Close the database connection and commit changes
@@ -128,7 +128,7 @@ public class CollectionService {
      * @return True if the request is valid, false otherwise.
      */
     private boolean checkInvalidRequest(CollectionRequest request) {
-        return request == null || request.data() == null || request.associations() == null ||
-                request.removals() == null || request.revocations() == null;
+        return request == null || request.getData() == null || request.getAssociations() == null ||
+                request.getRemovals() == null || request.getRevocations() == null;
     }
 }

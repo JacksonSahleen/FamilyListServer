@@ -49,19 +49,19 @@ public class RegisterService {
             UserDAO uDao = new UserDAO(conn);
 
             // Check if username is already taken
-            if (uDao.find(request.username()) != null) {
+            if (uDao.find(request.getUsername()) != null) {
                 db.closeConnection(false);
                 return new RegisterResult("ERROR: Username already taken.");
             } else {
                 // Create new user
-                User newUser = new User(request.username(), request.password(),
-                        request.firstName(), request.lastName(), ZonedDateTime.now());
+                User newUser = new User(request.getUsername(), request.getPassword(),
+                        request.getFirstName(), request.getLastName(), ZonedDateTime.now());
 
                 // Insert new user into database
                 uDao.insert(newUser);
 
                 // Create and insert new authtoken for the new user
-                Authtoken newToken = new Authtoken(UUID.randomUUID().toString(), request.username());
+                Authtoken newToken = new Authtoken(UUID.randomUUID().toString(), request.getUsername());
                 AuthtokenDAO aDao = new AuthtokenDAO(conn);
                 aDao.insert(newToken);
 
@@ -119,9 +119,9 @@ public class RegisterService {
     private boolean checkRequest(RegisterRequest request) {
         // Check if request is null or any of the fields are null
         return request != null &&
-                request.username() != null &&
-                request.password() != null &&
-                request.firstName() != null &&
-                request.lastName() != null;
+                request.getUsername() != null &&
+                request.getPassword() != null &&
+                request.getFirstName() != null &&
+                request.getLastName() != null;
     }
 }

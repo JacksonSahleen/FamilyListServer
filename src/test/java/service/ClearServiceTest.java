@@ -10,7 +10,6 @@ import result.ClearResult;
 import java.sql.Connection;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class ClearServiceTest {
 

@@ -87,14 +87,14 @@ public class DataSynchronizer {
 
         // Add the database permissions to the synced permissions if they are not to be revoked
         for (Permissions dbPermission : dbPermissions) {
-            if (!revocations.contains(dbPermission) && !removals.contains(dbPermission.object()) && !removals.contains(dbPermission.holder())) {
+            if (!revocations.contains(dbPermission) && !removals.contains(dbPermission.getObject()) && !removals.contains(dbPermission.getHolder())) {
                 syncedPermissions.add(dbPermission);
             }
         }
 
         // Add the client permissions to the synced permissions if they are not to be revoked
         for (Permissions clientPermission : clientPermissions) {
-            if (!revocations.contains(clientPermission) && !removals.contains(clientPermission.object()) && !removals.contains(clientPermission.holder())) {
+            if (!revocations.contains(clientPermission) && !removals.contains(clientPermission.getObject()) && !removals.contains(clientPermission.getHolder())) {
                 syncedPermissions.add(clientPermission);
             }
         }

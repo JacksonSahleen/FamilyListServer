@@ -120,4 +120,14 @@ public class Category extends Model {
                 ", lastUpdated=" + lastUpdated +
                 '}';
     }
+
+    /**
+     * Returns a hash code for this Category object
+     *
+     * @return A hash code for this Category object
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, owner, parentList);
+    }
 }

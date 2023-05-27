@@ -71,4 +71,14 @@ public class Authtoken {
                 ", userID='" + userID + '\'' +
                 '}';
     }
+
+    /**
+     * Returns a hash code for this Authtoken object
+     *
+     * @return A hash code for this Authtoken object
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(token, userID);
+    }
 }

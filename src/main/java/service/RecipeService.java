@@ -54,10 +54,10 @@ public class RecipeService {
             String username = aDao.find(authtoken).getUserID();
 
             // Get the data and permissions from the request
-            List<Model> clientData = List.copyOf(request.data());
-            List<Permissions> clientPermissions = List.copyOf(request.permissions());
-            List<String> removals = List.copyOf(request.removals());
-            List<Permissions> revocations = List.copyOf(request.revocations());
+            List<Model> clientData = List.copyOf(request.getData());
+            List<Permissions> clientPermissions = List.copyOf(request.getPermissions());
+            List<String> removals = List.copyOf(request.getRemovals());
+            List<Permissions> revocations = List.copyOf(request.getRevocations());
 
             // Get the data from the database
             List<Model> dbData = new ArrayList<>();
@@ -111,13 +111,13 @@ public class RecipeService {
 
             // Update the database with the synced permissions if the user owns the recipe
             for (Permissions syncPermission : syncPermissions) {
-                if (!dbPermissions.contains(syncPermission) && userRecipeIDs.contains(syncPermission.object())) {
-                    rDao.share(syncPermission.object(), syncPermission.holder());
+                if (!dbPermissions.contains(syncPermission) && userRecipeIDs.contains(syncPermission.getObject())) {
+                    rDao.share(syncPermission.getObject(), syncPermission.getHolder());
                 }
             }
             for (Permissions revocation : revocations) {
-                if (userRecipeIDs.contains(revocation.object())) {
-                    rDao.unshare(revocation.object(), revocation.holder());
+                if (userRecipeIDs.contains(revocation.getObject())) {
+                    rDao.unshare(revocation.getObject(), revocation.getHolder());
                 }
             }
 
@@ -142,7 +142,7 @@ public class RecipeService {
      * @return True if the request is valid, false otherwise.
      */
     private boolean checkInvalidRequest(RecipeRequest request) {
-        return request == null || request.data() == null || request.permissions() == null ||
-                request.removals() == null || request.revocations() == null;
+        return request == null || request.getData() == null || request.getPermissions() == null ||
+                request.getRemovals() == null || request.getRevocations() == null;
     }
 }

@@ -130,4 +130,14 @@ public class User extends Model {
                 ", lastUpdated=" + lastUpdated +
                 '}';
     }
+
+    /**
+     * Returns a hash code for this User object
+     *
+     * @return A hash code for this User object
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(username, password, firstName, lastName);
+    }
 }
