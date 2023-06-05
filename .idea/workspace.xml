@@ -3,45 +3,29 @@
   <component name="AnalysisUIOptions">
     <option name="ANALYZE_TEST_SOURCES" value="false" />
   </component>
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="shared:jar" />
+    </artifacts-to-build>
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="34bfb45b-a668-4754-8c86-7be207660499" name="Changes" comment="Updated the README and added an images directory with images of the database and server designs">
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+    <list default="true" id="34bfb45b-a668-4754-8c86-7be207660499" name="Changes" comment="Created a Shared module for all the classes to share with the client application, converted all request records to classes, and added hashcodes for all model classes.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FamilyListServer.iml" beforeDir="false" afterPath="$PROJECT_DIR$/FamilyListServer.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/Authtoken.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/model/Authtoken.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/model/Category.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/Collection.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/model/Collection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/model/Item.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/ItemList.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/model/ItemList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/model/Model.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/Permissions.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/model/Permissions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/Recipe.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/model/Recipe.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/model/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/request/CollectionRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/request/CollectionRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/request/ListRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/request/ListRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/request/LoadRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/request/LoadRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/request/LoginRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/request/LoginRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/request/RecipeRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/request/RecipeRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/request/RegisterRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/request/RegisterRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/result/ClearResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/result/ClearResult.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/result/CollectionResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/result/CollectionResult.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/result/ListResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/result/ListResult.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/result/LoadResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/result/LoadResult.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/result/LoginResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/result/LoginResult.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/result/RecipeResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/result/RecipeResult.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/result/RegisterResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/result/RegisterResult.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/result/Result.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/result/Result.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/src/request/CollectionRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/request/CollectionRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/src/request/ListRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/request/ListRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/src/request/RecipeRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/request/RecipeRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/handler/CollectionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/handler/CollectionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/handler/ListHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/handler/ListHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/handler/RecipeHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/handler/RecipeHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/service/CollectionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/CollectionService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/DataSynchronizer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/DataSynchronizer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/service/ListService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/ListService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/LoadService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/LoadService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/LoginService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/LoginService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/service/RecipeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/RecipeService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/RegisterService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/RegisterService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/service/ClearServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/service/ClearServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/service/CollectionServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/service/CollectionServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/service/ListServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/service/ListServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/service/RecipeServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/service/RecipeServiceTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,8 +82,8 @@
     "TODO_SCOPE": "All Places",
     "ignore.virus.scanning.warn.message": "true",
     "jdk.selected.JAVA_MODULE": "17",
-    "last_opened_file_path": "C:/Users/Jackson/OneDrive/Profile/Documentos/Projetos/JavaProjects/FamilyListServer/src/main/java",
-    "project.structure.last.edited": "Artifacts",
+    "last_opened_file_path": "C:/Users/Jackson/OneDrive/Profile/Documentos/Escola/2023 Inverno/CS 240/Projects/FamilyMapServerStudent-master/src/main/java/shared/src/request/PersonRequest.java",
+    "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "preferences.lookFeel"
@@ -147,7 +131,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CollectionServiceTest.syncWithRevocations" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ListServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="FamilyListServer" />
       <extension name="coverage">
         <pattern>
@@ -156,14 +140,13 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="service" />
-      <option name="MAIN_CLASS_NAME" value="service.CollectionServiceTest" />
-      <option name="METHOD_NAME" value="syncWithRevocations" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="MAIN_CLASS_NAME" value="service.ListServiceTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DataSynchronizerTest.syncPermissionsWithRevocations" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="RecipeServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="FamilyListServer" />
       <extension name="coverage">
         <pattern>
@@ -172,9 +155,8 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="service" />
-      <option name="MAIN_CLASS_NAME" value="service.DataSynchronizerTest" />
-      <option name="METHOD_NAME" value="syncPermissionsWithRevocations" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="MAIN_CLASS_NAME" value="service.RecipeServiceTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -195,19 +177,19 @@
     </configuration>
     <list>
       <item itemvalue="Application.Run Server" />
+      <item itemvalue="JUnit.ListServiceTest" />
+      <item itemvalue="JUnit.RecipeServiceTest" />
       <item itemvalue="JUnit.CollectionServiceTest" />
-      <item itemvalue="JUnit.CollectionServiceTest.syncWithRevocations" />
-      <item itemvalue="JUnit.DataSynchronizerTest.syncPermissionsWithRevocations" />
       <item itemvalue="JUnit.service in FamilyListServer" />
       <item itemvalue="JUnit.All in FamilyListServer" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.All in FamilyListServer" />
-        <item itemvalue="JUnit.service in FamilyListServer" />
+        <item itemvalue="JUnit.RecipeServiceTest" />
         <item itemvalue="JUnit.CollectionServiceTest" />
-        <item itemvalue="JUnit.CollectionServiceTest.syncWithRevocations" />
-        <item itemvalue="JUnit.DataSynchronizerTest.syncPermissionsWithRevocations" />
+        <item itemvalue="JUnit.ListServiceTest" />
+        <item itemvalue="JUnit.service in FamilyListServer" />
       </list>
     </recent_temporary>
   </component>
@@ -304,7 +286,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684971264417</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Created a Shared module for all the classes to share with the client application, converted all request records to classes, and added hashcodes for all model classes.">
+      <created>1685221111068</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1685221111068</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -331,6 +320,7 @@
     <MESSAGE value="Implemented the Handlers, added a loadFromFile HTML API, and filled in some missing docstrings for the javadocs" />
     <MESSAGE value="Generated javadocs and added a button link to them on the testing website." />
     <MESSAGE value="Updated the README and added an images directory with images of the database and server designs" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated the README and added an images directory with images of the database and server designs" />
+    <MESSAGE value="Created a Shared module for all the classes to share with the client application, converted all request records to classes, and added hashcodes for all model classes." />
+    <option name="LAST_COMMIT_MESSAGE" value="Created a Shared module for all the classes to share with the client application, converted all request records to classes, and added hashcodes for all model classes." />
   </component>
 </project>

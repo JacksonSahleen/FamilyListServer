@@ -56,7 +56,7 @@ public class RecipeHandler extends Handler implements HttpHandler {
                         if (request != null) {
                             // Run the request through the service
                             RecipeService service = new RecipeService();
-                            result = service.sync(request, authtoken);
+                            result = service.sync(request);
 
                             // Report a successful request
                             if (result.isSuccess()) {

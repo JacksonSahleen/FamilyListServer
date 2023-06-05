@@ -55,7 +55,7 @@ public class ListHandler extends Handler implements HttpHandler {
                         if (request != null) {
                             // Run the request through the service
                             ListService service = new ListService();
-                            result = service.sync(request, authtoken);
+                            result = service.sync(request);
 
                             // Report a successful request
                             if (result.isSuccess()) {

@@ -103,10 +103,10 @@ public class RecipeServiceTest {
     @Test
     public void syncPass() {
         // Create a request with the example data
-        RecipeRequest request = new RecipeRequest(exData, exPermissions, new ArrayList<>(), new ArrayList<>());
+        RecipeRequest request = new RecipeRequest(AUTHTOKEN, exData, exPermissions, new ArrayList<>(), new ArrayList<>());
 
         // Run the request through the service
-        RecipeResult result = recipeService.sync(request, AUTHTOKEN);
+        RecipeResult result = recipeService.sync(request);
 
         // Verify that the result returned is correct
         assertNotNull(result);
@@ -126,10 +126,10 @@ public class RecipeServiceTest {
         // Create a request with the example data that includes a removal
         List<String> removals = new ArrayList<>();
         removals.add("recipeID1");
-        RecipeRequest request = new RecipeRequest(exData, exPermissions, removals, new ArrayList<>());
+        RecipeRequest request = new RecipeRequest(AUTHTOKEN, exData, exPermissions, removals, new ArrayList<>());
 
         // Run the request through the service
-        RecipeResult result = recipeService.sync(request, AUTHTOKEN);
+        RecipeResult result = recipeService.sync(request);
 
         // Verify that the result returned is correct
         assertNotNull(result);
@@ -149,10 +149,10 @@ public class RecipeServiceTest {
         // Create a request with the example data that includes revocations
         List<Permissions> revocations = new ArrayList<>();
         revocations.add(new Permissions("recipeID3", USERNAME));
-        RecipeRequest request = new RecipeRequest(exData, exPermissions, new ArrayList<>(), revocations);
+        RecipeRequest request = new RecipeRequest(AUTHTOKEN, exData, exPermissions, new ArrayList<>(), revocations);
 
         // Run the request through the service
-        RecipeResult result = recipeService.sync(request, AUTHTOKEN);
+        RecipeResult result = recipeService.sync(request);
 
         // Verify that the result returned is correct
         assertNotNull(result);
@@ -170,10 +170,10 @@ public class RecipeServiceTest {
     @Test
     public void syncInvalidRequest() {
         // Create a request that would be invalid
-        RecipeRequest request = new RecipeRequest(null, null, null, null);
+        RecipeRequest request = new RecipeRequest(null, null, null, null, null);
 
         // Run the invalid request through the service
-        RecipeResult result = recipeService.sync(request, null);
+        RecipeResult result = recipeService.sync(request);
 
         // Verify that the result returned indicates an invalid request
         assertNotNull(result);

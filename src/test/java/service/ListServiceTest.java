@@ -97,10 +97,10 @@ public class ListServiceTest {
     @Test
     public void syncPass() {
         // Create a request with the example data
-        ListRequest request = new ListRequest(exData, exPermissions, new ArrayList<>(), new ArrayList<>());
+        ListRequest request = new ListRequest(AUTHTOKEN, exData, exPermissions, new ArrayList<>(), new ArrayList<>());
 
         // Run the request through the service
-        ListResult result = listService.sync(request, AUTHTOKEN);
+        ListResult result = listService.sync(request);
 
         // Verify that the result returned is correct
         assertNotNull(result);
@@ -120,10 +120,10 @@ public class ListServiceTest {
         // Create a request with the example data that includes a removal
         List<String> removals = new ArrayList<>();
         removals.add("listID3");
-        ListRequest request = new ListRequest(exData, exPermissions, removals, new ArrayList<>());
+        ListRequest request = new ListRequest(AUTHTOKEN, exData, exPermissions, removals, new ArrayList<>());
 
         // Run the request through the service
-        ListResult result = listService.sync(request, AUTHTOKEN);
+        ListResult result = listService.sync(request);
 
         // Verify that the result returned is correct
         assertNotNull(result);
@@ -143,10 +143,10 @@ public class ListServiceTest {
         // Create a request with the example data that includes revocations
         List<Permissions> revocations = new ArrayList<>();
         revocations.add(new Permissions("listID4", "user1"));
-        ListRequest request = new ListRequest(exData, exPermissions, new ArrayList<>(), revocations);
+        ListRequest request = new ListRequest(AUTHTOKEN, exData, exPermissions, new ArrayList<>(), revocations);
 
         // Run the request through the service
-        ListResult result = listService.sync(request, AUTHTOKEN);
+        ListResult result = listService.sync(request);
 
         // Verify that the result returned is correct
         assertNotNull(result);
@@ -164,10 +164,10 @@ public class ListServiceTest {
     @Test
     public void syncInvalidRequest() {
         // Create a request that would be invalid
-        ListRequest request = new ListRequest(null, null, null, null);
+        ListRequest request = new ListRequest(null, null, null, null, null);
 
         // Run the invalid request through the service
-        ListResult result = listService.sync(request, null);
+        ListResult result = listService.sync(request);
 
         // Verify that the result returned indicates an invalid request
         assertNotNull(result);

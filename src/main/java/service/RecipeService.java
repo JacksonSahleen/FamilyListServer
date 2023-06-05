@@ -39,19 +39,18 @@ public class RecipeService {
      * Syncs the local Recipe data with the server and returns the updated data.
      *
      * @param request The service request with the local data to be synced with the server.
-     * @param authtoken The authtoken of the user making the request.
      * @return The updated Recipe data from the server after being synced.
      */
-    public RecipeResult sync(RecipeRequest request, String authtoken) {
+    public RecipeResult sync(RecipeRequest request) {
         // Check that the request is valid
-        if (checkInvalidRequest(request) || authtoken == null) {
+        if (checkInvalidRequest(request)) {
             return new RecipeResult("ERROR: Invalid request.", false);
         }
 
         try {
             // Identify the user making the request
             AuthtokenDAO aDao = new AuthtokenDAO(db.getConnection());
-            String username = aDao.find(authtoken).getUserID();
+            String username = aDao.find(request.getAuthtoken()).getUserID();
 
             // Get the data and permissions from the request
             List<Model> clientData = List.copyOf(request.getData());
@@ -142,7 +141,7 @@ public class RecipeService {
      * @return True if the request is valid, false otherwise.
      */
     private boolean checkInvalidRequest(RecipeRequest request) {
-        return request == null || request.getData() == null || request.getPermissions() == null ||
-                request.getRemovals() == null || request.getRevocations() == null;
+        return request == null || request.getAuthtoken() == null || request.getData() == null ||
+                request.getPermissions() == null || request.getRemovals() == null || request.getRevocations() == null;
     }
 }

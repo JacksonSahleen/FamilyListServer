@@ -96,10 +96,10 @@ public class CollectionServiceTest {
     @Test
     public void syncPass() {
         // Create a request with the example data
-        CollectionRequest request = new CollectionRequest(exData, exAssociations, new ArrayList<>(), new ArrayList<>());
+        CollectionRequest request = new CollectionRequest(AUTHTOKEN, exData, exAssociations, new ArrayList<>(), new ArrayList<>());
 
         // Run the request through the service
-        CollectionResult result = collectionService.sync(request, AUTHTOKEN);
+        CollectionResult result = collectionService.sync(request);
 
         // Verify that the result returned is correct
         assertNotNull(result);
@@ -119,10 +119,10 @@ public class CollectionServiceTest {
         // Create a request with the example data that includes removals
         List<String> removals = new ArrayList<>();
         removals.add("collectionID2");
-        CollectionRequest request = new CollectionRequest(exData, exAssociations, removals, new ArrayList<>());
+        CollectionRequest request = new CollectionRequest(AUTHTOKEN, exData, exAssociations, removals, new ArrayList<>());
 
         // Run the request through the service
-        CollectionResult result = collectionService.sync(request, AUTHTOKEN);
+        CollectionResult result = collectionService.sync(request);
 
         // Verify that the result returned is correct
         assertNotNull(result);
@@ -142,10 +142,10 @@ public class CollectionServiceTest {
         // Create a request with the example data that includes revocations
         List<Permissions> revocations = new ArrayList<>();
         revocations.add(new Permissions("recipeID3", "collectionID2"));
-        CollectionRequest request = new CollectionRequest(exData, exAssociations, new ArrayList<>(), revocations);
+        CollectionRequest request = new CollectionRequest(AUTHTOKEN, exData, exAssociations, new ArrayList<>(), revocations);
 
         // Run the request through the service
-        CollectionResult result = collectionService.sync(request, AUTHTOKEN);
+        CollectionResult result = collectionService.sync(request);
 
         // Verify that the result returned is correct
         assertNotNull(result);
@@ -163,10 +163,10 @@ public class CollectionServiceTest {
     @Test
     public void syncInvalidRequest() {
         // Create a request that would be invalid
-        CollectionRequest request = new CollectionRequest(null, null, null, null);
+        CollectionRequest request = new CollectionRequest(null, null, null, null, null);
 
         // Run the invalid request through the service
-        CollectionResult result = collectionService.sync(request, null);
+        CollectionResult result = collectionService.sync(request);
 
         // Verify that the result returned indicates an invalid request
         assertNotNull(result);

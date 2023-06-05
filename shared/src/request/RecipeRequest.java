@@ -11,6 +11,11 @@ import java.util.List;
 public class RecipeRequest {
 
     /**
+     * The authtoken for the current session of the User making the request
+     */
+    private String authtoken;
+
+    /**
      * The Recipe data for the request
      */
     private List<Recipe> data;
@@ -33,17 +38,27 @@ public class RecipeRequest {
     /**
      * Creates a ListRequest object with the given data
      *
+     * @param authtoken The authtoken for the current session of the User making the request
      * @param data The List data for the request
      * @param permissions The permissions data for the request
      * @param removals The removal data for the request
      * @param revocations The revocation data for the request
      */
-    public RecipeRequest(List<Recipe> data, List<Permissions> permissions,
+    public RecipeRequest(String authtoken, List<Recipe> data, List<Permissions> permissions,
                        List<String> removals, List<Permissions> revocations) {
+        this.authtoken = authtoken;
         this.data = data;
         this.permissions = permissions;
         this.removals = removals;
         this.revocations = revocations;
+    }
+
+    public String getAuthtoken() {
+        return authtoken;
+    }
+
+    public void setAuthtoken(String authtoken) {
+        this.authtoken = authtoken;
     }
 
     public List<Recipe> getData() {

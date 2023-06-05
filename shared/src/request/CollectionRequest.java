@@ -11,6 +11,11 @@ import java.util.List;
 public class CollectionRequest {
 
     /**
+     * The authtoken for the current session of the User making the request
+     */
+    private String authtoken;
+
+    /**
      * The Collection data for the request
      */
     private List<Collection> data;
@@ -33,17 +38,27 @@ public class CollectionRequest {
     /**
      * Creates a CollectionRequest object with the given data
      *
+     * @param authtoken The authtoken for the current session of the User making the request
      * @param data The Collection data for the request
      * @param associations The association data for the request
      * @param removals The removal data for the request
      * @param revocations The revocation data for the request
      */
-    public CollectionRequest(List<Collection> data, List<Permissions> associations,
+    public CollectionRequest(String authtoken, List<Collection> data, List<Permissions> associations,
                              List<String> removals, List<Permissions> revocations) {
+        this.authtoken = authtoken;
         this.data = data;
         this.associations = associations;
         this.removals = removals;
         this.revocations = revocations;
+    }
+
+    public String getAuthtoken() {
+        return authtoken;
+    }
+
+    public void setAuthtoken(String authtoken) {
+        this.authtoken = authtoken;
     }
 
     public List<Collection> getData() {
