@@ -37,6 +37,7 @@ public class Server {
 
         // Create and install the HTTP contexts for the server.
         System.out.println("Creating contexts");
+        server.createContext("/user", new UserHandler());
         server.createContext("/user/login", new LoginHandler());
         server.createContext("/user/register", new RegisterHandler());
         server.createContext("/collections", new CollectionHandler());
@@ -47,7 +48,7 @@ public class Server {
         server.createContext("/", new FileHandler());
 
         // Start the server.
-        System.out.println("Starting server");
+        System.out.println("Starting server on port " + portNumber);
         server.start();
         System.out.println("Server started");
     }

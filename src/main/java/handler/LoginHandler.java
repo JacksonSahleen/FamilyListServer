@@ -5,7 +5,7 @@ import java.net.*;
 
 import com.sun.net.httpserver.*;
 import request.LoginRequest;
-import result.LoginResult;
+import result.UserResult;
 import service.LoginService;
 
 /**
@@ -14,7 +14,7 @@ import service.LoginService;
 public class LoginHandler extends Handler implements HttpHandler {
 
     /**
-     * Handles HTTP requests containing the "/login" URL path.
+     * Handles HTTP requests containing the "/user/login" URL path.
      *
      * @param exchange the exchange containing the request from the
      *                 client and used to send the response
@@ -25,7 +25,7 @@ public class LoginHandler extends Handler implements HttpHandler {
         boolean success = false;
 
         try {
-            LoginResult result = null;
+            UserResult result = null;
 
             // Only allow POST requests for this operation.
             if (exchange.getRequestMethod().equalsIgnoreCase("post")) {
@@ -45,7 +45,8 @@ public class LoginHandler extends Handler implements HttpHandler {
                 // Report a successful request
                 if (result.isSuccess()) {
                     // Log the successful request
-                    System.out.println("LoginHandler: Successfully logged in as " + result.getUsername() + ".");
+                    System.out.println("LoginHandler: Successfully logged in as "
+                            + result.getUser().getUsername() + ".");
 
                     // Return an "ok" status code to the client
                     exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);

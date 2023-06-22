@@ -175,8 +175,7 @@ __Request Body:__
             "collectionID",
             "recipeID"
         ]
-    ],
-    "clearDatabase": clearDatabase
+    ]
 }
 ```
 __Result Body:__  
@@ -233,7 +232,12 @@ __Result Body:__
 ```json
 {
     "authtoken": "authtoken",
-    "username": "username",
+    "user": {
+      "username": "username",
+      "password": "password",
+      "firstName": "firstName",
+      "lastName": "lastName"
+    },
     "message": "message",
     "success": "success"
 }
@@ -258,7 +262,12 @@ __Result Body:__
 ```json
 {
     "authtoken": "authtoken",
-    "username": "username",
+    "user": {
+      "username": "username",
+      "password": "password",
+      "firstName": "firstName",
+      "lastName": "lastName"
+    },
     "message": "message",
     "success": "success"
 }

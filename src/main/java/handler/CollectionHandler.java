@@ -60,7 +60,7 @@ public class CollectionHandler extends Handler implements HttpHandler {
                             // Report a successful request
                             if (result.isSuccess()) {
                                 // Log the successful request
-                                System.out.println("PersonHandler: Successfully retrieved person data.");
+                                System.out.println("CollectionHandler: Successfully retrieved person data.");
 
                                 // Return an "ok" status code to the client
                                 exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
@@ -88,7 +88,7 @@ public class CollectionHandler extends Handler implements HttpHandler {
                 if (result == null) {
                     result = new CollectionResult("ERROR: Invalid request.", false);
                 }
-                System.out.println("PersonHandler: (Bad Request) " + result.getMessage());
+                System.out.println("CollectionHandler: (Bad Request) " + result.getMessage());
 
                 // Return a "bad request" status code to the client
                 exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
@@ -110,7 +110,7 @@ public class CollectionHandler extends Handler implements HttpHandler {
             exchange.getResponseBody().close();
 
             // Display/log the stack trace
-            System.out.println("PersonHandler: Failed to retrieve person data (Internal Server Error).");
+            System.out.println("CollectionHandler: Failed to retrieve person data (Internal Server Error).");
             e.printStackTrace();
         }
     }

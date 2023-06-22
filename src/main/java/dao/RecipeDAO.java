@@ -10,6 +10,9 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A Data Access Object (DAO) to access Recipe data in the database
+ */
 public class RecipeDAO extends DAO {
 
     /**

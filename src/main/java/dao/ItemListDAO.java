@@ -186,6 +186,24 @@ public class ItemListDAO extends DAO {
             e.printStackTrace();
             throw new DataAccessException("Error encountered while clearing ListPermissions from the database");
         }
+
+        // Clear all rows from the Item table
+        sql = "DELETE FROM Item;";
+        try(PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DataAccessException("Error encountered while clearing Items from the database");
+        }
+
+        // Clear all rows from the Category table
+        sql = "DELETE FROM Category;";
+        try(PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DataAccessException("Error encountered while clearing Categories from the database");
+        }
     }
 
     /*-----------------------------------------------------

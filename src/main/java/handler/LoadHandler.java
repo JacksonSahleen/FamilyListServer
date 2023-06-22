@@ -41,7 +41,6 @@ public class LoadHandler extends Handler implements HttpHandler {
                 // Load data from file if a file path is provided, and load data from request body otherwise
                 if (uriParts.size() > 1) {
                     // Join the remaining parts of the URI to get the file path
-                    System.out.print("uriParts: " + uriParts + "\n");   // DEBUG
                     String filePath = String.join("/", uriParts.subList(2, uriParts.size()));
 
                     // Run the request through the corresponding service

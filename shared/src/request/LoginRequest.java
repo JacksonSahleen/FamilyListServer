@@ -1,7 +1,7 @@
 package request;
 
 /**
- * Stores the request data for the Login service
+ * Stores the data for a login service request
  */
 public class LoginRequest {
 

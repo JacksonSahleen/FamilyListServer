@@ -92,6 +92,41 @@ public class AuthtokenDAOTest {
     }
 
     @Test
+    public void updatePass() throws DataAccessException {
+        // Insert the example Authtoken into the database
+        aDao.insert(exAuthtoken);
+
+        // Get the example Authtoken back from the database
+        Authtoken compareTest = aDao.find(exAuthtoken.getToken());
+
+        // Verify that the Authtoken we inserted and the Authtoken we got back are the same
+        assertNotNull(compareTest);
+        assertEquals(exAuthtoken, compareTest);
+
+        // Update the Authtoken
+        Authtoken updatedToken = new Authtoken("token", "newUserID");
+        aDao.update(updatedToken);
+
+        // Get the updated Authtoken back from the database
+        compareTest = aDao.find(updatedToken.getToken());
+
+        // Verify that the Authtoken we updated and the Authtoken we got back are the same
+        assertNotNull(compareTest);
+        assertEquals(updatedToken, compareTest);
+    }
+
+    @Test
+    public void updateFail() throws DataAccessException {
+        // Attempt to update a token that doesn't exist in the database
+        Authtoken invalidToken = new Authtoken("nonexistent", "noUser");
+        aDao.update(invalidToken);
+
+        // Verify that the Authtoken we updated is null
+        Authtoken compareTest = aDao.find(invalidToken.getToken());
+        assertNull(compareTest);
+    }
+
+    @Test
     public void findUserAuthtokensPass() throws DataAccessException {
         // Insert two tokens for the same user into the database
         Authtoken exAuthtoken2 = new Authtoken("token2", "userID");

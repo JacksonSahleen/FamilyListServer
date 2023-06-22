@@ -1,7 +1,7 @@
 package request;
 
 /**
- * Record that stores the request data for the Register service
+ * Stores the data for a register service request
  */
 public class RegisterRequest {
 

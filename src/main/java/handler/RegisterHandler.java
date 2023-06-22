@@ -5,7 +5,7 @@ import java.net.*;
 
 import com.sun.net.httpserver.*;
 import request.RegisterRequest;
-import result.RegisterResult;
+import result.UserResult;
 import service.RegisterService;
 
 /**
@@ -14,7 +14,7 @@ import service.RegisterService;
 public class RegisterHandler extends Handler implements HttpHandler {
 
     /**
-     * Handles HTTP requests containing the "/register" URL path.
+     * Handles HTTP requests containing the "/user/register" URL path.
      *
      * @param exchange the exchange containing the request from the
      *                 client and used to send the response
@@ -25,7 +25,7 @@ public class RegisterHandler extends Handler implements HttpHandler {
         boolean success = false;
 
         try {
-            RegisterResult result = null;
+            UserResult result = null;
 
             // Only allow POST requests for this operation.
             if (exchange.getRequestMethod().equalsIgnoreCase("post")) {
@@ -45,7 +45,8 @@ public class RegisterHandler extends Handler implements HttpHandler {
                 // Report a successful request
                 if (result.isSuccess()) {
                     // Log the successful request
-                    System.out.println("Register Handler: Successfully registered the user " + result.getUsername() + ".");
+                    System.out.println("Register Handler: Successfully registered "
+                            + result.getUser().getUsername() + " as a new user.");
 
                     // Return an "ok" status code to the client
                     exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
@@ -71,7 +72,7 @@ public class RegisterHandler extends Handler implements HttpHandler {
 
                 // Log the failed request
                 if (result != null) {
-                    System.out.println("LoginHandler: (Bad Request) " + result.getMessage());
+                    System.out.println("RegisterHandler: (Bad Request) " + result.getMessage());
 
                     // Convert the result to a JSON string
                     String respData = GSON.toJson(result);
@@ -83,7 +84,7 @@ public class RegisterHandler extends Handler implements HttpHandler {
                     // Close the output stream
                     respBody.close();
                 } else {
-                    System.out.println("LoginHandler: (Bad Request) Failed to log in user.");
+                    System.out.println("RegisterHandler: (Bad Request) Failed to register user.");
                     exchange.getResponseBody().close();
                 }
             }

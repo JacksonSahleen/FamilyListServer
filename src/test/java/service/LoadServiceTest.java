@@ -32,11 +32,13 @@ public class LoadServiceTest {
             ItemListDAO lDao = new ItemListDAO(conn);
             CollectionDAO cDao = new CollectionDAO(conn);
             RecipeDAO rDao = new RecipeDAO(conn);
+            AuthtokenDAO aDao = new AuthtokenDAO(conn);
 
             uDao.clear();
             lDao.clear();
             cDao.clear();
             rDao.clear();
+            aDao.clear();
 
             db.closeConnection(true);
         } catch (DataAccessException e) {
@@ -57,8 +59,8 @@ public class LoadServiceTest {
 
             // Check that the result is correct
             assertNotNull(result);
-            assertTrue(result.isSuccess());
             System.out.println(result.getMessage());
+            assertTrue(result.isSuccess());
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -70,8 +72,7 @@ public class LoadServiceTest {
     public void invalidRequest() {
         // Create a request
         LoadRequest request = new LoadRequest(null,null, null, null, null,
-                                              null, null, null,
-                                              false);
+                                              null, null, null);
 
         // Run the load service
         LoadResult result = loadService.load(request);

@@ -12,20 +12,39 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="34bfb45b-a668-4754-8c86-7be207660499" name="Changes" comment="Created a Shared module for all the classes to share with the client application, converted all request records to classes, and added hashcodes for all model classes.">
+    <list default="true" id="34bfb45b-a668-4754-8c86-7be207660499" name="Changes" comment="Updated request objects to have an authtoken field should their API require an authtoken to process.">
+      <change afterPath="$PROJECT_DIR$/shared/src/request/UserRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/handler/UserHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/service/UserService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/service/UserServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/src/request/CollectionRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/request/CollectionRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/src/request/ListRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/request/ListRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/src/request/RecipeRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/request/RecipeRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FLServerDiagram.drawio" beforeDir="false" afterPath="$PROJECT_DIR$/FLServerDiagram.drawio" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/basicTestData.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/basicTestData.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/src/request/LoadRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/request/LoadRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/src/request/LoginRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/request/LoginRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/src/request/RegisterRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/request/RegisterRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/src/result/LoginResult.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/src/result/RegisterResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/result/UserResult.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Server.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/AuthtokenDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/AuthtokenDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/ItemListDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/ItemListDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/RecipeDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/RecipeDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/handler/CollectionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/handler/CollectionHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/handler/ListHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/handler/ListHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/handler/LoadHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/handler/LoadHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/handler/LoginHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/handler/LoginHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/handler/RecipeHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/handler/RecipeHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/CollectionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/CollectionService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/ListService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/ListService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/RecipeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/RecipeService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/service/CollectionServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/service/CollectionServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/service/ListServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/service/ListServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/service/RecipeServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/service/RecipeServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/handler/RegisterHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/handler/RegisterHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/LoadService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/LoadService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/LoginService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/LoginService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/RegisterService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/RegisterService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/dao/AuthtokenDAOTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/dao/AuthtokenDAOTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/service/LoadServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/service/LoadServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/service/LoginServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/service/LoginServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/service/RegisterServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/service/RegisterServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,7 +78,7 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="ProjectErrors" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="2PCZ7SM8fMDGKPF0KyR71dnswbp" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -69,26 +88,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "Downloaded.Files.Path.Enabled": "false",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "true",
-    "Repository.Attach.Sources": "false",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "TODO_SCOPE": "All Places",
-    "ignore.virus.scanning.warn.message": "true",
-    "jdk.selected.JAVA_MODULE": "17",
-    "last_opened_file_path": "C:/Users/Jackson/OneDrive/Profile/Documentos/Escola/2023 Inverno/CS 240/Projects/FamilyMapServerStudent-master/src/main/java/shared/src/request/PersonRequest.java",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.lookFeel"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;true&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;TODO_SCOPE&quot;: &quot;All Places&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;17&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Jackson/OneDrive/Profile/Documentos/Escola/2023 Inverno/CS 240/Projects/FamilyMapServerStudent-master/src/main/java/shared/src/request/PersonRequest.java&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Jackson\OneDrive\Profile\Documentos\Projetos\Java Projects\FamilyListServer\src\main\java\result" />
@@ -99,7 +118,7 @@
       <recent name="C:\Users\Jackson\OneDrive\Profile\Documentos\Projetos\Java Projects\FamilyListServer\web\img" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.All in FamilyListServer">
+  <component name="RunManager" selected="Application.Run Server">
     <configuration name="Run Server" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="Server" />
       <module name="FamilyListServer" />
@@ -116,22 +135,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CollectionServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="AuthtokenDAOTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="FamilyListServer" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="service.*" />
+          <option name="PATTERN" value="dao.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="service" />
-      <option name="MAIN_CLASS_NAME" value="service.CollectionServiceTest" />
+      <option name="PACKAGE_NAME" value="dao" />
+      <option name="MAIN_CLASS_NAME" value="dao.AuthtokenDAOTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ListServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="LoadServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="FamilyListServer" />
       <extension name="coverage">
         <pattern>
@@ -140,13 +159,13 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="service" />
-      <option name="MAIN_CLASS_NAME" value="service.ListServiceTest" />
+      <option name="MAIN_CLASS_NAME" value="service.LoadServiceTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="RecipeServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="LoginServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="FamilyListServer" />
       <extension name="coverage">
         <pattern>
@@ -155,13 +174,13 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="service" />
-      <option name="MAIN_CLASS_NAME" value="service.RecipeServiceTest" />
+      <option name="MAIN_CLASS_NAME" value="service.LoginServiceTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="service in FamilyListServer" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UserServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="FamilyListServer" />
       <extension name="coverage">
         <pattern>
@@ -170,26 +189,27 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="service" />
-      <option name="TEST_OBJECT" value="package" />
+      <option name="MAIN_CLASS_NAME" value="service.UserServiceTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <list>
       <item itemvalue="Application.Run Server" />
-      <item itemvalue="JUnit.ListServiceTest" />
-      <item itemvalue="JUnit.RecipeServiceTest" />
-      <item itemvalue="JUnit.CollectionServiceTest" />
-      <item itemvalue="JUnit.service in FamilyListServer" />
+      <item itemvalue="JUnit.AuthtokenDAOTest" />
+      <item itemvalue="JUnit.LoginServiceTest" />
+      <item itemvalue="JUnit.UserServiceTest" />
+      <item itemvalue="JUnit.LoadServiceTest" />
       <item itemvalue="JUnit.All in FamilyListServer" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.UserServiceTest" />
         <item itemvalue="JUnit.All in FamilyListServer" />
-        <item itemvalue="JUnit.RecipeServiceTest" />
-        <item itemvalue="JUnit.CollectionServiceTest" />
-        <item itemvalue="JUnit.ListServiceTest" />
-        <item itemvalue="JUnit.service in FamilyListServer" />
+        <item itemvalue="JUnit.LoginServiceTest" />
+        <item itemvalue="JUnit.AuthtokenDAOTest" />
+        <item itemvalue="JUnit.LoadServiceTest" />
       </list>
     </recent_temporary>
   </component>
@@ -293,7 +313,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685221111068</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Updated request objects to have an authtoken field should their API require an authtoken to process.">
+      <created>1685997635185</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1685997635185</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -321,6 +348,7 @@
     <MESSAGE value="Generated javadocs and added a button link to them on the testing website." />
     <MESSAGE value="Updated the README and added an images directory with images of the database and server designs" />
     <MESSAGE value="Created a Shared module for all the classes to share with the client application, converted all request records to classes, and added hashcodes for all model classes." />
-    <option name="LAST_COMMIT_MESSAGE" value="Created a Shared module for all the classes to share with the client application, converted all request records to classes, and added hashcodes for all model classes." />
+    <MESSAGE value="Updated request objects to have an authtoken field should their API require an authtoken to process." />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated request objects to have an authtoken field should their API require an authtoken to process." />
   </component>
 </project>

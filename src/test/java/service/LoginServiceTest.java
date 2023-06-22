@@ -9,7 +9,7 @@ import model.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import request.LoginRequest;
-import result.LoginResult;
+import result.UserResult;
 
 import java.sql.Connection;
 
@@ -27,6 +27,12 @@ public class LoginServiceTest {
      */
     private static LoginService loginService;
 
+    /*
+     * User object to use for testing
+     */
+    private static final User exUser = new User("username", "password",
+            "firstName", "lastName");
+
     @BeforeEach
     public void setUp() throws Exception {
         db = new Database();
@@ -35,7 +41,6 @@ public class LoginServiceTest {
         Connection conn = db.openConnection();
         UserDAO uDao = new UserDAO(conn);
         uDao.clear();
-        User exUser = new User("username", "password", "firstName", "lastName");
         uDao.insert(exUser);
 
         db.closeConnection(true);
@@ -47,12 +52,12 @@ public class LoginServiceTest {
         LoginRequest request = new LoginRequest("username", "password");
 
         // Run the login service
-        LoginResult result = loginService.login(request);
+        UserResult result = loginService.login(request);
 
         // Verify the correct results
         assertNotNull(result);
         assertTrue(result.isSuccess());
-        assertEquals("username", result.getUsername());
+        assertEquals(exUser, result.getUser());
         assertNotNull(result.getAuthtoken());
 
         // Check that an entry was added to the Authtoken table
@@ -62,7 +67,7 @@ public class LoginServiceTest {
 
             Authtoken token = aDao.find(result.getAuthtoken());
             assertNotNull(token);
-            assertEquals(result.getUsername(), token.getUserID());
+            assertEquals(result.getUser().getUsername(), token.getUserID());
 
             db.closeConnection(true);
         } catch (DataAccessException e) {
@@ -78,12 +83,12 @@ public class LoginServiceTest {
         LoginRequest request = new LoginRequest("username", "password");
 
         // Run the login service
-        LoginResult result = loginService.login(request);
+        UserResult result = loginService.login(request);
 
         // Verify the correct results
         assertNotNull(result);
         assertTrue(result.isSuccess());
-        assertEquals("username", result.getUsername());
+        assertEquals(exUser, result.getUser());
         assertNotNull(result.getAuthtoken());
 
         // Check that an entry was added to the Authtoken table
@@ -93,7 +98,7 @@ public class LoginServiceTest {
 
             Authtoken token = aDao.find(result.getAuthtoken());
             assertNotNull(token);
-            assertEquals(result.getUsername(), token.getUserID());
+            assertEquals(result.getUser().getUsername(), token.getUserID());
 
             db.closeConnection(true);
         } catch (DataAccessException e) {
@@ -103,17 +108,17 @@ public class LoginServiceTest {
         }
 
         // Run the login service again for the same user
-        LoginResult result2 = loginService.login(request);
+        UserResult result2 = loginService.login(request);
 
         // Verify the correct results
         assertNotNull(result2);
         assertTrue(result2.isSuccess());
-        assertEquals("username", result2.getUsername());
+        assertEquals(exUser, result2.getUser());
         assertNotNull(result2.getAuthtoken());
 
         // Check that both login results are for the same user but with different AuthTokens
         assertNotEquals(result.getAuthtoken(), result2.getAuthtoken());
-        assertEquals(result.getUsername(), result2.getUsername());
+        assertEquals(result.getUser(), result2.getUser());
 
         // Check that both entries are in the database
         try {
@@ -122,14 +127,14 @@ public class LoginServiceTest {
 
             Authtoken token = aDao.find(result.getAuthtoken());
             assertNotNull(token);
-            assertEquals(result.getUsername(), token.getUserID());
+            assertEquals(result.getUser().getUsername(), token.getUserID());
 
             Authtoken token2 = aDao.find(result2.getAuthtoken());
             assertNotNull(token2);
-            assertEquals(result2.getUsername(), token2.getUserID());
+            assertEquals(result2.getUser().getUsername(), token2.getUserID());
 
             assertNotEquals(result.getAuthtoken(), result2.getAuthtoken());
-            assertEquals(result.getUsername(), result2.getUsername());
+            assertEquals(result.getUser(), result2.getUser());
 
             db.closeConnection(true);
         } catch (DataAccessException e) {
@@ -145,7 +150,7 @@ public class LoginServiceTest {
         LoginRequest request = new LoginRequest(null, "password");
 
         // Run the login service
-        LoginResult result = loginService.login(request);
+        UserResult result = loginService.login(request);
 
         // Verify the correct results
         assertFalse(result.isSuccess());
@@ -157,7 +162,7 @@ public class LoginServiceTest {
         LoginRequest request = new LoginRequest("invalidUsername", "invalidPassword");
 
         // Run the login service
-        LoginResult result = loginService.login(request);
+        UserResult result = loginService.login(request);
 
         // Verify the correct results
         assertFalse(result.isSuccess());

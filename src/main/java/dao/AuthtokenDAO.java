@@ -80,6 +80,27 @@ public class AuthtokenDAO extends DAO {
     }
 
     /**
+     * Updates an Authtoken in the database
+     *
+     * @param token The Authtoken to update in the database
+     * @throws DataAccessException If an error occurs while updating the Authtoken
+     */
+    public void update(Authtoken token) throws DataAccessException {
+        String sql = "UPDATE Authtoken SET user = ? WHERE token = ?;";
+
+        // Execute the SQL statement
+        try(PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, token.getUserID());
+            stmt.setString(2, token.getToken());
+
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DataAccessException("Error encountered while updating Authtoken in the database");
+        }
+    }
+
+    /**
      * Removes the given Authtoken from the database
      *
      * @param authtoken The Authtoken to remove from the database

@@ -7,7 +7,7 @@ import model.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import request.RegisterRequest;
-import result.RegisterResult;
+import result.UserResult;
 
 import java.sql.Connection;
 
@@ -47,12 +47,12 @@ public class RegisterServiceTest {
                 "firstName", "lastName");
 
         // Run the register service
-        RegisterResult result = registerService.register(request);
+        UserResult result = registerService.register(request);
 
         // Check that the correct result is given
         assertNotNull(result);
         assertTrue(result.isSuccess());
-        assertEquals("username", result.getUsername());
+        assertEquals("username", result.getUser().getUsername());
         assertNotNull(result.getAuthtoken());
     }
 
@@ -63,7 +63,7 @@ public class RegisterServiceTest {
                 null, "lastName");
 
         // Run the register service
-        RegisterResult result = registerService.register(request);
+        UserResult result = registerService.register(request);
 
         // Check that the correct result is given
         assertNotNull(result);
@@ -88,7 +88,7 @@ public class RegisterServiceTest {
         }
 
         // Run the register service
-        RegisterResult result = registerService.register(request);
+        UserResult result = registerService.register(request);
 
         // Check that the correct result is given
         assertNotNull(result);

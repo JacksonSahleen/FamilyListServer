@@ -8,8 +8,8 @@
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
-  <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="img/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
 
   <!-- Place favicon.ico in the root directory -->
@@ -22,7 +22,8 @@
       var authtoken = document.getElementById("authtoken").value;
 
       var method = "post";
-      if (handle.includes("collections") || handle.includes("lists") || handle.includes("recipes")) {
+      if (handle.includes("collections") || handle.includes("lists") || handle.includes("recipes") ||
+          (handle.includes("user") && !handle.includes("login") && !handle.includes("register"))) {
         method = "put";
       }
 
@@ -130,6 +131,13 @@
       document.getElementById("requestBox").value = formatJson("{\"data\":[],\"permissions\":[]," +
         "\"removals\":[],\"revocations\":[]}");
     }
+    function syncUserData() {
+      window.scrollTo(0, document.body.scrollHeight);
+      document.getElementById("handleBox").value = "/user";
+      document.getElementById("requestBox").value = formatJson("{\"authtoken\":\"authtoken\",\"user\":{" +
+        "\"username\":\"username\",\"password\":\"password\",\"firstName\":\"firstname\"," +
+        "\"lastName\":\"lastname\",\"lastUpdated\":\"lastUpdated\"}}");
+    }
   </script>
 </head>
 
@@ -196,6 +204,10 @@
           Returns the same Json object as log in. It should be noted that when you register a
           user the database will automatically be filled.(Meaning you do not need to call the /fill API noted above).
           No authorization authtoken is required.
+        </li>
+        <li>
+            <a href="javascript:syncUserData()">/user</a> Use this to sync the local copy of the user's data
+            with the server database. Authorization authtoken is required.
         </li>
         <li>
           <a href="javascript:syncLists()">/lists</a> Use this to sync the local copy of the user's lists

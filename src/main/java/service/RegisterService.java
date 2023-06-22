@@ -5,7 +5,7 @@ import model.Authtoken;
 import model.Item;
 import model.ItemList;
 import model.User;
-import result.RegisterResult;
+import result.UserResult;
 import request.RegisterRequest;
 
 import java.sql.Connection;
@@ -34,12 +34,12 @@ public class RegisterService {
      * Registers a new user in the database
      *
      * @param request The RegisterRequest object containing the information needed to register a new user
-     * @return The RegisterResult object containing the result of the registration
+     * @return The UserResult object containing the result of the registration
      */
-    public RegisterResult register(RegisterRequest request) {
+    public UserResult register(RegisterRequest request) {
         // Check if request is valid
         if (!checkRequest(request)) {
-            return new RegisterResult("ERROR: Invalid request.");
+            return new UserResult("ERROR: Invalid request.");
         }
 
         Database db = new Database();
@@ -51,7 +51,7 @@ public class RegisterService {
             // Check if username is already taken
             if (uDao.find(request.getUsername()) != null) {
                 db.closeConnection(false);
-                return new RegisterResult("ERROR: Username already taken.");
+                return new UserResult("ERROR: Username already taken.");
             } else {
                 // Create new user
                 User newUser = new User(request.getUsername(), request.getPassword(),
@@ -72,17 +72,18 @@ public class RegisterService {
                 db.closeConnection(true);
 
                 // Return result
-                return new RegisterResult(newToken.getToken(), newToken.getUserID());
+                String message = "Successfully registered new user " + newUser.getUsername() + ".";
+                return new UserResult(newToken.getToken(), newUser, message);
             }
         } catch (DataAccessException e) {
             e.printStackTrace();
             db.closeConnection(false);
-            return new RegisterResult("ERROR: Internal server error (" + e.getMessage() + ").");
+            return new UserResult("ERROR: Internal server error (" + e.getMessage() + ").");
         }
     }
 
     /**
-     * Creates the default lists (My Day, Shopping List, and Favorited Items) for the user being registered.
+     * Creates the default lists (My Day, Shopping List, and Favorite Items) for the user being registered.
      * @param username The username of the user being registered
      * @param conn The connection to the database
      */
@@ -97,7 +98,7 @@ public class RegisterService {
         ItemList shoppingList = new ItemList(UUID.randomUUID().toString(), username + "_ShoppingList", username);
 
         // Create a Favorited Items List for the user
-        ItemList favoritedItems = new ItemList(UUID.randomUUID().toString(), username + "_FavoritedItems", username);
+        ItemList favoritedItems = new ItemList(UUID.randomUUID().toString(), username + "_FavoriteItems", username);
 
         // Insert the lists into the database
         ItemListDAO lDao = new ItemListDAO(conn);

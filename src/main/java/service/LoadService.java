@@ -103,11 +103,10 @@ public class LoadService {
      * @param listPermissions List permissions data to load into database
      * @param recipePermissions Recipe permissions data to load into database
      * @param collectionRecipes Collection recipes data to load into database
-     * @param clearDatabase Whether to clear the database before loading or just add to it
      */
     record LoadData(List<Authtoken> authtokens, List<User> users, List<ItemList> lists, List<Collection> collections,
                     List<RecipeData> recipes, List<List<String>> listPermissions, List<List<String>> recipePermissions,
-                    List<List<String>> collectionRecipes, boolean clearDatabase) {
+                    List<List<String>> collectionRecipes) {
 
         /*
          * Converts the LoadData object to a LoadRequest object
@@ -118,7 +117,7 @@ public class LoadService {
 
             // Return the LoadRequest object with the changed data from the LoadData object
             return new LoadRequest(authtokens, users, lists, collections, recipes, listPermissions,
-                                   recipePermissions, collectionRecipes, clearDatabase);
+                                   recipePermissions, collectionRecipes);
         }
     }
 
@@ -144,6 +143,7 @@ public class LoadService {
             ItemDAO iDao = new ItemDAO(conn);
             ItemListDAO lDao = new ItemListDAO(conn);
             RecipeDAO rDao = new RecipeDAO(conn);
+            String message = "";
 
             // Clear the database if requested
             if (request.isClearDatabase()) {
@@ -154,9 +154,11 @@ public class LoadService {
                 iDao.clear();
                 lDao.clear();
                 rDao.clear();
+
+                message += "Cleared database and ";
             }
 
-            String message = "Successfully added ";
+            message += "Successfully added ";
             List<Item> items = new ArrayList<>();
             List<Category> categories = new ArrayList<>();
 
@@ -303,6 +305,7 @@ public class LoadService {
     public LoadResult loadFromFile(String filePath) {
         // Create a LoadRequest object from the file
         LoadRequest request = getRequestFromFile(filePath);
+        request.setClearDatabase(true);
 
         // Load the data from the request
         return load(request);

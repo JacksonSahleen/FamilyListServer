@@ -65,12 +65,11 @@ public class LoadRequest{
      * @param listPermissions The ListPermissions data for the request
      * @param recipePermissions The RecipePermissions data for the request
      * @param collectionRecipes The CollectionRecipes data for the request
-     * @param clearDatabase A flag that indicates whether the database should be cleared before loading
      */
     public LoadRequest(List<Authtoken> authtokens, List<User> users, List<ItemList> lists,
                        List<Collection> collections, List<Recipe> recipes,
                        List<List<String>> listPermissions, List<List<String>> recipePermissions,
-                       List<List<String>> collectionRecipes, boolean clearDatabase) {
+                       List<List<String>> collectionRecipes) {
         this.authtokens = authtokens;
         this.users = users;
         this.lists = lists;
@@ -79,7 +78,7 @@ public class LoadRequest{
         this.listPermissions = listPermissions;
         this.recipePermissions = recipePermissions;
         this.collectionRecipes = collectionRecipes;
-        this.clearDatabase = clearDatabase;
+        this.clearDatabase = false;
     }
 
     public List<Authtoken> getAuthtokens() {

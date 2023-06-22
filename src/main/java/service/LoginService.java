@@ -7,7 +7,7 @@ import dao.UserDAO;
 import model.Authtoken;
 import model.User;
 import request.LoginRequest;
-import result.LoginResult;
+import result.UserResult;
 
 import java.sql.Connection;
 import java.util.UUID;
@@ -35,17 +35,17 @@ public class LoginService {
      * @param request The request object containing the user's username and password.
      * @return The result object containing a corresponding Authtoken and the success or failure of the operation.
      */
-    public LoginResult login(LoginRequest request) {
+    public UserResult login(LoginRequest request) {
         // Check that a valid request was given
         if (!checkRequest(request)) {
-            return new LoginResult("ERROR: Invalid request.");
+            return new UserResult("ERROR: Invalid request.");
         }
 
         // Attempt to log the user into the system
         String authtoken = verifyLogin(request.getUsername(), request.getPassword());
 
         if (authtoken == null) {
-            return new LoginResult("ERROR: Invalid login credentials provided.");
+            return new UserResult("ERROR: Invalid login credentials provided.");
         } else {
             // Get the User object for the newly-logged in user
             try {
@@ -55,11 +55,13 @@ public class LoginService {
                 User user = uDao.find(request.getUsername());
 
                 db.closeConnection(true);
-                return new LoginResult(authtoken, user.getUsername());
+
+                String message = "Successfully logged in " + user.getUsername() + ".";
+                return new UserResult(authtoken, user, message);
 
             } catch (DataAccessException e) {
                 e.printStackTrace();
-                return new LoginResult("ERROR: Internal Server Error (" + e.getMessage() + ").");
+                return new UserResult("ERROR: Internal Server Error (" + e.getMessage() + ").");
             }
         }
     }
